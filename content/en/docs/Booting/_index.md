@@ -1,7 +1,7 @@
 
 ---
 title: "Booting"
-linkTitle: "Booting cOS vanilla Images"
+linkTitle: "Booting"
 weight: 3
 date: 2017-01-05
 description: >

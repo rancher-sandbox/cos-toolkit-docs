@@ -1,7 +1,7 @@
 
 ---
 title: "Customizing"
-linkTitle: "Customizing cOS"
+linkTitle: "Customizing"
 weight: 3
 date: 2017-01-05
 description: >

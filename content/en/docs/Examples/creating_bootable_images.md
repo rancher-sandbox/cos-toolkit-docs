@@ -1,8 +1,14 @@
-# Creating bootable images
+---
+title: "Creating bootable images"
+linkTitle: "Creating bootable images"
+weight: 3
+date: 2017-01-05
+description: >
+  This document describes the requirements to create standard container images that can be used for `cOS` deployments
+---
 
-This document describes the requirements to create standard container images that can be used to deploy a `cOS` derivative and which are supported.
 
-You can find the examples below in the `examples` folder.
+You can find the examples below in the [examples](https://github.com/rancher-sandbox/cOS-toolkit/tree/master/examples) folder.
 
 ## From standard images
 

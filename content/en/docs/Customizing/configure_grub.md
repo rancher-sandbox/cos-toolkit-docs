@@ -1,4 +1,11 @@
-# Grub2 default boot entry setup
+---
+title: "Grub2"
+linkTitle: "Grub2"
+weight: 3
+date: 2017-01-05
+description: >
+  Grub2 default boot entry setup
+---
 
 cOS (since v0.5.8) makes use of the grub2 environment block which can used to define
 persistent grub2 variables across reboots.

@@ -1,7 +1,12 @@
-# Creating derivatives
+---
+title: "Creating derivatives"
+linkTitle: "Creating derivatives"
+weight: 3
+date: 2017-01-05
+description: >
+  This document summarize references to create Immutable derivatives with `cos-toolkit`.
 
-This document summarize references to create Immutable derivatives with `cos-toolkit`.
-
+---
 
 cOS derivatives are built from containers, and completely hosted on image registries. The build process results in a single container image used to deliver regular upgrades in OTA approach. Each derivative built with `cos-toolkit` inherits by default the [following featuresets](/docs/derivatives_featureset.md).
 
@@ -21,26 +26,6 @@ $ docker run -ti --rm quay.io/costoolkit/releases-opensuse:cos-system-$VERSION /
 `cos` is a [Luet tree](https://luet-lab.github.io/docs/docs/concepts/packages/specfile/#specfiles) and derivatives are Luet trees as well that inherit part of the compilation specs from `cos`.
 
 Those trees are then post-processed and converted to Dockerfiles when building packages, that in turn are used to build docker images and final artefacts.
-
-<!-- TOC -->
-
-- [Creating derivatives](#creating-derivatives)
-    - [High level workflow](#high-level-workflow)
-    - [Example](#example)
-    - [Single image OS](#single-image-os)
-        - [Building](#building)
-    - [Additional packages](#additional-packages)
-    - [Templating](#templating)
-    - [Upgrades](#upgrades)
-    - [OEM Customizations](#oem-customizations)
-    - [Customizing GRUB boot cmdline](#customizing-grub-boot-cmdline)
-    - [Separate image recovery](#separate-image-recovery)
-    - [Building ISOs, Vagrant Boxes, OVA](#building-isos-vagrant-boxes-ova)
-    - [Known issues](#known-issues)
-        - [Building SELinux fails](#building-selinux-fails)
-        - [Multi-stage copy build fails](#multi-stage-copy-build-fails)
-
-<!-- /TOC -->
 
 ## High level workflow
 
