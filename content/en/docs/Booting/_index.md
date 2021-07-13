@@ -1,11 +1,11 @@
 
 ---
-title: "Examples"
-linkTitle: "Examples"
+title: "Booting"
+linkTitle: "Booting cOS vanilla Images"
 weight: 3
 date: 2017-01-05
 description: >
-  Examples and recipes for using the vanilla cOS image
+  Documents various methods for booting cOS vanilla images
 ---
 
 {{% pageinfo %}}

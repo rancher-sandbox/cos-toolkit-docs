@@ -1,11 +1,11 @@
 
 ---
-title: "Examples"
-linkTitle: "Examples"
+title: "Customizing"
+linkTitle: "Customizing cOS"
 weight: 3
 date: 2017-01-05
 description: >
-  Examples and recipes for using the vanilla cOS image
+  Documents various methods for creating cOS derivatives
 ---
 
 {{% pageinfo %}}
