@@ -1,0 +1,22 @@
+name: Publish Site
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+        with:
+          submodules: recursive
+      - name: Install deps
+        run: |
+              npm install postcss-cli
+              npm install autoprefixer
+      - name: Publish Site
+        uses: chabad360/hugo-gh-pages@master
+        with:
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+          hugoVersion: extended_0.82.0

@@ -11,7 +11,7 @@ description: "Immutable Linux Derivatives at your fingertips"
           <div>
             <h4>cOS is a toolkit to build, ship and maintain cloud-init driven Linux derivatives with containers..</h4>
           </div>
-          <a href="https://github.com/rancher-sandbox/cOS-toolkit#containeros-toolkit" class="btn" target="_blank" rel="noopener">Learn More</a>
+          <a href="docs/" class="btn" target="_blank" rel="noopener">Learn More</a>
         </div>
   
         <!-- <div class="video-responsive">
@@ -39,16 +39,16 @@ description: "Immutable Linux Derivatives at your fingertips"
     <p>cOS toolkit allows to maintain custom Linux derivatives in a GitOps style with container registries.</p>
     </div>
     <div>
-    <h5>Developer Happiness</h5>
-    <p>Focus on your application instead of how to package it.</p>
+    <h5>Operational Happiness</h5>
+    <p>Upgrade machines from container images in OTA style - manually or automatically within kubernetes.</p>
     </div>
     <div>
-    <h5>Turnkey for custom OS</h5>
-    <p>A common featureset shared between derivatives, completely pluggable.</p>
+    <h5>Bring your own OS</h5>
+    <p>A common featureset shared between cOS derivatives, completely pluggable.</p>
     </div>
     <div>
     <h5>Single Image OS</h5>
-    <p>Derivatives are single container image OS that follows an OTA update style and gets upgrades from container registries.</p>
+    <p>cOS derivatives are single container image OS that are bootable from a system. They follow an OTA update style and gets upgrades from regular container registries.</p>
     </div>
   </div>
 </section>
@@ -59,18 +59,18 @@ description: "Immutable Linux Derivatives at your fingertips"
   <div class="white text-center">
     <h2>Get Started</h2>
     <div class="grid-three">
-      <h4>Step 1.<br/><tt>fork</tt> our <a href="https://github.com/rancher-sandbox/cos-toolkit-sample-repo" target="_blank"> sample repo </a></h4>
-      <h4>Step 2.<br/><tt>cd</tt> to it</h4>
-      <h4>Step 3.<br/><tt>source .envrc && cos-build</tt></h4>
+      <h4>Step 1.<br/><tt>git clone <a href="https://github.com/rancher-sandbox/cos-toolkit" target="_blank">https://github.com/rancher-sandbox/cos-toolkit</a></tt></h4>
+      <h4>Step 2.<br/><tt>docker build -t example examples/standard</tt></h4>
+      <h4>Step 3.<br/><tt>cos-upgrade example</tt></h4>
     </div>
     <p>That’s it! With just a few commands, you have your own custom OS.</p>
   </div>
   <div class="bg-primary">
     <div class="wrap">
         <h2>Learn More</h2>
-        <p class="text-center">Do you want to package and ship your software ?</p>
+        <p class="text-center">Ready to upgrade?</p>
         <div class="text-center">
-          <a href="https://github.com/rancher-sandbox/cOS-toolkit#quick-start" target="blank" class="btn">Build with cOS toolkit today</a>
+          <a href="https://github.com/rancher-sandbox/cOS-toolkit" target="blank" class="btn">Build with cOS toolkit today</a>
         </div>
     </div>
   </div>

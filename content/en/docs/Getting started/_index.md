@@ -1,35 +1,33 @@
 ---
 title: "Getting Started"
 linkTitle: "Getting Started"
-weight: 2
+weight: 1
 description: >
-  What does your user need to know to try your project?
+  Getting started with cOS
 ---
 
-{{% pageinfo %}}
-This is a placeholder page that shows you how to use this template site.
-{{% /pageinfo %}}
+You can either choose to **build** a cOS derivatives or **run** cOS as-is.
 
-Information in this section helps your user try your project themselves.
+## Download cOS
 
-* What do your users need to do to start using your project? This could include downloading/installation instructions, including any prerequisites or system requirements.
+You can just try out cOS from the vanilla images: they are systems with a minimal package set in order to boot. [Download](../getting-started/download) (if needed) the appriopriate artifact for your [Booting medium](../getting-started/booting). cOS can run in: VMs, baremetals and Cloud. The default login username/password is `root/cos`.
 
-* Introductory “Hello World” example, if appropriate. More complex tutorials should live in the Tutorials section.
+### Install
 
-Consider using the headings below for your getting started page. You can delete any that are not applicable to your project.
+To install run `cos-installer <device>` to start the installation process. Remove the ISO/medium and reboot.
 
-## Prerequisites
+_Note_: `cos-installer` supports other options as well. Run `cos-installer --help` to see a complete help.
 
-Are there any system requirements for using your project? What languages are supported (if any)? Do users need to already have any software or tools installed?
+### What to do next?
 
-## Installation
+Check out [the customization section](../customizing) to customize `cOS` or [the tutorial section](../tutorials) for some already prepared recipe examples.
 
-Where can your user find your project code? How can they install it (binaries, installable package, build from source)? Are there multiple options/versions they can install and how should they choose the right one for them?
+## Build cOS derivatives
 
-## Setup
+The starting point to use cos-toolkit is to check out our `examples` folder in `cos`, see also [creating bootable images](../creating-derivatives/creating_bootable_images) or have a look on one of our [sample repository](https://github.com/rancher-sandbox/cos-toolkit-sample-repo).
 
-Is there any initial setup users need to do after installation to try your project?
+The only requirement to build derivatives with `cos-toolkit` is docker installed, see [Development notes](../development) for more details on how to build `cos` instead.
 
-## Try it out!
+### What to do next?
 
-Can your users test their installation, for example by running a command or deploying a Hello World example?
+Check out [how to create bootable images](../creating-derivatives/creating_bootable_images) and [how to create full blown derivatives](../creating-derivatives/creating_derivatives)

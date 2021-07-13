@@ -8,17 +8,35 @@ menu:
     weight: 20
 ---
 
-{{% pageinfo %}}
-This is a placeholder page that shows you how to use this template site.
-{{% /pageinfo %}}
+## What is cOS?
 
+cOS is a toolkit which allows container images to be bootable in VMs, baremetals, embedded devices, and much more.
 
-This section is where the user documentation for your project lives - all the information your users need to understand and successfully use your project. 
+cOS allows to create meta-Linux derivatives which are configured throuought cloud-init configuration files and are immutable by default.
 
-For large documentation sets we recommend adding content under the headings in this section, though if some or all of them don’t apply to your project feel free to remove them or add your own. You can see an example of a smaller Docsy documentation site in the [Docsy User Guide](https://docsy.dev/docs/), which lives in the [Docsy theme repo](https://github.com/google/docsy/tree/master/userguide) if you'd like to copy its docs section. 
+cOS and derivatives shares a common featureset, can be upgraded in a OTA-alike style, and upgrades are delivered with standard container registries. 
 
-Other content such as marketing material, case studies, and community updates should live in the [About](/about/) and [Community](/community/) pages.
+cOS comes also with vanilla images that can be used to boot directly container images built with the toolkit.
 
-Find out how to use the Docsy theme in the [Docsy User Guide](https://docsy.dev/docs/). You can learn more about how to organize your documentation (and how we organized this site) in [Organizing Your Content](https://docsy.dev/docs/best-practices/organizing-content/).
+## Why cOS? 
 
+cOS allows to create custom OS versions in your cluster with standard container images with a high degree of customization. It can also be used in its vanilla form - cOS enables then everyone to build their own derivative and access it in various formats. It's like "Ventoy" for persistent systems.
 
+To build a bootable image is as simple as running `docker build`.
+
+* **What is it good for?**: Embedded, Cloud, Containers, VM, Baremetals, Servers, IoT, Edge
+
+* **What is it not good for?**: Workstations (?), Gaming, 
+
+## Design goals
+
+- A Manifest for container-based OS. It contains just the common bits to make a container image bootable and to be upgraded from, with few customization on top
+- Immutable-first, but with a flexible layout
+- Cloud-init driven
+- Based on systemd
+- Built and upgraded from containers - It is a [single image OS](https://quay.io/repository/costoolkit/releases-opensuse)!
+- OTA updates
+- Easy to customize
+- Cryptographically verified
+- instant switch from different versions
+- recovery mechanism with `cOS` vanilla images (or bring your own)
