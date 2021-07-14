@@ -16,7 +16,7 @@ ISO images are shipping a cOS vanilla image and they have an installer to perfor
 
 For booting into Virtual machines we offer QCOW2, OVA, and raw disk recovery images.
 
-## QCOW2
+### QCOW2
 
 QCOW2 images contains a pre-installed cOS vanilla system which can be booted via QEMU, e.g:
 
@@ -24,11 +24,11 @@ QCOW2 images contains a pre-installed cOS vanilla system which can be booted via
 qemu-system-x86_64 -m 2048 -hda <cos-disk-image>.raw -bios /usr/share/qemu/ovmf-x86_64.bin
 ```
 
-## OVA
+### OVA
 
 OVA images contains a pre-installed cOS vanilla system that can be imported in Virtualbox, Vsphere and used also imported as AMI images.
 
-## Vagrant
+### Vagrant
 
 Download the vagrant box, and run:
 
