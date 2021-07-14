@@ -24,4 +24,36 @@ _Note_ by default `cos-upgrade --docker-image` checks images against the notary 
 See the [sample repository](https://github.com/rancher-sandbox/cos-toolkit-sample-repo#system-upgrades) readme on how to tweak the upgrade channels for the derivative and [a further description is available here](https://github.com/rancher-sandbox/epinio-appliance-demo-sample#images)
 
 ## From ISO
+
 The ISO can be also used as a recovery medium: type `cos-upgrade` from a LiveCD. It will then try to upgrade the image of the active partition installed in the system.
+
+## Integration with System Upgrade Controller
+
+If running a kubernetes cluster on the `cOS` system, you can leverage the [system-upgrade-controller](https://github.com/rancher/system-upgrade-controller) to trigger upgrades to specific image versions, for example:
+
+```yaml
+---
+apiVersion: upgrade.cattle.io/v1
+kind: Plan
+metadata:
+  name: cos-upgrade
+  namespace: system-upgrade
+  labels:
+    k3s-upgrade: server
+spec:
+  concurrency: 1
+  version:  fleet-sample # Image tag
+  nodeSelector:
+    matchExpressions:
+      - {key: k3s.io/hostname, operator: Exists}
+  serviceAccountName: system-upgrade
+  cordon: true
+#  drain:
+#    force: true
+  upgrade:
+    image: quay.io/costoolkit/test-images # Image upgrade reference
+    command:
+    - "/usr/sbin/suc-upgrade"
+```
+
+See also [trigger upgrades with fleet](../tutorials/trigger_upgrades_with_fleet)
