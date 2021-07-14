@@ -1,8 +1,8 @@
 
 ---
-title: "Developer Documentation"
-linkTitle: "Developer Documentation"
-weight: 6
+title: "Development"
+linkTitle: "Development"
+weight: 8
 date: 2017-01-05
 description: >
   How to build cOS?

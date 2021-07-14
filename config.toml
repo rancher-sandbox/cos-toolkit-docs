@@ -82,7 +82,7 @@ section = ["HTML", "print"]
 
 [params]
 copyright = "SUSE LLC"
-privacy_policy = "https://policies.google.com/privacy"
+privacy_policy = "https://www.suse.com/company/legal/"
 
 # First one is picked as the Twitter card image if not set on page.
 # images = ["images/project-illustration.png"]

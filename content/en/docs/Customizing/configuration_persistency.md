@@ -7,7 +7,7 @@ description: >
   Persisting configurations in cOS and derivatives
 ---
 
-It is possible to install a custom cloud-init file during install with `--config` to `cos-installer` or, it's possible to add more files manually to the `/oem` folder after installation. The file will be placed under `/usr/local/oem` and will persist across reboots.
+It is possible to install a custom [cloud-init style file](../../reference/cloud_init/) during install with `--config` to `cos-installer` or, it's possible to add more files manually to the `/oem` folder after installation. The file will be placed under `/usr/local/oem` and will persist across reboots.
 
 By default cOS and derivatives, are reading and executing cloud-init files in (lexicopgrahic) sequence present in `/system/oem`, `/usr/local/cloud-config` and `/oem` during boot. It is also possible to run cloud-init file in a different location from boot cmdline by using  the `cos.setup=..` option.
 

@@ -6,30 +6,25 @@ description: >
   What does your user need to know to try your project?
 ---
 
-{{% pageinfo %}}
-This is a placeholder page that shows you how to use this template site.
-{{% /pageinfo %}}
+### Build cOS Locally
 
-Information in this section helps your user try your project themselves.
+The starting point to use cos-toolkit is to see it in action with our [sample repository](https://github.com/rancher-sandbox/cos-toolkit-sample-repo) or check out our `examples` folder, see also [creating bootable images](/docs/creating_bootable_images.md).
 
-* What do your users need to do to start using your project? This could include downloading/installation instructions, including any prerequisites or system requirements.
+The only requirement to build derivatives with `cos-toolkit` is docker installed, see [Development notes](/docs/dev.md) for more details on how to build `cos` instead.
 
-* Introductory “Hello World” example, if appropriate. More complex tutorials should live in the Tutorials section.
+## First steps
 
-Consider using the headings below for your getting started page. You can delete any that are not applicable to your project.
+The [sample repository](https://github.com/rancher-sandbox/cos-toolkit-sample-repo) contains the definitions of a [SampleOS](https://github.com/rancher-sandbox/cos-toolkit-sample-repo/tree/master/packages/sampleOS) boilerplate, which results in an immutable single-image distro and a [simple HTTP service on top](https://github.com/rancher-sandbox/cos-toolkit-sample-repo/tree/master/packages/sampleOSService) that gets started on boot.
 
-## Prerequisites
+To give it a quick shot, it's as simple as cloning the [Github repository](https://github.com/rancher-sandbox/cos-toolkit-sample-repo), and running cos-build:
 
-Are there any system requirements for using your project? What languages are supported (if any)? Do users need to already have any software or tools installed?
+```bash
+$ git clone https://github.com/rancher-sandbox/cos-toolkit-sample-repo
+$ cd cos-toolkit-sample-repo
+$ source .envrc
+$ cos-build
+```
 
-## Installation
+This command will build a container image which contains the required dependencies to build the custom OS, and will later be used to build the OS itself. The result will be a set of container images and an ISO which you can boot with your environment of choice.  See [Creating derivatives](/docs/creating_derivatives.md) for more details about the process.
 
-Where can your user find your project code? How can they install it (binaries, installable package, build from source)? Are there multiple options/versions they can install and how should they choose the right one for them?
-
-## Setup
-
-Is there any initial setup users need to do after installation to try your project?
-
-## Try it out!
-
-Can your users test their installation, for example by running a command or deploying a Hello World example?
+If you are looking after only generating a container image that can be used for upgrades from the cOS vanilla images, see [creating bootable images](/docs/creating_bootable_images.md) and see also [how to drive upgrades with Fleet](https://github.com/rancher-sandbox/cos-fleet-upgrades-sample).

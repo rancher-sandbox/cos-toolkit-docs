@@ -1,10 +1,10 @@
 ---
-title: "Grub2"
-linkTitle: "Grub2"
+title: "GRUB"
+linkTitle: "GRUB"
 weight: 3
 date: 2017-01-05
 description: >
-  Grub2 default boot entry setup
+  GRUB 2 default boot entry setup
 ---
 
 cOS (since v0.5.8) makes use of the grub2 environment block which can used to define

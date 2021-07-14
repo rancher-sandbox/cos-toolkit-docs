@@ -41,4 +41,4 @@ The workflow would be then:
 2) `docker push` the image to some registry
 3) `cos-upgrade --docker-image --no-verify $IMAGE` from a cOS machine
 
-You can explore more examples in the [example section](https://github.com/rancher-sandbox/cOS-toolkit/tree/master/examples) on how to create bootable images
+You can explore more examples in the [example folder](../../examples/creating_bootable_images) on how to create bootable images
