@@ -14,4 +14,23 @@ All the documentation below imply that the container image generated will be the
 - `/etc/cos/bootargs.cfg` contains the booting options required to boot the image with GRUB
 - `/etc/cos-upgrade-image` contains the default upgrade configuration for recovery and the booting system image
 
-Derivatives inherits `cOS` defaults, which you can override during the build process.
+Derivatives inherits `cOS` defaults, which you can override during the build process, however there are some defaults which are relevant and listed below:
+
+
+
+## File system layout
+
+![Partitioning layout](https://docs.google.com/drawings/d/e/2PACX-1vR-I5ZwwB5EjpsymUfcNADRTTKXrNMnlZHgD8RjDpzYhyYiz_JrWJwvpcfMcwfYet1oWCZVWH22aj1k/pub?w=533&h=443)
+
+By default, `cos` derivative will inherit an immutable setup.
+A running system will look like as follows:
+
+```
+/usr/local - persistent (COS_PERSISTENT)
+/oem - persistent (COS_OEM)
+/etc - ephemeral
+/usr - read only
+/ immutable
+```
+
+Any changes that are not specified by cloud-init are not persisting across reboots.

@@ -14,9 +14,10 @@ Requirements:
 * Packer
 * AWS access keys with the appropriate roles and permissions
 * A Vanilla AMI
+* [Packer templates](https://github.com/rancher-sandbox/cOS-toolkit/tree/master/packer)
 
 The suggested approach is based on using Packer templates to customize the
-deployment and automate the upload and publish to AWS. For all the details
+deployment and automate the upload and publish to AWS of cOS derivatives or cOS itself. For all the details
 and possibilties of Packer check the [official documentation](https://www.packer.io/guides/hcl).
 
 ## Run the build with Packer
