@@ -58,7 +58,7 @@ id = "UA-00000000-0"
 [languages]
 [languages.en]
 title = "cOS toolkit"
-description = "A Docsy example site"
+description = "cOS toolkit documentation website"
 languageName ="English"
 # Weight used for sorting.
 weight = 1
@@ -109,7 +109,7 @@ url_latest_version = "https://rancher-sandbox.github.io/cos-toolkit-landing-page
 github_repo = "https://github.com/rancher-sandbox/cOS-toolkit-docs"
 # An optional link to a related project repo. For example, the sibling repository where your product code lives.
 github_project_repo = "https://github.com/rancher-sandbox/cOS-toolkit"
-
+github = "https://github.com/rancher-sandbox/cOS-toolkit"
 # Specify a value here if your content directory is not in your repo's root directory
 # github_subdir = ""
 

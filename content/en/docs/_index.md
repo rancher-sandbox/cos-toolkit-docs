@@ -10,18 +10,17 @@ menu:
 
 ## What is cOS?
 
-cOS is a toolkit for meta-Linux derivatives which is configured throuought cloud-init configuration files. It is immutable and with a strong declarative format.
+cOS is a toolkit which allows container images to be bootable in VMs, baremetals, embedded devices, and much more.
 
-Allows to ship and maintain cloud-init driven Linux derivatives based on container images with a common featureset. 
+cOS allows to create meta-Linux derivatives which are configured throuought cloud-init configuration files and are immutable by default.
 
-It is designed to reduce the maintenance surface, with a flexible approach to provide upgrades from container registries. It is cloud-init driven and also designed to be adaptive-first, allowing easily to build changes on top.
+cOS and derivatives shares a common featureset, can be upgraded in a OTA-alike style, and upgrades are delivered with standard container registries. 
 
-cOS comes also with vanilla images, that can be used to boot directly container images built with the toolkit.
+cOS comes also with vanilla images that can be used to boot directly container images built with the toolkit.
 
 ## Why cOS? 
 
-cOS allows to create custom OS versions in your cluster with standard container images with a high degree of customization. It can also be used in its vanilla form - cOS enables everyone to build their own derivative and access it in various formats. It's like "Ventoy" for persistent systems.
-
+cOS allows to create custom OS versions in your cluster with standard container images with a high degree of customization. It can also be used in its vanilla form - cOS enables then everyone to build their own derivative and access it in various formats. It's like "Ventoy" for persistent systems.
 
 To build a bootable image is as simple as running `docker build`.
 
@@ -41,21 +40,3 @@ To build a bootable image is as simple as running `docker build`.
 - Cryptographically verified
 - instant switch from different versions
 - recovery mechanism with `cOS` vanilla images (or bring your own)
-
-
-## Immutable File system layout
-
-![Partitioning layout](https://docs.google.com/drawings/d/e/2PACX-1vR-I5ZwwB5EjpsymUfcNADRTTKXrNMnlZHgD8RjDpzYhyYiz_JrWJwvpcfMcwfYet1oWCZVWH22aj1k/pub?w=533&h=443)
-
-By default, `cos` derivative will inherit an immutable setup.
-A running system will look like as follows:
-
-```
-/usr/local - persistent (COS_PERSISTENT)
-/oem - persistent (COS_OEM)
-/etc - ephemeral
-/usr - read only
-/ immutable
-```
-
-Any changes that are not specified by cloud-init are not persisting across reboots.
