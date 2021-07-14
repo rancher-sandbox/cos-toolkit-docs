@@ -4,21 +4,9 @@ linkTitle: "Creating derivatives"
 weight: 3
 date: 2017-01-05
 description: >
-  This document summarize references to create Immutable derivatives with `cos-toolkit`.
+  This document summarize references to create derivatives with `cos-toolkit` by using the `luet` toolchain.
 
 ---
-
-cOS derivatives are built from containers, and completely hosted on image registries. The build process results in a single container image used to deliver regular upgrades in OTA approach. Each derivative built with `cos-toolkit` inherits by default the [following featuresets](/docs/derivatives_featureset.md).
-
-cOS supports different release channels, all the final and cache images used are tagged and pushed regularly [to Quay Container Registry](https://quay.io/repository/costoolkit/releases-opensuse) and can be pulled for inspection from the registry as well.
-
-Those are exactly the same images used during upgrades, and can also be used to build Linux derivatives from cOS.
-
-For example, if you want to see locally what's in a openSUSE cOS version , you can:
-
-```bash
-$ docker run -ti --rm quay.io/costoolkit/releases-opensuse:cos-system-$VERSION /bin/bash
-```
 
 
 `cos-toolkit` is a manifest to share a common abstract layer between derivatives inheriting the same [featureset](/docs/derivatives_featureset.md). 
@@ -31,7 +19,7 @@ Those trees are then post-processed and converted to Dockerfiles when building p
 
 The building workflow can be resumed in the following steps:
 
-- Build packages from container images. This step generates build metadata (`luet build`)
+- Build packages from container images. This step generates build metadata (`luet build` / `docker build` / `buildah` ..)
 - Add repository metadata and create a repository from the build phase (`luet create-repo`)
 - (otherwise, optionally) publish the repository and the artefacts along (`luet create-repo --push-images`)
 

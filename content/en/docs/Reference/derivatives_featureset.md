@@ -100,62 +100,7 @@ A running system will look like as follows:
 
 Any changes that are not specified by cloud-init are not persisting across reboots.
 
-## Persistent changes
 
-By default a derivative reads and executes cloud-init files in (lexicopgrahic) sequence present in `/system/oem`, `/usr/local/cloud-config` and `/oem` during boot. It is also possible to run cloud-init file in a different location from boot cmdline by using  the `cos.setup=..` option.
-
-For example, if you want to change `/etc/issue` of the system persistently, you can create `/usr/local/cloud-config/90_after_install.yaml` with the following content:
-
-```yaml
-# The following is executed before fs is setted up:
-stages:
-    fs:
-        - name: "After install"
-          files:
-          - path: /etc/issue
-            content: |
-                    Welcome, have fun!
-            permissions: 0644
-            owner: 0
-            group: 0
-          systemctl:
-            disable:
-            - wicked
-        - name: "After install (second step)"
-          files:
-          - path: /etc/motd
-            content: |
-                    Welcome, have more fun!
-            permissions: 0644
-            owner: 0
-            group: 0
-```
-
-For more examples, `/system/oem` contains files used to configure on boot a pristine `cOS`. Mind to not edit those directly, but copy them or apply local changes to `/usr/local/cloud-config` or `/oem` in case of system-wide persistent changes. See the OEM section below.
-
-### Available stages
-
-Cloud-init files are applied in 5 different phases: `boot`, `network`, `fs`, `initramfs` and `reconcile`. All the available cloud-init keywords can be used in each stage. Additionally, it's possible also to hook before or after a stage has run, each one has a specific stage which is possible to run steps: `boot.after`, `network.before`, `fs.after` etc.
-
-#### initramfs
-
-This is the earliest stage, running before switching root. Here you can apply radical changes to the booting setup of `cOS`.
-
-#### boot
-
-This stage is executed after initramfs has switched root, during the `systemd` bootup process.
-
-#### fs
-
-This stage is executed when fs is mounted and is guaranteed to have access to `COS_STATE` and `COS_PERSISTENT`.
-
-#### network
-
-This stage is executed when network is available
-
-#### reconcile
-
-This stage is executed `5m` after boot and periodically each `60m`.
 
 ## Runtime features
 
@@ -182,29 +127,6 @@ To disable, run: cos-feature disable <feature>
 - vagrant (enabled)
 ...
 ```
-
-## OEM customizations
-
-It is possible to install a custom cloud-init file during install with `--config` to `cos-installer` or, it's possible to add more files manually to the `/oem` folder after installation.
-
-### Default OEM
-
-The default cloud-init configuration files can be found under `/system/oem`. This is to setup e.g. the default root password and the upgrade channel. 
-
-
-```
-/system/oem/00_rootfs.yaml - defines the rootfs mountpoint layout setting
-/system/oem/01_defaults.yaml - systemd defaults (keyboard layout, timezone)
-/system/oem/02_upgrades.yaml - Settings for channel upgrades
-/system/oem/03_branding.yaml - Branding setting, Derivative name, /etc/issue content
-/system/oem/04_accounting.yaml - Default user/pass
-/system/oem/05_network.yaml - Default network setup
-/system/oem/06_recovery.yaml - Executes additional commands when booting in recovery mode
-```
-
-If you are building a cOS derivative, and plan to release upgrades, you must override (or create a new file under `/system/oem`) the `/system/oem/02_upgrades.yaml` pointing to the docker registry used to deliver upgrades.
-
-[See also the example appliance](https://github.com/rancher-sandbox/epinio-appliance-demo-sample#images)
 
 ## SELinux policy
 

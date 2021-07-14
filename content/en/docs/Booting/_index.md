@@ -2,7 +2,7 @@
 ---
 title: "Booting"
 linkTitle: "Booting"
-weight: 3
+weight: 2
 date: 2017-01-05
 description: >
   Documents various methods for booting cOS vanilla images

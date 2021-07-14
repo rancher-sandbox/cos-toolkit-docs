@@ -1,4 +1,12 @@
-# cOS-Toolkit Developer Documentation
+
+---
+title: "Developer Documentation"
+linkTitle: "Developer Documentation"
+weight: 6
+date: 2017-01-05
+description: >
+  How to build cOS?
+---
 
 Welcome!
 

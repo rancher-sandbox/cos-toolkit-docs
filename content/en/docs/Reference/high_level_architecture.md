@@ -1,3 +1,13 @@
+
+---
+title: "High level architecture"
+linkTitle: "High level architecture"
+weight: 6
+date: 2017-01-05
+description: >
+  High level architecture of cOS and its components.
+---
+
 # cOS toolkit High level Architecture
 
 This page tries to encompass the [`cos-toolkit`](https://github.com/rancher-sandbox/cOS-toolkit) structure and the high level architecture, along with all the involved components.

@@ -1,3 +1,14 @@
+
+---
+title: "Build requirements"
+linkTitle: "Build requirements"
+weight: 6
+date: 2017-01-05
+description: >
+  Building prerequisites
+---
+
+
 ### Installing required dependencies for local build
 
 To get requirements installed locally, run:
