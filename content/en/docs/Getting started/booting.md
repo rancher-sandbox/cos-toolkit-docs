@@ -56,7 +56,7 @@ At the moment we support Azure and AWS images among our artifacts. We publish al
 
 1. Upload the raw image to an S3 bucket
 ```
-aws s3 cp <cos-raw-image> s3://cos-images
+aws s3 cp <cos-raw-image> s3://<your_s3_bucket>
 ```
 
 2. Created the disk container JSON (`container.json` file) as:
@@ -66,7 +66,7 @@ aws s3 cp <cos-raw-image> s3://cos-images
   "Description": "cOS Testing image in RAW format",
   "Format": "raw",
   "UserBucket": {
-    "S3Bucket": "cos-images",
+    "S3Bucket": "<your_s3_bucket>",
     "S3Key": "<cos-raw-image>"
   }
 }
@@ -104,12 +104,13 @@ stages:
              # filesystem: ext4
              pLabel: persistent
    network:
-     - if: '[ -z "$(blkid -L COS_SYSTEM || true)" ]'
+     - if: '[ -f "/run/cos/recovery_mode" ]'
        name: "Deploy cos-system"
        commands:                                                                 
          - |
-             cos-deploy --docker-image quay.io/costoolkit/releases-opensuse:cos-system-0.5.3-3 && \
-             shutdown -r +1
+             # Use `cos-deploy --docker-image <img-ref>` to deploy a custom image
+             # By default latest cOS gets deployed
+             cos-deploy && shutdown -r +1
 
 ```
 
