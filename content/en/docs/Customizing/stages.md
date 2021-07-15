@@ -12,9 +12,28 @@ Cloud-init files in `/system/oem`, `/oem` and `/usr/local/oem` are applied in 5 
 
 Multiple stages can be specified in a single cloud-init file.
 
+#### rootfs
+
+This is the earliest stage, running before switching root, just right after the
+root is mounted in `/sysroot` and before applying the immutable rootfs configuration.
+This stage is executed over initrd root, no chroot is applied.
+
+Example:
+```yaml
+name: "Set persistent devices"
+stage:
+  rootfs:
+    - name: "Layout configuration"
+      environment_file: /run/cos/cos-layout.env
+      environment:
+        VOLUMES: "LABEL=COS_OEM:/oem LABEL=COS_PERSISTENT:/usr/local"
+        OVERLAY: "tmpfs:25%"
+```
+
 #### initramfs
 
-This is the earliest stage, running before switching root. Here you can apply radical changes to the booting setup of `cOS`.
+This is still an early stage, running before switching root. Here you can apply radical changes to the booting setup of `cOS`.
+Despite this is executed before switching root this exection runs chrooted into the target root after the immutable rootfs is set up and ready.
 
 Example:
 ```yaml
@@ -26,7 +45,7 @@ stages:
        commands:
        - |
           # Run something when we are booting in active or passive
-          touch /sysroot/etc/something_important
+          touch /etc/something_important
      - name: "Setting"
        if: '[ -f "/run/cos/recovery_mode" ]'
        commands:
