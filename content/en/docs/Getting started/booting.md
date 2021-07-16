@@ -90,27 +90,30 @@ stages:
          # It will partition a device including the given filesystem label or part label (filesystem label matches first)
          device:
            label: COS_RECOVERY
-         # Only last partition can be expanded
-         # expand_partition:
-         #   size: 4096
          add_partitions:
            - fsLabel: COS_STATE
-             size: 8192
+             # 10Gb for COS_STATE, so the disk should have at least 16Gb
+             size: 10240
              pLabel: state
            - fsLabel: COS_PERSISTENT
              # unset size or 0 size means all available space
-             # size: 0 
-             # default filesystem is ext2 when omitted
-             # filesystem: ext4
              pLabel: persistent
+   initramfs:
+     - if: '[ -f "/run/cos/recovery_mode" ]'
+       name: "Set sshd to wait for deployment"
+       files:
+       - path: "/etc/systemd/system/sshd.service.d/override.conf"
+         content: |
+             [Unit]
+             After=cos-setup-network.service
    network:
      - if: '[ -f "/run/cos/recovery_mode" ]'
        name: "Deploy cos-system"
-       commands:                                                                 
+       commands:
          - |
              # Use `cos-deploy --docker-image <img-ref>` to deploy a custom image
              # By default latest cOS gets deployed
-             cos-deploy && shutdown -r +1
+             cos-deploy && shutdown -r now
 
 ```
 
@@ -142,27 +145,30 @@ stages:
          # It will partition a device including the given filesystem label or part label (filesystem label matches first)
          device:
            label: COS_RECOVERY
-         # Only last partition can be expanded
-         # expand_partition:
-         #   size: 4096
          add_partitions:
            - fsLabel: COS_STATE
-             size: 8192
+             # 10Gb for COS_STATE, so the disk should have at least 16Gb
+             size: 10240
              pLabel: state
            - fsLabel: COS_PERSISTENT
              # unset size or 0 size means all available space
-             # size: 0 
-             # default filesystem is ext2 when omitted
-             # filesystem: ext4
              pLabel: persistent
+   initramfs:
+     - if: '[ -f "/run/cos/recovery_mode" ]'
+       name: "Set sshd to wait for deployment"
+       files:
+       - path: "/etc/systemd/system/sshd.service.d/override.conf"
+         content: |
+             [Unit]
+             After=cos-setup-network.service
    network:
      - if: '[ -f "/run/cos/recovery_mode" ]'
        name: "Deploy cos-system"
-       commands:                                                                 
+       commands:
          - |
              # Use `cos-deploy --docker-image <img-ref>` to deploy a custom image
              # By default latest cOS gets deployed
-             cos-deploy && shutdown -r +1
+             cos-deploy && shutdown -r now
 ```
 
 
@@ -194,27 +200,30 @@ stages:
          # It will partition a device including the given filesystem label or part label (filesystem label matches first)
          device:
            label: COS_RECOVERY
-         # Only last partition can be expanded
-         # expand_partition:
-         #   size: 4096
          add_partitions:
            - fsLabel: COS_STATE
-             size: 8192
+             # 10Gb for COS_STATE, so the disk should have at least 16Gb
+             size: 10240
              pLabel: state
            - fsLabel: COS_PERSISTENT
              # unset size or 0 size means all available space
-             # size: 0 
-             # default filesystem is ext2 when omitted
-             # filesystem: ext4
              pLabel: persistent
+   initramfs:
+     - if: '[ -f "/run/cos/recovery_mode" ]'
+       name: "Set sshd to wait for deployment"
+       files:
+       - path: "/etc/systemd/system/sshd.service.d/override.conf"
+         content: |
+             [Unit]
+             After=cos-setup-network.service
    network:
      - if: '[ -f "/run/cos/recovery_mode" ]'
        name: "Deploy cos-system"
-       commands:                                                                 
+       commands:
          - |
              # Use `cos-deploy --docker-image <img-ref>` to deploy a custom image
              # By default latest cOS gets deployed
-             cos-deploy && shutdown -r +1
+             cos-deploy && shutdown -r now
 ```
 
 ## Login
