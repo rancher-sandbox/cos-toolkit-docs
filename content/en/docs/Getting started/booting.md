@@ -165,6 +165,58 @@ stages:
              cos-deploy && shutdown -r +1
 ```
 
+
+### Importing an Azure image manually
+
+1. Upload the Azure Cloud VHD disk to your bucket
+
+```bash
+az storage copy --source <cos-azure-image> --destination https://<account>.blob.core.windows.net/<container>/<destination-cos-azure-image>
+
+```
+
+2. Import the disk as an image
+
+```bash
+az image create --resource-group <resource-group> --source https://<account>.blob.core.windows.net/<container>/<cos-azure-image> --os-type linux --hyper-v-generation v2 --name <image-name>
+```
+
+3. Launch instance with this simple userdata with at least a 16Gb boot disk:
+
+Hint: There is currently no way of altering the boot disk of an Azure VM via GUI, use the azure-cli to launch the VM with an expanded OS disk
+
+```yaml
+name: "Default deployment"
+stages:
+   rootfs.after:
+     - name: "Repart image"
+       layout:
+         # It will partition a device including the given filesystem label or part label (filesystem label matches first)
+         device:
+           label: COS_RECOVERY
+         # Only last partition can be expanded
+         # expand_partition:
+         #   size: 4096
+         add_partitions:
+           - fsLabel: COS_STATE
+             size: 8192
+             pLabel: state
+           - fsLabel: COS_PERSISTENT
+             # unset size or 0 size means all available space
+             # size: 0 
+             # default filesystem is ext2 when omitted
+             # filesystem: ext4
+             pLabel: persistent
+   network:
+     - if: '[ -f "/run/cos/recovery_mode" ]'
+       name: "Deploy cos-system"
+       commands:                                                                 
+         - |
+             # Use `cos-deploy --docker-image <img-ref>` to deploy a custom image
+             # By default latest cOS gets deployed
+             cos-deploy && shutdown -r +1
+```
+
 ## Login
 
 By default you can login with the user `root` and password `cos`.
