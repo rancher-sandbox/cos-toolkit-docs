@@ -80,7 +80,7 @@ aws ec2 import-snapshot --description "cOS PoC" --disk-container file://containe
 
 4. Followed the procedure described in [AWS docs](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/creating-an-ami-ebs.html#creating-launching-ami-from-snapshot) to register an AMI from snapshot. Used all default settings unless for the firmware, set to force to UEFI boot.
 
-5. Launch instance with this simple userdata:
+5. Launch instance with this simple userdata with at least a 16Gb boot disk:
 ```
 name: "Default deployment"
 stages:
@@ -112,6 +112,57 @@ stages:
              # By default latest cOS gets deployed
              cos-deploy && shutdown -r +1
 
+```
+
+
+### Importing a Google Cloud image manually
+
+1. Upload the Google Cloud compressed disk to your bucket
+
+```bash
+gsutil cp <cos-gce-image> gs://<your_bucket>/
+```
+
+2. Import the disk as an image
+
+```bash
+gcloud compute images create <new_image_name> --source-uri=<your_bucket>/<cos-gce-image> --guest-os-features=UEFI_COMPATIBLE
+```
+
+3. Launch instance with this simple userdata with at least a 16Gb boot disk:
+
+HINT: See [here](https://cloud.google.com/container-optimized-os/docs/how-to/create-configure-instance#using_cloud-init_with_the_cloud_config_format) on how to add user-data to an instance
+
+```yaml
+name: "Default deployment"
+stages:
+   rootfs.after:
+     - name: "Repart image"
+       layout:
+         # It will partition a device including the given filesystem label or part label (filesystem label matches first)
+         device:
+           label: COS_RECOVERY
+         # Only last partition can be expanded
+         # expand_partition:
+         #   size: 4096
+         add_partitions:
+           - fsLabel: COS_STATE
+             size: 8192
+             pLabel: state
+           - fsLabel: COS_PERSISTENT
+             # unset size or 0 size means all available space
+             # size: 0 
+             # default filesystem is ext2 when omitted
+             # filesystem: ext4
+             pLabel: persistent
+   network:
+     - if: '[ -f "/run/cos/recovery_mode" ]'
+       name: "Deploy cos-system"
+       commands:                                                                 
+         - |
+             # Use `cos-deploy --docker-image <img-ref>` to deploy a custom image
+             # By default latest cOS gets deployed
+             cos-deploy && shutdown -r +1
 ```
 
 ## Login
