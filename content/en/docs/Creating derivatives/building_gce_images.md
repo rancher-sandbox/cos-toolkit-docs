@@ -50,7 +50,7 @@ sudo make raw_disk
 
 This will output a `disk.raw` fiel in the current directory which we will modify to make it work with Google Cloud.
 
-HINT: You can use this `disk.raw` locally as a disk for qemu if you want to check that it boots properly.
+{{% info %}}You can use this `disk.raw` locally as a disk for qemu if you want to check that it boots properly.{{% /info %}}
 
 ## Transform the RAW image into a compatible Google Cloud blob
 
