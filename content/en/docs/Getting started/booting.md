@@ -131,7 +131,7 @@ gcloud compute images create <new_image_name> --source-uri=<your_bucket>/<cos-gc
 
 3. Launch instance with this simple userdata with at least a 16Gb boot disk:
 
-HINT: See [here](https://cloud.google.com/container-optimized-os/docs/how-to/create-configure-instance#using_cloud-init_with_the_cloud_config_format) on how to add user-data to an instance
+{{% info %}}See [here](https://cloud.google.com/container-optimized-os/docs/how-to/create-configure-instance#using_cloud-init_with_the_cloud_config_format) on how to add user-data to an instance{{% /info %}}
 
 ```yaml
 name: "Default deployment"
