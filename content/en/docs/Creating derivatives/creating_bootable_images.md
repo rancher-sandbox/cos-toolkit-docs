@@ -40,7 +40,7 @@ The workflow would be then:
 
 1) `docker build` the image
 2) `docker push` the image to some registry
-3) `cos-upgrade --docker-image --no-verify $IMAGE` from a cOS machine
+3) `cos-upgrade --docker-image --no-verify $IMAGE` from a cOS machine ( or `cos-deploy` if bootstrapping a cloud image )
 
 You can explore more examples in the [example section](../../examples/creating_bootable_images) on how to create bootable images
 

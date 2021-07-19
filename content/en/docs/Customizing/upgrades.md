@@ -11,6 +11,9 @@ description: >
 
 However, it's possible to tweak the default behavior of `cos-upgrade` to point to a specific docker image/tag, or a different release channel.
 
+
+By default, `cos` derivatives if not specified will point to latest `cos-toolkit`. To override, you need to or overwrite the content of `/system/oem/02_upgrades.yaml` or supply an additional one, e.g. `/system/oem/03_upgrades.yaml` in the final image, see [an example here](https://github.com/rancher-sandbox/epinio-appliance-demo-sample/blob/master/packages/epinioOS/02_upgrades.yaml).
+
 ## `/etc/cos-upgrade-image`
 
 This file is read from `cos-upgrade` during start and allows to tweak the following:
@@ -26,11 +29,16 @@ VERIFY=false
 RECOVERY_IMAGE=recovery/cos
 ```
 
+- **UPGRADE_IMAGE**: A container image reference ( e.g. `registry.io/org/image:tag` ) or a `luet` package ( e.g. `system/cos` )
+- **CHANNEL_UPGRADES**: Boolean indicating wether to use channel upgrades or not. If it is disabled **UPGRADE_IMAGE** should refer to a container image, e.g. `registry.io/org/image:tag`
+- **VERIFY**: Turns on and off image verification. Currently available for official `cOS` release channels
+- **RECOVERY_IMAGE**: Allows to specify a different image for the recovery partition. Similarly to **UPGRADE_IMAGE** needs to be either an image reference or a package.
+
 An example on how to tweak this file via cloud-init is available [here](https://github.com/rancher-sandbox/cos-toolkit-sample-repo/blob/7355876847367b75485873987e1217f1e1fe6254/packages/sampleOS/02_upgrades.yaml#L41)
 
 ## Changing the default release channel
 
-To change the default release channel, set a `/etc/luet/luet.yaml` configuration file pointing to a valid luet repository:
+Release channels are standard luet repositories. To change the default release channel, create a `/etc/luet/luet.yaml` configuration file pointing to a valid luet repository:
 
 ```yaml
 # For a full reference, see:
@@ -54,3 +62,7 @@ repositories:
 ```
 
 An example on how to tweak this file via cloud-init is available [here](https://github.com/rancher-sandbox/cos-toolkit-sample-repo/blob/7355876847367b75485873987e1217f1e1fe6254/packages/sampleOS/02_upgrades.yaml#L11)
+
+## References
+
+- [complete example and documentation](https://github.com/rancher-sandbox/epinio-appliance-demo-sample#images).
