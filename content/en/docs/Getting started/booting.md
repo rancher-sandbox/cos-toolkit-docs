@@ -14,7 +14,7 @@ ISO images are shipping a cOS vanilla image and they have an installer to perfor
 
 ## Virtual machines
 
-For booting into Virtual machines we offer QCOW2, OVA, and raw disk recovery images.
+For booting into Virtual machines we offer QCOW2, OVA, and raw disk recovery images which can be used to bootstrap your booting container.
 
 ### QCOW2
 
@@ -50,7 +50,13 @@ qemu-system-x86_64 -m 2048 -hda <cos-disk-image>.raw -bios /usr/share/qemu/ovmf-
 
 ## Cloud Images
 
-At the moment we support Azure and AWS images among our artifacts. We publish also AWS images that can be re-used in packer templates for creating customized AMI images. 
+Cloud images are `vanilla` images that boots into [recovery mode](../recovery) and can be used to deploy
+whatever image you want to the VM. Then you can snapshot that VM into a VM image ready to deploy with the default cOS
+system or your derivative.
+
+At the moment we support Azure and AWS images among our artifacts. We publish AWS images that can also be re-used in packer templates for creating customized AMI images. 
+
+The RAW image can then be used into packer templates to generate custom Images, or used as-is with a userdata to deploy a container image of choice with an input user-data.
 
 ### Import an AWS image manually
 
@@ -230,4 +236,4 @@ stages:
 
 By default you can login with the user `root` and password `cos`.
 
-See the [customization section](../customizing/login) for examples on how to persist username and password changes after installation.
+See the [customization section](../../customizing/login) for examples on how to persist username and password changes after installation.
