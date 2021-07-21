@@ -59,7 +59,7 @@ can be a json file including desired varibles. Consider the following example:
 
 > cat << EOF > test.json
 {
-    "aws_cos_install_args": "cos-deploy",
+    "aws_cos_deploy_args": "cos-deploy",
     "aws_launch_volume_size": 16,
     "name": "MyTest"
 }
@@ -80,7 +80,7 @@ All the customizable variables are listed in `packer/variables.pkr.hcl`,
 variables with the  `aws_` prefix are the ones related to the AWS Packer
 template. These are some of the relevant ones:
 
-* `aws_cos_install_args`: This the command that will be executed once the
+* `aws_cos_deploy_args`: This the command that will be executed once the
   Vanilla image booted. In this stage it is expected that user sets a command
   to install the desired cOS or derivative image. By default it is set to
   `cos-deploy` which will deploy the latest cOS image in cOS repositories.
