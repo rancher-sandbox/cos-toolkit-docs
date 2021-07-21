@@ -9,16 +9,13 @@ description: >
 ---
 
 
-# cOS + k3s + fleet = :heart:
-
-[This repository](https://github.com/rancher-sandbox/cos-fleet-upgrades-sample/) is a sample of a custom cOS derivative which updates are managed by fleet.
-
 In this tutorial we will:
 
 1) Build a custom OS image to deploy in our cluster
 2) Setup a cluster with cOS, k3s and fleet
 3) Upgrade the cluster to our custom OS image with fleet
 
+[This repository](https://github.com/rancher-sandbox/cos-fleet-upgrades-sample/) contains the full example code.
 
 ## 1) Build the OS image
 
