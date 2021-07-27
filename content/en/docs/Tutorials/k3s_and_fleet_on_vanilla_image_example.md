@@ -123,7 +123,7 @@ stages:
      - if: '[ -f "/run/cos/recovery_mode" ]'
        name: "Deploy cos-system"
        commands:
-         # Deploys the latest image available in default channel (quay.io/costoolkit/releases-opensuse)
+         # Deploys the latest image available in default channel (quay.io/costoolkit/releases-green)
          # use --docker-image to deploy a custom image
          # e.g. `cos-deploy --docker-image quay.io/my_custom_repo:my_image`
          - cos-deploy && shutdown -r now

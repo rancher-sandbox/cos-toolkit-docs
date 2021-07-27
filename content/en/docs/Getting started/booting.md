@@ -8,9 +8,20 @@ description: >
   Documents various methods for booting cOS vanilla images
 ---
 
+Each cOS release contains a variety of assets:
+
+- ISOs `cOS-green-$VERSION.iso.tar.xz`
+- QCOW `cOS_green_$VERSION.tar.gz.tar.xz`
+- Vagrant box `cOS_green_$VERSION.box.tar.xz`
+- RAW Disk `cOS-Vanilla-RAW-$VERSION.raw.tar.xz`
+- VHDA `cOS-Vanilla-AZURE-$VERSION.vhd.tar.xz`
+- GCE `cOS-Vanilla-GCE-green-$VERSION.raw.tar.xz`
+
+here we try to summarize and document how they are meant to be consumed.
+
 ## ISO
 
-ISO images are shipping a cOS vanilla image and they have an installer to perform an automated installation. They can be used to burn USB sticks or CD/DVD used to boot baremetals. 
+ISO images (e.g. `cOS-green-$VERSION.iso.tar.xz` ) are shipping a cOS vanilla image and they have an installer to perform an automated installation. They can be used to burn USB sticks or CD/DVD used to boot baremetals. 
 
 ## Virtual machines
 
@@ -18,19 +29,15 @@ For booting into Virtual machines we offer QCOW2, OVA, and raw disk recovery ima
 
 ### QCOW2
 
-QCOW2 images contains a pre-installed cOS vanilla system which can be booted via QEMU, e.g:
+QCOW2 images ( e.g. `cOS_green_$VERSION.tar.gz.tar.xz` ) contains a pre-installed cOS system which can be booted via QEMU, e.g:
 
 ```bash
-qemu-system-x86_64 -m 2048 -hda <cos-disk-image>.raw -bios /usr/share/qemu/ovmf-x86_64.bin
+qemu-system-x86_64 -m 2048 -hda cOS -nographic
 ```
-
-### OVA
-
-OVA images contains a pre-installed cOS vanilla system that can be imported in Virtualbox, Vsphere and used also imported as AMI images.
 
 ### Vagrant
 
-Download the vagrant box, and run:
+Download the vagrant box artifact ( e.g. `cOS_green_$VERSION.box.tar.xz` ), extract it and run:
 
 ```bash
 vagrant box add cos <cos-box-image>
@@ -40,7 +47,7 @@ vagrant up
 
 ### RAW disk images
 
-RAW disk images contains only the `cOS` recovery system. Those are typically used when creating derivatives images based on top of `cOS`.
+RAW disk images ( e.g. `cOS-Vanilla-RAW-green-$VERSION.raw.tar.xz` ) contains only the `cOS` recovery system. Those are typically used when creating derivatives images based on top of `cOS`.
 
 They can be run with QEMU with:
 
@@ -59,6 +66,10 @@ At the moment we support Azure and AWS images among our artifacts. We publish AW
 The RAW image can then be used into packer templates to generate custom Images, or used as-is with a userdata to deploy a container image of choice with an input user-data.
 
 ### Import an AWS image manually
+
+{{% pageinfo %}}
+You can also use RAW images ( e.g. `cOS-Vanilla-RAW-green-$VERSION.raw.tar.xz` ) manually when importing AMIs images and use them to generate images with Packer. See [build AMI with Packer](../../creating-derivatives/packer/build_ami)
+{{% /pageinfo %}}
 
 1. Upload the raw image to an S3 bucket
 ```
@@ -126,6 +137,10 @@ stages:
 
 ### Importing a Google Cloud image manually
 
+{{% pageinfo %}}
+You need to use the GCE images ( e.g. `cOS-Vanilla-GCE-green-$VERSION.raw.tar.xz` ) manually when importing GCE images and use them to generate images with Packer. See [build GCE with Packer](../../creating-derivatives/packer/build_gcp)
+{{% /pageinfo %}}
+
 1. Upload the Google Cloud compressed disk to your bucket
 
 ```bash
@@ -180,7 +195,11 @@ stages:
 
 ### Importing an Azure image manually
 
-1. Upload the Azure Cloud VHD disk to your bucket
+{{% info %}}
+You need to use the AZURE images ( e.g. `cOS-Vanilla-AZURE-green-$VERSION.raw.tar.xz` ) manually when importing Azure images.
+{{% /info %}}
+
+1. Upload the Azure Cloud VHD disk in `.vhda` format ( extract e.g. `cOS-Vanilla-AZURE-green-0.6.0-g7d04f1db.vhd.tar.xz` ) to your bucket
 
 ```bash
 az storage copy --source <cos-azure-image> --destination https://<account>.blob.core.windows.net/<container>/<destination-cos-azure-image>

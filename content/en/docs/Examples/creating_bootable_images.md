@@ -57,8 +57,8 @@ You can also generate an image directly from the ones that the CI is publishing,
 You can just use the published final images:
 
 ```
-# Pick one version from https://quay.io/repository/costoolkit/releases-opensuse?tab=tags
-FROM quay.io/costoolkit/releases-opensuse:cos-system-0.5.3-5 
+# Pick one version from https://quay.io/repository/costoolkit/releases-green?tab=tags
+FROM quay.io/costoolkit/releases-green:cos-system-0.6.0
 
 COPY files/ /
 
@@ -88,7 +88,7 @@ repositories:
   priority: 1
   verify: false
   urls:
-  - "quay.io/costoolkit/releases-opensuse"
+  - "quay.io/costoolkit/releases-green"
 ```
 
 Dockerfile:

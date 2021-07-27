@@ -58,7 +58,7 @@ repositories:
   priority: 1
   verify: false
   urls:
-  - "quay.io/costoolkit/releases-opensuse"
+  - "quay.io/costoolkit/releases-green"
 ```
 
 An example on how to tweak this file via cloud-init is available [here](https://github.com/rancher-sandbox/cos-toolkit-sample-repo/blob/7355876847367b75485873987e1217f1e1fe6254/packages/sampleOS/02_upgrades.yaml#L11)

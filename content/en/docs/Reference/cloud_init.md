@@ -91,7 +91,7 @@ Each cloud-config file is loaded and executed only at the apprioriate stage, thi
 The [cloud-init tool](https://github.com/mudler/yip#readme) can be also run standalone, this helps debugging locally and also during development, you can find separate [releases here](https://github.com/mudler/yip/releases/tag/0.9.6), or just run it with docker:
 
 ```bash
-cat <<EOF | docker run -i --rm quay.io/costoolkit/releases-opensuse:cos-recovery-0.5.8 yip -s test -
+cat <<EOF | docker run -i --rm quay.io/costoolkit/releases-green:cos-recovery-0.6.0 yip -s test -
 stages:
  test:
  - commands:
@@ -99,6 +99,8 @@ stages:
 EOF
 ```
 {{% /pageinfo %}}
+
+_Note_: Each cloud-init option can be either run in *dot notation* ( e.g. `stages.network[0].authorized_keys.user=github:user` ) in the boot args or either can supply a cloud-init URL at boot with the `cos.setup=$URL` parameter.
 
 ### Compatibility with Cloud Init format
 

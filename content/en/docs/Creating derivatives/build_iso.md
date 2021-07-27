@@ -45,7 +45,7 @@ luet:
   - name: cOS
     enable: true
     urls:
-      - quay.io/costoolkit/releases-opensuse
+      - quay.io/costoolkit/releases-green
     type: docker
 ```
 
@@ -87,7 +87,7 @@ luet:
   - name: cOS
     enable: true
     urls:
-      - quay.io/costoolkit/releases-opensuse
+      - quay.io/costoolkit/releases-green
     type: docker
 
 ```
