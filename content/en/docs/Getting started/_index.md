@@ -8,11 +8,11 @@ description: >
 
 You can either choose to **build** a cOS derivatives or **run** cOS as-is.
 
-cOS vanilla images are published to allow further customization for derivatives. The assets can be used to either boostrap and customize furthermore a derivative, or drive unattended deployments that can be later turned to a custom derivative flavor.
+cOS vanilla images are published to allow further customization for derivatives. The assets can be used to either boostrap and customize furthermore a derivative, or drive unattended deployments that can be later turned to a custom derivative flavor ( for example, with an ISO ).
 
 ## Download cOS
 
-You can just try out cOS from the vanilla images: they are systems with a minimal package set in order to boot. [Download](../getting-started/download) (if needed) the appriopriate artifact for your [Booting medium](../getting-started/booting). cOS can run in: VMs, baremetals and Cloud. The default login username/password is `root/cos`.
+You can just try out cOS from the vanilla images and use it to bootstrap your derivative: those are minimal system with a small package set in order to boot and deploy a container. [Download](../getting-started/download) (if needed) the appriopriate artifact for your [Booting medium](../getting-started/booting). cOS can run in: VMs, baremetals and Cloud. The default login username/password is `root/cos`.
 
 ### Install
 
