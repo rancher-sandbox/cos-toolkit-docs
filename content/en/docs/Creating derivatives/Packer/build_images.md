@@ -113,7 +113,7 @@ The above example runs the build by logging with a different username/password t
 
 ### Default cloud-init
 
-In the packer folder there is present a `config.yaml` file which can be used to customize the image. The file is in [cloud-init](../../references/cloud-init) style and will be automatically installed by default when running `cos-install`.
+In the packer folder there is present a `config.yaml` file which can be used to customize the image. The file is in [cloud-init](../../../references/cloud-init) style and will be automatically installed by default when running `cos-install`.
 
 ### Available variables for customization
 
