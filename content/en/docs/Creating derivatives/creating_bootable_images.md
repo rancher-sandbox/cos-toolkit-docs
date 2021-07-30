@@ -45,3 +45,11 @@ The workflow would be then:
 You can explore more examples in the [example section](../../examples/creating_bootable_images) on how to create bootable images
 
 __Note__ : the image should provide at least `grub`, `systemd` and `dracut`, as are the common set of packages between derivatives. See also [package stack](../package_stack)
+
+## What's next?
+
+Now that we have created our derivative container, we can either:
+
+- [Build an iso](../build_iso)
+- [Build an Amazon Image](../packer/build_ami)
+- [Build a Google Cloud Image](../packer/build_gcp)

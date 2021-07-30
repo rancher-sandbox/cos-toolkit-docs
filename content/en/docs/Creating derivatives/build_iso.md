@@ -18,7 +18,7 @@ To build an iso, just run:
 docker run -v $PWD:/cOS -v /var/run:/var/run --entrypoint /usr/bin/luet-makeiso -ti --rm quay.io/costoolkit/toolchain ./iso.yaml --image $IMAGE
 ```
 
-Where `iso.yaml` is the iso specification file, and `--image $IMAGE` is the container image you want to build the ISO for.
+Where `iso.yaml` is the iso specification file, and `--image $IMAGE` is the container image you want to build the ISO for, you might want to check on [how to build bootable images](../creating_bootable_images).
 
 An example of a yaml file using the cos-toolkit opensuse repositories:
 
@@ -47,10 +47,13 @@ luet:
       - quay.io/costoolkit/releases-green
     type: docker
 ```
+## What's next?
 
-Below you can find more reference about the yaml file format.
+- Check out on how to [build a QCOW, Virtualbox or Vagrant image](../packer/build_images) from the ISO we have just created
 
 ## Syntax
+
+Below you can find a full reference about the yaml file format.
 
 ```yaml
 packages:
@@ -193,3 +196,4 @@ packages:
 ```
 
 The installer will detect the squashfs file in the iso, and will use it when installing the system. You can customize the recovery image as well by providing your own: see the `recovery/cos-img` package definition as a reference.
+
