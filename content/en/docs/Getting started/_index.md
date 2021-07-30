@@ -6,9 +6,9 @@ description: >
   Getting started with cOS
 ---
 
-You can either choose to **build** a cOS derivatives or **run** cOS as-is.
+You can either choose to **build** a cOS derivative or **run** cOS to boostrap a new system.
 
-cOS vanilla images are published to allow further customization for derivatives. The assets can be used to either boostrap and customize furthermore a derivative, or drive unattended deployments that can be later turned to a custom derivative flavor ( for example, with an ISO ).
+cOS vanilla images are published to allow deployments and a runtime framework for derivatives. Derivatives can be built just with Container images, and cOS is designed to run, deploy and upgrade those. cOS assets can be used to either drive unattended deployments of a derivative or used to create custom images (with packer).
 
 ## Download cOS
 
