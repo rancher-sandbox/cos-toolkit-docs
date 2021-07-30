@@ -35,7 +35,6 @@ initramfs:
   kernel_file: "vmlinuz"
   rootfs_file: "initrd"
 
-overlay: true
 image_prefix: "distro"
 image_date: true
 label: "COS_LIVE"
@@ -72,7 +71,10 @@ initramfs:
   kernel_file: "vmlinuz"
   rootfs_file: "initrd"
 
-overlay: true # Use overlayFS layout
+overlay: 
+  rootfs: "/path/to/additional/files"
+  uefi: "/path/to/additional/uefi/files"
+  isoimage: "/path/to/additional/efi/files"
 
 # Specify a container remote image to pull and use for the rootfs in place of packages (optional)
 rootfs_image: "ubuntu:latest"
@@ -145,6 +147,34 @@ A string representing the arch. Defaults to `x86_64`.
 ### `luet.config`
 
 Path to the luet config to use to install the packages from
+
+
+### `overlay.isoimage`
+
+```yaml
+overlay:
+  isoimage: "dir"
+```
+
+Path to a folder which content will be copied over the ISO (before generating the ISO file).
+
+### `overlay.uefi`
+
+```yaml
+overlay:
+  uefi: "dir"
+```
+
+Path to a folder which content will be copied over the UEFI partition (before generating the image).
+
+### `overlay.rootfs`
+
+```yaml
+overlay:
+  rootfs: "dir"
+```
+
+Path to a folder which content will be copied over the rootfs (before generating squashfs).
 
 ## Separate recovery
 
