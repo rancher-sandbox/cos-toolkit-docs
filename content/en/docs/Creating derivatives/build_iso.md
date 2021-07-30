@@ -10,8 +10,6 @@ description: >
 
 In order to build an iso at the moment of writing, we first rely on [luet-makeiso](https://github.com/mudler/luet-makeiso). It accepts a YAML file denoting the packages to bundle in an ISO and a list of luet repositories where to download the packages from.
 
-A sample can be found [here](https://github.com/rancher-sandbox/cos-toolkit-sample-repo/blob/master/iso.yaml). 
-
 To build an iso, just run:
 
 ```bash
