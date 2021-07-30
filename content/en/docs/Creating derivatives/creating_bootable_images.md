@@ -7,6 +7,7 @@ description: >
   This document describes the requirements to create standard container images that can be used for `cOS` deployments
 ---
 
+![](https://docs.google.com/drawings/d/e/2PACX-1vSmIZ5FTInGjtkGonUOgwhti6DZnSoeexGmWL9CAmbdiIGtBGnzDuGNj80Lj_206hP0MOxQGpEdYFvK/pub?w=1223&h=691)
 
 It's possible to create standard container images which are consumable by the vanilla `cOS` images (ISO, Cloud Images, etc.) during the upgrade and deploy phase. 
 
@@ -42,7 +43,7 @@ The workflow would be then:
 2) `docker push` the image to some registry
 3) `cos-upgrade --docker-image --no-verify $IMAGE` from a cOS machine ( or `cos-deploy` if bootstrapping a cloud image )
 
-You can explore more examples in the [example section](../../examples/creating_bootable_images) on how to create bootable images
+You can explore more examples in the [example section](../../examples/creating_bootable_images) on how to create bootable images.
 
 __Note__ : the image should provide at least `grub`, `systemd` and `dracut`, as are the common set of packages between derivatives. See also [package stack](../package_stack)
 

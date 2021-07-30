@@ -7,6 +7,7 @@ description: >
   Build ISOs from bootable images
 ---
 
+![](https://docs.google.com/drawings/d/e/2PACX-1vReZtyNs0imrji-AwnqK0-4ekCKLcKzfnQ_CwiMj93Q7IsycAJHwlNohwCv_hyHnaify7qO-v2Cecg5/pub?w=1223&h=691)
 
 In order to build an iso at the moment of writing, we first rely on [luet-makeiso](https://github.com/mudler/luet-makeiso). It accepts a YAML file denoting the packages to bundle in an ISO and a list of luet repositories where to download the packages from.
 
@@ -20,31 +21,8 @@ Where `iso.yaml` is the iso specification file, and `--image $IMAGE` is the cont
 
 An example of a yaml file using the cos-toolkit opensuse repositories:
 
-```yaml
-packages:
-  uefi:
-  - live/systemd-boot
-  - live/boot
-  isoimage:
-  - live/syslinux
-  - live/boot
+{{<githubembed repo="rancher-sandbox/cos-toolkit-sample-repo" file="iso.yaml" lang="yaml">}}
 
-initramfs:
-  kernel_file: "vmlinuz"
-  rootfs_file: "initrd"
-
-image_prefix: "distro"
-image_date: true
-label: "COS_LIVE"
-
-luet:
-  repositories:
-  - name: cOS
-    enable: true
-    urls:
-      - quay.io/costoolkit/releases-green
-    type: docker
-```
 ## What's next?
 
 - Check out on how to [build a QCOW, Virtualbox or Vagrant image](../packer/build_images) from the ISO we have just created

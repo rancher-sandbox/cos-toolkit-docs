@@ -63,6 +63,12 @@ languageName ="English"
 # Weight used for sorting.
 weight = 1
 
+[[menu.main]]
+    name = "Github releases"
+    weight = 50
+    url = "https://github.com/rancher-sandbox/cOS-toolkit/releases"
+    pre = "<i class='fab fa-github'></i>"
+    post = "" 
 
 [markup]
   [markup.goldmark]

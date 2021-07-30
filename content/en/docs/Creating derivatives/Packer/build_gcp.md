@@ -8,6 +8,7 @@ description: >
   in Google Compute Platform by using the cOS Vanilla image.
 ---
 
+![](https://docs.google.com/drawings/d/e/2PACX-1vSqJWcFThP7K2HS551LCqs73l4ZncXElLjlbCvxY96Ga2Jbjnq79j-DEjaccUZvYEQyphWiDQc9flxk/pub?w=1223&h=691)
 
 Requirements:
 

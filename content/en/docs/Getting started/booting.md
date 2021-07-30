@@ -21,7 +21,25 @@ here we try to summarize and document how they are meant to be consumed.
 
 ## ISO
 
-ISO images (e.g. `cOS-green-$VERSION.iso.tar.xz` ) are shipping a cOS vanilla image and they have an installer to perform an automated installation. They can be used to burn USB sticks or CD/DVD used to boot baremetals. 
+ISO images (e.g. `cOS-green-$VERSION.iso.tar.xz` ) are shipping a cOS vanilla image and they features an installer to perform an automated installation. They can be used to burn USB sticks or CD/DVD used to boot baremetals. Once booted, you can install cOS with:
+
+```bash
+cos-install $DEVICE
+```
+
+and after first boot you can switch to a derivative by:
+
+```bash
+cos-upgrade --docker-image --no-verify $IMAGE
+```
+
+### Unattended deployment
+
+After booting the iso, it is possible to deploy directly an image of choice with `cos-deploy`
+
+```bash
+cos-deploy --docker-image $IMAGE
+```
 
 ## Virtual machines
 

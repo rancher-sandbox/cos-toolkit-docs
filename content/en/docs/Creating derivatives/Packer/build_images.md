@@ -7,6 +7,8 @@ description: >
   This section documents the procedure to build a custom QCOW, VirtualBox and a Vagrant images with the cOS packer templates
 ---
 
+![](https://docs.google.com/drawings/d/e/2PACX-1vT-ZugVPCUCffRbfko-tOoTyRIpqjtgvQgQn74lckTZCjMLIakEJKRPwyjFL7tGEmKE8DDMVSZBEZ9u/pub?w=1223&h=691)
+
 Requirements:
 
 * Packer
