@@ -40,7 +40,7 @@ system/grub-config
 system/cloud-config
 ```
 
-from the toolchain. If you want to customize further the container further add more step afterwards `luet install` see [the customization section](../customizing).
+from the toolchain. If you want to customize further the container further add more step afterwards `luet install` see [the customizing section](../../customizing).
 
 __Note__: Depending on the base image (`FROM opensuse/leap:15.3` in the sample), you must set the corresponding repository for each flavor [see releases](../../getting-started/download#releases) in the luet config file ( which in the sample above points to the _green_ releases )
 
