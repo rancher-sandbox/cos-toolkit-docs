@@ -25,7 +25,7 @@ or you need:
   - `zypper in squashfs` on SLES or openSUSE
 - [`xorriso`](https://dev.lovelyhq.com/libburnia/web/wiki/Xorriso)
   - `zypper in xorriso` on SLES or openSUSE
-- `yq` ([version `3.x`](https://github.com/mikefarah/yq/releases/tag/3.4.1)), installed via [packages/toolchain/yq](https://github.com/rancher-sandbox/cOS-toolkit/tree/master/packages/toolchain/yq) (optional)
+- `yq` ([version `4.x`](https://github.com/mikefarah/yq/releases)), installed via [packages/toolchain/yq](https://github.com/rancher-sandbox/cOS-toolkit/tree/master/packages/toolchain/yq) (optional)
 - [`jq`](https://stedolan.github.io/jq), installed via [packages/utils/jq](https://github.com/rancher-sandbox/cOS-toolkit/tree/master/packages/utils/jq) (optional)
 
 _Note_: Running `make` deps will install only `luet`, `luet-makeiso`, `yq` and `jq`. `squashfs-tools` and `xorriso` needs to be provided by the OS.
@@ -54,7 +54,7 @@ You can also grab the binary from [luet-makeiso](https://github.com/mudler/luet-
 
 
 #### yq and jq
-`yq` (version `3.x`) and `jq` are used to retrieve the list of
+`yq` (version `4.x`) and `jq` are used to retrieve the list of
 packages to build in order to produce the final ISOs. Those are not
 strictly required, see the Note below. 
 
