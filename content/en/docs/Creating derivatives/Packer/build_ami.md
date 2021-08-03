@@ -1,6 +1,6 @@
 ---
 title: "Build AMI machines for AWS"
-linkTitle: "Build AMI machines for AWS"
+linkTitle: "Build AWS images"
 weight: 4
 date: 2017-01-05
 description: >
