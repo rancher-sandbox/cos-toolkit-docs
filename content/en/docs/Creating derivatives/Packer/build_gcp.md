@@ -1,6 +1,6 @@
 ---
 title: "Build Images for Google Compute Platform"
-linkTitle: "Build Images for GCP"
+linkTitle: "Build GCP images"
 weight: 4
 date: 2017-01-05
 description: >
