@@ -102,3 +102,6 @@ template. These are some of the relevant ones:
 * `aws_source_ami_filter_name`: This a filter to choose the AMI image for the
   build process. It defaults to `*cOS*Vanilla*` pattern to pick the latest cOS
   Vanilla image available.
+
+* `aws_temporary_security_group_source_cidr`: A IPv4 CIDR to be authorized access to the instance,
+  when packer is creating a temporary security group. Defaults to "0.0.0.0/0".
