@@ -41,6 +41,47 @@ After booting the iso, it is possible to deploy directly an image of choice with
 cos-deploy --docker-image $IMAGE
 ```
 
+## Booting from network
+
+You can boot a cOs squash fs by using a native iPXE implementation on your
+system or by inserting a custom build iPXE iso by using your either your servers
+management web-interface (ILO, iDrac, ...) or using a
+[redfish](https://www.dmtf.org/standards/redfish) library or its vendor specific implementation (e.g. [ilorest](https://hewlettpackard.github.io/python-redfish-utility/)). 
+
+To boot from IPXE you need to extract the squashfs from
+[https://quay.io/repository/costoolkit/releases-green?tab=tags](https://quay.io/repository/costoolkit/releases-green?tab=tags).
+By pulling the image, saving it using docker save, then unpack the single layer
+in the file to an extra directory and then run 
+
+```bash
+$> mksquashfs <path_to_folder> <output_path>/root.squashfs
+```
+
+**Note:**
+The squashfs file can also be extracted using the following `luet` command.
+
+```bash
+$> docker run -v $PWD:/cOS --entrypoint /usr/bin/luet -ti --rm quay.io/costoolkit/toolchain util unpack quay.io/costoolkit/releases-green:cos-img-recovery-<version> .
+```
+
+Then copy the `boot` directory and the squashfs file to your webserver and use
+the following script to boot.
+
+```bash
+#!ipxe
+
+ifconf
+kernel http://<web_server_ip>/boot/vmlinuz ip=dhcp rd.cos.disable rd.noverifyssl
+root=live:http://<web_server_ip>/root.squashfs console=ttyS0 console=tty1 cos.setup=http://<web_server_ip>/<path_to_cloud_config.yaml>
+initrd http://<web_server_ip>/boot/initrd
+boot
+```
+
+To build a custom iPXE image clone the source from
+[https://github.com/ipxe/ipxe](https://github.com/ipxe/ipxe), then traverse into
+the `src` directory and run `make EMBED=</path/to/your/script.ipxe>`. The
+resulting iso can be found in `src/bin/ipxe.iso` and should be `~1MB` in size.
+
 ## Virtual machines
 
 For booting into Virtual machines we offer QCOW2, OVA, and raw disk recovery images which can be used to bootstrap your booting container.
