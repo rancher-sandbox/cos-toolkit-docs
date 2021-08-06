@@ -43,7 +43,7 @@ cos-deploy --docker-image $IMAGE
 
 ## Booting from network
 
-You can boot a cOs squash fs by using a native iPXE implementation on your
+You can boot a cOS squashfs by using a native iPXE implementation on your
 system or by inserting a custom build iPXE iso by using your either your servers
 management web-interface (ILO, iDrac, ...) or using a
 [redfish](https://www.dmtf.org/standards/redfish) library or its vendor specific implementation (e.g. [ilorest](https://hewlettpackard.github.io/python-redfish-utility/)). 
