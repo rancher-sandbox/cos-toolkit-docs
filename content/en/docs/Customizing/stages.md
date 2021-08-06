@@ -127,3 +127,174 @@ stages:
        - |
           touch /run/sentinel
 ```
+
+#### after-install
+
+This stage is executed after installation of the OS has ended (after calling `cos-install`).
+
+Example:
+```yaml
+name: "Run something after installation"
+stages:
+   after-install:
+     - name: "Setting"
+       if: '[ ! -f "/run/cos/recovery_mode" ]'
+       commands:
+       - |
+          # Run something when we are booting in active or passive
+     - name: "Setting"
+       if: '[ -f "/run/cos/recovery_mode" ]'
+       commands:
+       - |
+          # Run something when we are booting in recovery mode
+```
+
+
+#### after-upgrade
+
+This stage is executed after upgrade of the OS has ended (after calling `cos-upgrade`).
+
+Example:
+```yaml
+name: "Run something after upgrade"
+stages:
+   after-upgrade:
+     - name: "Setting"
+       if: '[ ! -f "/run/cos/recovery_mode" ]'
+       commands:
+       - |
+          # Run something when we are booting in active or passive
+     - name: "Setting"
+       if: '[ -f "/run/cos/recovery_mode" ]'
+       commands:
+       - |
+          # Run something when we are booting in recovery mode
+```
+
+#### after-reset
+
+This stage is executed after reset of the OS has ended (after calling `cos-reset`).
+
+Example:
+```yaml
+name: "Run something after reset"
+stages:
+   after-reset:
+     - name: "Setting"
+       if: '[ ! -f "/run/cos/recovery_mode" ]'
+       commands:
+       - |
+          # Run something when we are booting in active or passive
+     - name: "Setting"
+       if: '[ -f "/run/cos/recovery_mode" ]'
+       commands:
+       - |
+          # Run something when we are booting in recovery mode
+```
+
+#### after-deploy
+
+This stage is executed after deployment of the OS has ended (after calling `cos-deploy`).
+
+Example:
+```yaml
+name: "Run something after deployment"
+stages:
+   after-deploy:
+     - name: "Setting"
+       if: '[ ! -f "/run/cos/recovery_mode" ]'
+       commands:
+       - |
+          # Run something when we are booting in active or passive
+     - name: "Setting"
+       if: '[ -f "/run/cos/recovery_mode" ]'
+       commands:
+       - |
+          # Run something when we are booting in recovery mode
+```
+
+
+#### before-install
+
+This stage is executed before installation (executed during `cos-install`).
+
+Example:
+```yaml
+name: "Run something before installation"
+stages:
+   before-install:
+     - name: "Setting"
+       if: '[ ! -f "/run/cos/recovery_mode" ]'
+       commands:
+       - |
+          # Run something when we are booting in active or passive
+     - name: "Setting"
+       if: '[ -f "/run/cos/recovery_mode" ]'
+       commands:
+       - |
+          # Run something when we are booting in recovery mode
+```
+
+
+#### before-upgrade
+
+This stage is executed before upgrade of the OS (executed during `cos-upgrade`).
+
+Example:
+```yaml
+name: "Run something before upgrade"
+stages:
+   before-upgrade:
+     - name: "Setting"
+       if: '[ ! -f "/run/cos/recovery_mode" ]'
+       commands:
+       - |
+          # Run something when we are booting in active or passive
+     - name: "Setting"
+       if: '[ -f "/run/cos/recovery_mode" ]'
+       commands:
+       - |
+          # Run something when we are booting in recovery mode
+```
+
+#### before-reset
+
+This stage is executed before reset of the OS (executed during `cos-reset`).
+
+Example:
+```yaml
+name: "Run something before reset"
+stages:
+   before-reset:
+     - name: "Setting"
+       if: '[ ! -f "/run/cos/recovery_mode" ]'
+       commands:
+       - |
+          # Run something when we are booting in active or passive
+     - name: "Setting"
+       if: '[ -f "/run/cos/recovery_mode" ]'
+       commands:
+       - |
+          # Run something when we are booting in recovery mode
+```
+
+#### before-deploy
+
+This stage is executed before deployment of the OS has ended (executed during `cos-deploy`).
+
+Example:
+```yaml
+name: "Run something before deployment"
+stages:
+   before-deploy:
+     - name: "Setting"
+       if: '[ ! -f "/run/cos/recovery_mode" ]'
+       commands:
+       - |
+          # Run something when we are booting in active or passive
+     - name: "Setting"
+       if: '[ -f "/run/cos/recovery_mode" ]'
+       commands:
+       - |
+          # Run something when we are booting in recovery mode
+```
