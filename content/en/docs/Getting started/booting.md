@@ -58,7 +58,7 @@ $> mksquashfs <path_to_folder> <output_path>/root.squashfs
 ```
 
 **Note:**
-The squashfs file can also be extracted using the following `luet` command.
+The squashfs file can also be extracted using the following `docker` command:
 
 ```bash
 $> docker run -v $PWD:/cOS --entrypoint /usr/bin/luet -ti --rm quay.io/costoolkit/toolchain util unpack quay.io/costoolkit/releases-green:cos-img-recovery-<version> .
