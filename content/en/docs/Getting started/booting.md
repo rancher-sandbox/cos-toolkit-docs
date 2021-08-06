@@ -49,7 +49,7 @@ management web-interface (ILO, iDrac, ...) or using a
 [redfish](https://www.dmtf.org/standards/redfish) library or its vendor specific implementation (e.g. [ilorest](https://hewlettpackard.github.io/python-redfish-utility/)). 
 
 To boot from IPXE you need to extract the squashfs from
-[https://quay.io/repository/costoolkit/releases-green?tab=tags](https://quay.io/repository/costoolkit/releases-green?tab=tags).
+[images](https://quay.io/repository/costoolkit/releases-green?tab=tags) with the `cos-img-recovery-` prefix.
 By pulling the image, saving it using docker save, then unpack the single layer
 in the file to an extra directory and then run 
 
