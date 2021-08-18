@@ -155,6 +155,69 @@ overlay:
 
 Path to a folder which content will be copied over the rootfs (before generating squashfs).
 
+## Customize bootloader
+
+Boot menu and other bootloader parameters can be easily customized by using the overlay parameters within the ISO config yaml manifest.
+
+Assuming the ISO being built includes:
+
+```yaml
+packages:
+  rootfs:
+  - system/cos
+  uefi:
+  - live/systemd-boot
+  - live/boot
+  isoimage:
+  - live/syslinux
+  - live/boot
+```
+
+We can customize either the `uefi` and `isoimage` packages (in the referrence image `live/boot` package
+includes bootloader configuration) or make use of the overlay concept to include or
+overwrite addition files for both `isoimage` and `uefi` sections.
+
+Consider the following example:
+
+```yaml
+packages:
+  rootfs:
+  - system/cos
+  uefi:
+  - live/systemd-boot
+  - live/boot
+  isoimage:
+  - live/syslinux
+  - live/boot
+  - recovery/cos-img
+
+overlay:
+  isoimage: overlay/iso
+
+overlay:
+  uefi: overlay/uefi
+```
+
+With the above the ISO will also include the files under `overlay/iso` path, more over
+the EFI image will also include the files under `overlay/uefi` path. To customize the boot
+menu parameters consider copy and modify relevant files from `live/boot` package. In this example the
+`overlay` folder files list could be:
+
+```bash
+# isoimage files for BIOS boot
+iso/boot/syslinux/syslinux.cfg
+
+# EFI image files for EFI boot
+uefi/boot/uefi/loader/entries/cos-x86_64.conf
+uefi/loader/entries/cos-x86_64.conf
+```
+
+For BIOS boot basic bootloader parameters are stored in `syslinux.cfg` file. In case of EFI
+boots the basic configurations are part of the `cos-x86_64.conf` file.
+
+Note this procedure also applies if further files require customizations, the procedure
+is not exclusively devoted to customize the bootloader parameters.
+
 ## Separate recovery
 
 To make an ISO with a separate recovery image as squashfs, you can either use the default from `cOS`, by adding it in the iso yaml file:
