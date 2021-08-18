@@ -95,3 +95,17 @@ Or to set the default entry to `fallback` system:
 These examples make of the `COS_OEM` device, however it could use any device
 detected by GRUB2 that includes the file `/grubenv`. First match wins.
 
+## Boot menu
+
+By default `cOS` and derivatives shows the default boot menu entry while booting (`cOS`).
+
+The grub menu entry is generated during installation and can be configured by setting `GRUB_ENTRY_NAME` in `/etc/cos/config` inside the derivative, or either via 
+cloud-init before installation.
+
+For example, specifying in `/etc/cos/config`:
+
+```bash
+GRUB_ENTRY_NAME=myOS
+```
+
+will automatically set the GRUB menu entries for active, passive and recovery to the specified value.
