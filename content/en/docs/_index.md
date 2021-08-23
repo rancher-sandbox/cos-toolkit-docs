@@ -12,9 +12,9 @@ menu:
 
 cOS is a toolkit which allows container images to be bootable in VMs, baremetals, embedded devices, and much more.
 
-cOS allows to create meta-Linux derivatives which are configured throuought cloud-init configuration files and are immutable by default.
+cOS allows to create meta-Linux derivatives which are configured throughout cloud-init configuration files and are immutable by default.
 
-cOS and derivatives shares a common featureset, can be upgraded in a OTA-alike style, and upgrades are delivered with standard container registries. 
+cOS and derivatives shares a common feature set, can be upgraded in a OTA-alike style, and upgrades are delivered with standard container registries. 
 
 cOS comes also with vanilla images that can be used to boot directly container images built with the toolkit.
 
