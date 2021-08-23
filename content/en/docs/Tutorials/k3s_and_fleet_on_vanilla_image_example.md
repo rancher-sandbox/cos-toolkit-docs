@@ -51,48 +51,15 @@ stages:
            - fsLabel: COS_PERSISTENT
              # unset size or 0 size means all available space
              pLabel: persistent
-   initramfs:
-     - name: "Set /etc/hosts"
-       files:
-       - path: /etc/hosts
-         content: |
-           127.0.0.1       localhost
+   rootfs.after:
      - if: '[ ! -f "/run/cos/recovery_mode" ]'
-       name: "Persist"
-       commands:
-       - |
-            target=/usr/local/.cos-state
-
-            # Always want the latest update of systemd conf from the image
-            # TODO: This might break the fallback system
-            mkdir -p "${target}/etc/systemd/"
-            rsync -av /etc/systemd/ "${target}/etc/systemd/"
-
-            # Only populate ssh conf once
-            if [ ! -e "${target}/etc/ssh" ]; then
-              mkdir -p "${target}/etc/ssh/"
-              rsync -av /etc/ssh/ "${target}/etc/ssh/"
-            fi
-
-            # undo /home /opt /root mount from cos immutable-rootfs module
-            # TODO: we could think of configuring custom overlay paths in
-            # immutable rootfs package. So this part could be omitted
-            for i in home opt root; do
-              sed -i "/overlay \/${i} /d" /etc/fstab
-              nsenter -m -t 1 -- umount "/sysroot/${i}"
-            done
-
-            # setup directories as persistent
-            # TODO: would it make sense defining persistent state overlayfs mounts
-            # as part of the immutable rootfs config?
-            for i in root opt home var/lib/rancher var/lib/kubelet etc/systemd etc/rancher etc/ssh; do
-              mkdir -p "${target}/${i}" "/${i}"
-              echo "${target}/${i} /${i} none defaults,bind 0 0" >> /etc/fstab
-              nsenter -m -t 1 -- mount -o defaults,bind "/sysroot${target}/${i}" "/sysroot/${i}"
-            done
-
-            # ensure /var/log/journal exists so it's labeled correctly
-            mkdir -p /var/log/journal
+       name: "Persistent state"
+       environment_file: /run/cos/cos-layout.env
+       environment:
+         VOLUMES: "LABEL=COS_OEM:/oem LABEL=COS_PERSISTENT:/usr/local"
+         OVERLAY: "tmpfs:25%"
+         RW_PATHS: "/var /etc /srv"
+         PERSISTENT_STATE_PATHS: "/root /opt /home /var/lib/rancher /var/lib/kubelet /etc/systemd /etc/rancher /etc/ssh"
    network.before:
      - name: "Setup SSH keys"
        authorized_keys:

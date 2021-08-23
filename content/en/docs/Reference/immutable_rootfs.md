@@ -85,7 +85,7 @@ only effective if called in any of the `rootfs.before`, `rootfs` or
 `rootfs.after` cloud-init stages.
 
 
-In the environment file only few options are available:
+In the environment file few options are available:
 
 
 * `VOLUMES=LABEL=<blk_label>:<mountpoint>`: This variable expects a block device
@@ -93,7 +93,7 @@ In the environment file only few options are available:
 
   `VOLUMES="LABEL=COS_OEM:/oem LABEL=COS_PERSISTENT:/usr/local"`
   
-* `OVERLAY=`: It defines the underlaying device for the overlayfs as in
+* `OVERLAY`: It defines the underlaying device for the overlayfs as in
   `rd.cos.overlay=` kernel parameter.
 
 * `DEBUGRW=true`: Sets the root (`/`) to be mounted with read/write permissions.
@@ -104,7 +104,33 @@ In the environment file only few options are available:
   appended to whatever was already defined as a kernel parameter. If not
   defined defaults to `true`.
 
-For exmaple a common cOS configuration can is expressed as part of the
+* `RW_PATHS`: This is a space separated list of paths. These are the paths
+  that will be used for the ephemeral overlayfs. These are the paths that
+  will be mounted as overlay on top of the `OVERLAY` (or `rd.cos.overlay`)
+  device. Default value is:
+
+  `RW_PATHS="/etc /root /home /opt /srv /usr/local /var"`
+
+* `PERSISTENT_STATE_TARGET`: This is the folder where the persistent state data
+  will be stored, if any. Default value is `/usr/local/.state`.
+
+* `PERSISTENT_STATE_PATHS`: This is a space separated list of paths. These are
+  the paths that will become writable and store its data inside
+  `PERSISTENT_STATE_TARGET`. By default this variable is empty, which means
+  no persistent state area is created or used.
+
+* `PERSUSTENT_STATE_BIND="true|false"`: Whent his variable is set to true
+  the persistent state paths are bind mounted (instead of using overlayfs)
+  after being mirrored with the original content. By default this variable is
+  set to `false`.
+
+Note that persistent state are is setup once the ephemeral paths and persistent
+volumes are mounted. Persistent state paths can't be an already existing mount
+point. If the persistent state requires any of the paths that are part of the
+ephemeral area by default, then `RW_PATHS` needs to be defined to avoid
+overlapping paths.
+
+For exmaple a common cOS configuration can be expressed as part of the
 cloud-init configuration as follows:
 
 ```yaml
