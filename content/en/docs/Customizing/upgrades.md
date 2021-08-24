@@ -14,9 +14,9 @@ However, it's possible to tweak the default behavior of `cos-upgrade` to point t
 
 By default, `cos` derivatives if not specified will point to latest `cos-toolkit`. To override, you need to or overwrite the content of `/system/oem/02_upgrades.yaml` or supply an additional one, e.g. `/system/oem/03_upgrades.yaml` in the final image, see [an example here](https://github.com/rancher-sandbox/epinio-appliance-demo-sample/blob/master/packages/epinioOS/02_upgrades.yaml).
 
-## `/etc/cos-upgrade-image`
+## Configuration
 
-This file is read from `cos-upgrade` during start and allows to tweak the following:
+`cos-upgrade` during start reads the [cOS configuration file](../general_configuration) and allows to tweak the following:
 
 ```bash
 # Tweak the package to upgrade to, or the docker image (full reference)
@@ -28,6 +28,10 @@ VERIFY=false
 # Specify a separate recovery image (defaults to UPGRADE_IMAGE)
 RECOVERY_IMAGE=recovery/cos
 ```
+
+`cos-upgrade` also reads its configuration from `/etc/cos-upgrade-image` if the file is present in the system.
+
+Specifically, it allows to configure:
 
 - **UPGRADE_IMAGE**: A container image reference ( e.g. `registry.io/org/image:tag` ) or a `luet` package ( e.g. `system/cos` )
 - **CHANNEL_UPGRADES**: Boolean indicating wether to use channel upgrades or not. If it is disabled **UPGRADE_IMAGE** should refer to a container image, e.g. `registry.io/org/image:tag`
