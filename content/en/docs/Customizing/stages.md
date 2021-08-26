@@ -12,6 +12,8 @@ Cloud-init files in `/system/oem`, `/oem` and `/usr/local/oem` are applied in 5 
 
 Multiple stages can be specified in a single cloud-init file.
 
+_Note:_ Stage's steps can be run selectively while booting into active/passive mode or either recovery. When a cOS derivative boots into recovery mode, a sentinel file is being created at `/run/cos/recovery_mode` which can be used to distinguish if it's in recovery mode. The file is present when we are booting into recovery, and `if: '[ -f "/run/cos/recovery_mode" ]'` can be used in the cloud-init blocks to selectively run the block during recovery, see the examples below.
+
 #### rootfs
 
 This is the earliest stage, running before switching root, just right after the
