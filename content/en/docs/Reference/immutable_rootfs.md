@@ -119,7 +119,7 @@ In the environment file few options are available:
   `PERSISTENT_STATE_TARGET`. By default this variable is empty, which means
   no persistent state area is created or used.
 
-* `PERSUSTENT_STATE_BIND="true|false"`: Whent his variable is set to true
+* `PERSISTENT_STATE_BIND="true|false"`: When this variable is set to true
   the persistent state paths are bind mounted (instead of using overlayfs)
   after being mirrored with the original content. By default this variable is
   set to `false`.
