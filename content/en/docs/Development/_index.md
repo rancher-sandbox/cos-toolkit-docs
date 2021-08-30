@@ -144,7 +144,7 @@ To create the vagrant image:
 
 ```
 
-$> PACKER_ARGS="-var='feature=vagrant' -only virtualbox-iso" make packer
+$> PACKER_ARGS="-var='feature=vagrant' -only virtualbox-iso.cos" make packer
 
 ```
 
