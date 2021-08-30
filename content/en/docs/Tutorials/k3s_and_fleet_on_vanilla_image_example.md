@@ -51,7 +51,6 @@ stages:
            - fsLabel: COS_PERSISTENT
              # unset size or 0 size means all available space
              pLabel: persistent
-   rootfs.after:
      - if: '[ ! -f "/run/cos/recovery_mode" ]'
        name: "Persistent state"
        environment_file: /run/cos/cos-layout.env
