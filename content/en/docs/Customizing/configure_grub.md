@@ -99,8 +99,7 @@ detected by GRUB2 that includes the file `/grubenv`. First match wins.
 
 By default `cOS` and derivatives shows the default boot menu entry while booting (`cOS`).
 
-The grub menu entry is generated during installation and can be configured by setting `GRUB_ENTRY_NAME` in `/etc/cos/config` inside the derivative, or either via 
-cloud-init before installation.
+The grub menu entry is generated during installation and can be configured by setting `GRUB_ENTRY_NAME` in the [cOS configuration file](../general_configuration) inside the derivative, or either via cloud-init before installation.
 
 For example, specifying in `/etc/cos/config`:
 
