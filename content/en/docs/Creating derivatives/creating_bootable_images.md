@@ -36,6 +36,8 @@ RUN luet install -y meta/cos-minimal
 
 In the example above, the cos-toolkit parts that are **required** are pulled in by `RUN luet install -y meta/cos-minimal`.
 
+{{<package package="meta/cos-minimal" >}} is a meta-package that will pull {{<package package="toolchain/yip" >}}, {{<package package="utils/installer" >}}, {{<package package="system/cos-setup" >}}, {{<package package="system/immutable-rootfs" >}}, {{<package package="system/grub2-config" >}}, {{<package package="system/cloud-config" >}}. _Note_: {{<package package="system/cloud-config" >}} is optional, but provides `cOS` defaults setting, like default user/password and so on. If you are not installing it directly, an equivalent cloud-config has to be provided in order to properly boot and run a system, see [oem configuration](../../customizing/oem_configuration).
+
 {{% alert title="Note" %}}
 The image should provide at least `grub`, `systemd`, `dracut`, a kernel and an initrd. Those are the common set of packages between derivatives. See also [package stack](../package_stack). 
 By default the initrd is expected to be symlinked to `/boot/initrd` and the kernel to `/boot/vmlinuz`, otherwise you can specify a custom path while [building an iso](../build_iso) and [by customizing grub](../../customizing/configure_grub).
