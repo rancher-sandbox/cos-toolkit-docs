@@ -36,8 +36,7 @@ toolchain/yip
 utils/installer
 system/cos-setup
 system/immutable-rootfs
-system/grub-config
-system/cloud-config
+system/grub2-config
 ```
 
 from the toolchain. If you want to customize further the container further add more step afterwards `luet install` see [the customizing section](../../customizing).

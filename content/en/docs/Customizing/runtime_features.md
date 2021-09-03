@@ -32,7 +32,7 @@ To disable, run: cos-feature disable <feature>
 
 By default cOS ships the `vagrant` featureset - when enabled will automatically create the default `vagrant` user which is generally used to create new Vagrant boxes. 
 
-If you don't need `cos-features` you can avoid installing `system/cos-features`, it's optional.
+If you don't need `cos-features` you can avoid installing {{<package package="system/cos-features" >}}, it's optional.
 
 ## Adding or removing features
 
