@@ -1,0 +1,9 @@
+{{ $package := (.Get "package") }}
+{{ $website := ( or (.Get "website") "https://cos-toolkit.herokuapp.com/cos-toolkit-green" ) }}
+<a href="{{ print $website "/" $package }}" class="btn btn-sm position-relative rounded-pill bg-light text-dark"
+    role="button">
+    {{$package}}
+    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-light">
+        <i class='fa fa-box'></i>
+    </span>
+</a>
