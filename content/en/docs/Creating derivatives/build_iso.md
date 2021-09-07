@@ -166,16 +166,16 @@ packages:
   rootfs:
   - system/cos
   uefi:
-  - live/systemd-boot
-  - live/boot
+  - live/grub2-efi-image
   isoimage:
-  - live/syslinux
-  - live/boot
+  - live/grub2
+  - live/grub2-efi-image
+  - recovery/cos-img
 ```
 
-We can customize either the `uefi` and `isoimage` packages (in the referrence image `live/boot` package
+We can customize either the `isoimage` packages (in the referrence image `live/grub2` package
 includes bootloader configuration) or make use of the overlay concept to include or
-overwrite addition files for both `isoimage` and `uefi` sections.
+overwrite addition files for `isoimage` section.
 
 Consider the following example:
 
@@ -184,39 +184,53 @@ packages:
   rootfs:
   - system/cos
   uefi:
-  - live/systemd-boot
-  - live/boot
+  - live/grub2-efi-image
   isoimage:
-  - live/syslinux
-  - live/boot
+  - live/grub2
+  - live/grub2-efi-image
   - recovery/cos-img
 
 overlay:
   isoimage: overlay/iso
-
-overlay:
-  uefi: overlay/uefi
 ```
 
-With the above the ISO will also include the files under `overlay/iso` path, more over
-the EFI image will also include the files under `overlay/uefi` path. To customize the boot
-menu parameters consider copy and modify relevant files from `live/boot` package. In this example the
+With the above the ISO will also include the files under `overlay/iso` path. To customize the boot
+menu parameters consider copy and modify relevant files from `live/grub2` package. In this example the
 `overlay` folder files list could be:
 
 ```bash
-# isoimage files for BIOS boot
-iso/boot/syslinux/syslinux.cfg
-
-# EFI image files for EFI boot
-uefi/boot/uefi/loader/entries/cos-x86_64.conf
-uefi/loader/entries/cos-x86_64.conf
+# isoimage files for grub2 boot
+boot/grub2/grub.cfg
 ```
 
-For BIOS boot basic bootloader parameters are stored in `syslinux.cfg` file. In case of EFI
-boots the basic configurations are part of the `cos-x86_64.conf` file.
+Being `boot/grub2/grub.cfg` a custom grub2 configuration including custom boot menu entries. Consider the following `grub.cfg` example:
 
-Note this procedure also applies if further files require customizations, the procedure
-is not exclusively devoted to customize the bootloader parameters.
+```
+search --file --set=root /boot/kernel.xz
+set default=0
+set timeout=10
+set timeout_style=menu
+set linux=linux
+set initrd=initrd
+if [ "${grub_cpu}" = "x86_64" -o "${grub_cpu}" = "i386" ];then
+    if [ "${grub_platform}" = "efi" ]; then
+        set linux=linuxefi
+        set initrd=initrdefi
+    fi
+fi
+
+set font=($root)/boot/x86_64/loader/grub2/fonts/unicode.pf2
+if [ -f ${font} ];then
+    loadfont ${font}
+fi
+
+menuentry "Custom grub2 menu entry" --class os --unrestricted {
+    echo Loading kernel...
+    $linux ($root)/boot/kernel.xz cdroot root=live:CDLABEL=COS_LIVE rd.live.dir=/ rd.live.squashimg=rootfs.squashfs console=tty1 console=ttyS0 rd.cos.disable
+    echo Loading initrd...
+    $initrd ($root)/boot/rootfs.xz
+}
+```
 
 ## Separate recovery
 
