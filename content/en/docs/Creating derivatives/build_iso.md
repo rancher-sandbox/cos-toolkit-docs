@@ -19,9 +19,35 @@ docker run -v $PWD:/cOS -v /var/run:/var/run --entrypoint /usr/bin/luet-makeiso 
 
 Where `iso.yaml` is the iso specification file, and `--image $IMAGE` is the container image you want to build the ISO for, you might want to check on [how to build bootable images](../creating_bootable_images).
 
-An example of a yaml file using the cos-toolkit opensuse repositories:
+An example of a yaml file using the cos-toolkit opensuse repositories and syslinux:
 
 {{<githubembed repo="rancher-sandbox/cos-toolkit-sample-repo" file="iso.yaml" lang="yaml">}}
+
+An example using GRUB instead:
+
+```yaml
+packages:
+  rootfs:
+  - ...
+  uefi:
+  - live/grub2-efi-image
+  isoimage:
+  - live/grub2
+  - live/grub2-efi-image
+  - recovery/cos-img
+
+boot_file: "boot/x86_64/loader/eltorito.img"
+boot_catalog: "boot/x86_64/boot.catalog" 
+isohybrid_mbr: "boot/x86_64/loader/boot_hybrid.img"
+
+initramfs:
+  kernel_file: "vmlinuz"
+  rootfs_file: "initrd"
+
+image_prefix: "cOS-0."
+image_date: true
+label: "COS_LIVE"
+```
 
 ## What's next?
 
@@ -166,7 +192,7 @@ Assuming the ISO being built includes:
 ```yaml
 packages:
   rootfs:
-  - system/cos
+  - ...
   uefi:
   - live/grub2-efi-image
   isoimage:
@@ -243,7 +269,6 @@ menuentry "Custom grub2 menu entry" --class os --unrestricted {
 ## Separate recovery
 
 To make an ISO with a separate recovery image as squashfs, you can either use the default from `cOS`, by adding it in the iso yaml file:
-
 
 ```yaml
 packages:
