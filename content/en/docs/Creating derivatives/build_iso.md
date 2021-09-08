@@ -155,9 +155,11 @@ overlay:
 
 Path to a folder which content will be copied over the rootfs (before generating squashfs).
 
-## Customize bootloader
+## Customize bootloader with GRUB
 
-Boot menu and other bootloader parameters can be easily customized by using the overlay parameters within the ISO config yaml manifest.
+Beside syslinux, the ISO boot menu can also be built with GRUB.
+  
+Boot menu and other bootloader parameters can then be easily customized by using the overlay parameters within the ISO config yaml manifest.
 
 Assuming the ISO being built includes:
 
@@ -171,6 +173,12 @@ packages:
   - live/grub2
   - live/grub2-efi-image
   - recovery/cos-img
+
+# The following are required in order to build an ISO with GRUB
+# as bootloader
+boot_file: "boot/x86_64/loader/eltorito.img"
+boot_catalog: "boot/x86_64/boot.catalog" 
+isohybrid_mbr: "boot/x86_64/loader/boot_hybrid.img"
 ```
 
 We can customize either the `isoimage` packages (in the referrence image `live/grub2` package
