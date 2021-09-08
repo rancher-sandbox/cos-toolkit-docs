@@ -14,7 +14,7 @@ of the cOS repository tree.
 The dracut module is mostly configured via kernel command line parameters or
 via the `/run/cos/cos-layout.env` environment file.
 
-The immutable rootfs module is the responsible of mounting the root tree at 
+The immutable rootfs module is responsible of mounting the root tree during 
 boot time with the immutable specific setup. The immutability concept refers
 to read only root (`/`) system. To ensure the linux OS is still functional
 certain paths or areas are required to be writable, in those cases an
@@ -110,6 +110,8 @@ In the environment file few options are available:
   device. Default value is:
 
   `RW_PATHS="/etc /root /home /opt /srv /usr/local /var"`
+  **Note**: as those paths are overlayed with an ephemeral mount (`tmpfs`), 
+            additional data wrote on those location won't be available on subsequent boots.
 
 * `PERSISTENT_STATE_TARGET`: This is the folder where the persistent state data
   will be stored, if any. Default value is `/usr/local/.state`.
@@ -118,6 +120,11 @@ In the environment file few options are available:
   the paths that will become writable and store its data inside
   `PERSISTENT_STATE_TARGET`. By default this variable is empty, which means
   no persistent state area is created or used.
+
+  **Note**: The specified paths needs either to exist or be located in an area 
+            which is writeable ( for example, inside locations specified with `RW_PATHS`).
+            The dracut module will attempt to create non-existant directories, 
+            but might fail if the mountpoint where are located is read-only.
 
 * `PERSISTENT_STATE_BIND="true|false"`: When this variable is set to true
   the persistent state paths are bind mounted (instead of using overlayfs)

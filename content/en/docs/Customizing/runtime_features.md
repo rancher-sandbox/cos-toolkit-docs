@@ -7,7 +7,7 @@ description: >
   Add features that can be enabled and disabled on runtime
 ---
 
-cOS allows to (optionally) add features that can be disabled/enabled in runtime.
+cOS allows to (optionally) add features that can be disabled/enabled in runtime, provided by {{<package package="system/cos-features" >}}.
 
 [Cloud-init files](../../reference/cloud_init) stored in `/system/features` are read by `cos-feature` and allow to interactively enable or disable them in a running system, for example:
 
