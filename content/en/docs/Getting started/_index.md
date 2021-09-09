@@ -22,4 +22,4 @@ The only requirement to build derivatives with `cos-toolkit` is docker installed
 
 ### What to do next?
 
-Check out [how to create bootable images](../creating-derivatives/creating_bootable_images) and [how to create full blown derivatives](../examples/creating_derivatives) or [download the cOS vanilla images](../getting-started/download) to give cOS a try!
+Check out [how to create bootable images](../creating-derivatives/creating_bootable_images) or [download the cOS vanilla images](../getting-started/download) to give cOS a try!
