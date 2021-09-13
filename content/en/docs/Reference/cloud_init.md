@@ -110,9 +110,15 @@ If a yaml file starts with `#cloud-config` it is parsed as a standard cloud-init
 
 ```yaml
 #cloud-config
+growpart:
+  mode: auto
+  devices: ['/']
+
 users:
 - name: "bar"
   passwd: "foo"
+  lock_passwd: true
+  uid: "1002"
   groups: "users"
   ssh_authorized_keys:
   - faaapploo
