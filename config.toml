@@ -72,7 +72,7 @@ weight = 1
 [[menu.main]]
     name = "Browse packages"
     weight = 55
-    url = "https://cos-toolkit.herokuapp.com/cos-toolkit-green"
+    url = "https://rancher-sandbox.github.io/cos-toolkit-package-browser/"
     pre = "<i class='fa fa-toolbox'></i>"
     post = "" 
 
