@@ -1,6 +1,6 @@
 ---
-title: "Persistency"
-linkTitle: "Persistency"
+title: "Configuration persistency"
+linkTitle: "Configuration persistency"
 weight: 2
 date: 2017-01-05
 description: >
