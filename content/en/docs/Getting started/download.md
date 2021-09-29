@@ -24,7 +24,7 @@ $ docker run -ti --rm quay.io/costoolkit/releases-green:cos-system-$VERSION /bin
 
 You can also try out cOS from the vanilla images and use it to experiment locally or either bootstrap a derivative: those are minimal system with a small package set in order to boot and deploy a container. 
 
-Latest cOS-toolkit releases assets (ISOs, Raw disks, Cloud images) can be found on [Github](https://github.com/rancher-sandbox/cOS-toolkit/releases/), check [Booting](../getting-started/booting) for an explanation of each asset type and how to use it.
+Latest cOS-toolkit releases assets (ISOs, Raw disks, Cloud images) can be found on [Github](https://github.com/rancher-sandbox/cOS-toolkit/releases/), check [Booting](../booting) for an explanation of each asset type and how to use it.
 
 cOS can run in: VMs, baremetals and Cloud - the default login username/password is `root/cos`.
 
