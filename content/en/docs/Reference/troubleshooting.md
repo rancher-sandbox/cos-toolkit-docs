@@ -23,7 +23,7 @@ By adding `rd.cos.debugrw` to the boot parameters read only mode will be disable
 
 The derivative will boot into RW mode, that means any change made during runtime will persist across reboots. Use this feature with caution as defeats the concept of immutability.
 
-`rd.cos.debugrw` applies only to active and passive paritions. The recovery image can't be mutated.
+`rd.cos.debugrw` applies only to active and passive partitions. The recovery image can't be mutated.
 
 {{% alert title="Note" %}}
 The changes made will persist during reboots but won't persist across upgrades. If you need to persist changes across upgrades in runtime (for example by adding additional packages on top of the derivative image), see [how to apply persistent changes](../../customizing/runtime_persistent_changes). 
