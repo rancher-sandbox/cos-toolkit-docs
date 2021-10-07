@@ -16,7 +16,11 @@ Bootable images are standard container images, that means the usual `build` and 
 
 The base image can be any Linux distribution that is compatible with our flavors.
 
-The only requirement is that the image has to contain parts of the cos-toolkit in order to be bootable, a kernel and an Initrd. 
+The image needs to ship:
+- parts of the cos-toolkit (required, see below)
+- kernel (required)
+- initrd (required)
+- microcode (optional, not required in order to boot, but recomended)
 
 ## Example
 
