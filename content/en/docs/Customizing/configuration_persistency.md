@@ -7,13 +7,22 @@ description: >
   Persisting configurations in cOS and derivatives
 ---
 
-It is possible to install a custom [cloud-init style file](../../reference/cloud_init/) during install with `--config` to `cos-installer` or, it's possible to add more files manually to the `/oem` folder after installation. The file will be placed under `/usr/local/oem` and will persist across reboots.
 
-By default cOS and derivatives, are reading and executing cloud-init files in (lexicopgrahic) sequence present in `/system/oem`, `/usr/local/cloud-config` and `/oem` during boot. It is also possible to run cloud-init file in a different location from boot cmdline by using  the `cos.setup=..` option.
+By default cOS and derivatives are reading and executing cloud-init files in (lexicopgrahic) sequence inside:
 
-While `/system/oem` is reserved for system configurations, for example to be included in the container image, the `/oem` folder instead is reserved for persistent cloud-init files to be executed in the various stages.
+- `/system/oem`
+- `/usr/local/cloud-config` 
+- `/oem` 
 
-For example, if you want to change `/etc/issue` of the system persistently, you can create `/usr/local/cloud-config/90_after_install.yaml` with the following content:
+It is also possible to run cloud-init file in a different location (URLs included, too) from boot cmdline by using  the `cos.setup=..` option.
+
+{{% alert title="Note" %}}
+It is possible to install a custom [cloud-init style file](../../reference/cloud_init/) during install with `--config` to `cos-installer` or, it's possible to add one or more files manually inside the `/oem` directory after installation.
+{{% /alert %}}
+
+While `/system/oem` is reserved for system configurations to be included directly in the derivative container image, the `/oem` folder instead is reserved for persistent cloud-init files that can be extended in runtime.
+
+For example, if you want to change `/etc/issue` of the system persistently, you can create `/usr/local/cloud-config/90_after_install.yaml` or alternatively in `/oem/90_after_install.yaml` with the following content:
 
 ```yaml
 # The following is executed before fs is setted up:

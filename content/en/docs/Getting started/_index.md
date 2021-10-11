@@ -16,9 +16,9 @@ cOS vanilla images are published to allow further customization when building de
 
 ## Build cOS derivatives
 
-The starting point to use cos-toolkit is to check out our [examples](https://github.com/rancher-sandbox/cOS-toolkit/tree/master/examples), see also [creating bootable images](../creating-derivatives/creating_bootable_images) or have a look on one of our [sample repository](https://github.com/rancher-sandbox/cos-toolkit-sample-repo).
+The starting point to use cos-toolkit is to check out our [examples](https://github.com/rancher-sandbox/cOS-toolkit/tree/master/examples) and our [creating bootable images](../creating-derivatives/creating_bootable_images) section.
 
-The only requirement to build derivatives with `cos-toolkit` is docker installed, see [Development notes](../development) for more details on how to build `cOS` itself instead.
+The only requirement to build derivatives with `cos-toolkit` is Docker installed. If you are interested in building cOS-toolkit itself, see [Development notes](../development).
 
 ### What to do next?
 

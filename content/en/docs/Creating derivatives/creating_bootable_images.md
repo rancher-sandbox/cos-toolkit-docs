@@ -20,6 +20,8 @@ The image needs to ship:
 - parts of the cos-toolkit (required, see below)
 - kernel (required)
 - initrd (required)
+- grub (required)
+- dracut (optional, kernel and initrd can be consumed from the cOS repositories)
 - microcode (optional, not required in order to boot, but recomended)
 
 ## Example

@@ -8,6 +8,18 @@ description: >
   Documents various methods for creating cOS derivatives
 ---
 
+
+![](https://docs.google.com/drawings/d/e/2PACX-1vT0hramQcvx4DOx77VKkEbRH4UI81-jvR5je5xVgAcy-hL13956qHvnICzyqpR0iW1kiYh9BXsCvyTC/pub?w=2376&h=1107
+)
+
+A derivative is a standard container image which can be booted by cOS. 
+
+The image is composed of a base OS of choice (e.g. openSUSE, Ubuntu, etc. ) and the toolkit in order to be consumed by cOS and allow to be upgraded from. 
+
+cOS-toolkit then converts the image to a bootable medium (ISO, packer, ova, etc) and the image itself then can be used to bootstrap other derivatives, which can in turn upgrade to any derivative built with cOS.
+
+A derivative can also be later re-used again as input as base-image for downstream derivatives.
+
 All the documentation below imply that the container image generated will be the booting one, there are however several configuration entrypoint that you should keep in mind while building the image which are general across all the implementation:
 
 - Custom persistent runtime configuration has to be provided in `/system/oem` for derivatives, [see also the documentation section](../customizing/configuration_persistency).  Everything under `/system/oem` will be loaded during the various stages (boot, network, initramfs). You can check [here](https://github.com/rancher-sandbox/cOS-toolkit/tree/e411d8b3f0044edffc6fafa39f3097b471ef46bc/packages/cloud-config/oem) for the `cOS` defaults. See `00_rootfs.yaml` to customize the booting layout.
