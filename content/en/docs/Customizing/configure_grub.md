@@ -89,7 +89,7 @@ For instance use the following command to reboot to recovery system only once:
 Or to set the default entry to `fallback` system:
 
 ```bash
-> grub2-editenv /oem/grubenv set default=fallback
+> grub2-editenv /oem/grubenv set saved_entry=fallback
 ```
 
 These examples make of the `COS_OEM` device, however it could use any device
