@@ -44,11 +44,11 @@ Building the RAW image is as simple as running:
 sudo make raw_disk
 ```
 
-This will output a `disk.raw` file in the current directory which can be run with qemu, see [booting](../getting-started/booting).
+This will output a `disk.raw` file in the current directory which can be run with qemu, see [booting](../../getting-started/booting).
 
 ### AWS
 
-No other steps are required, the raw disk can be already booted as an AMI image, see [booting](../getting-started/booting).
+No other steps are required, the raw disk can be already booted as an AMI image, see [booting](../../getting-started/booting).
 
 ### Azure
 
