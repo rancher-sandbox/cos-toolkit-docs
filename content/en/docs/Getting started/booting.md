@@ -10,18 +10,20 @@ description: >
 
 Each cOS release contains a variety of assets:
 
-- ISOs `cOS-green-$VERSION.iso.tar.xz`
-- QCOW `cOS_green_$VERSION.tar.gz.tar.xz`
-- Vagrant box `cOS_green_$VERSION.box.tar.xz`
-- RAW Disk `cOS-Vanilla-RAW-$VERSION.raw.tar.xz`
-- VHDA `cOS-Vanilla-AZURE-$VERSION.vhd.tar.xz`
-- GCE `cOS-Vanilla-GCE-green-$VERSION.raw.tar.xz`
+- ISOs `cOS-Seed-green-$VERSION-$ARCH.iso.tar.xz`
+- QCOW `cOS-Packer-green_$VERSION-QEMU-$ARCH.tar.gz.tar.xz`
+- OVA `cOS-Packer-green_$VERSION-vbox-$ARCH.tar.gz.tar.xz`
+- Vagrant box (vbox provider) `cOS-Packer-green-$VERSION-vbox-$ARCH.box.tar.xz`
+- Vagrant box (qemu provider) `cOS-Packer-green-$VERSION-QEMU-$ARCH.box.tar.xz`
+- RAW Disk `cOS-Vanilla-RAW-$VERSION-$ARCH.raw.tar.xz`
+- VHD `cOS-Vanilla-AZURE-$VERSION-$ARCH.vhd.tar.xz`
+- GCE `cOS-Vanilla-GCE-green-$VERSION-$ARCH.raw.tar.xz`
 
 here we try to summarize and document how they are meant to be consumed.
 
 ## ISO
 
-ISO images (e.g. `cOS-green-$VERSION.iso.tar.xz` ) are shipping a cOS vanilla image and they features an installer to perform an automated installation. They can be used to burn USB sticks or CD/DVD used to boot baremetals. Once booted, you can install cOS with:
+ISO images (e.g. ``cOS-Seed-green-$VERSION-$ARCH.iso.tar.xz` ) are shipping a cOS vanilla image and they feature an installer to perform an automated installation. They can be used to burn USB sticks or CD/DVD used to boot baremetals. Once booted, you can install cOS with:
 
 ```bash
 cos-install $DEVICE
@@ -88,15 +90,20 @@ For booting into Virtual machines we offer QCOW2, OVA, and raw disk recovery ima
 
 ### QCOW2
 
-QCOW2 images ( e.g. `cOS_green_$VERSION.tar.gz.tar.xz` ) contains a pre-installed cOS system which can be booted via QEMU, e.g:
+QCOW2 images ( e.g. `cOS-Packer-green-$VERSION-QEMU-$ARCH.tar.gz.tar.xz` ) contains a pre-installed cOS system which can be booted via QEMU, e.g:
 
 ```bash
 qemu-system-x86_64 -m 2048 -hda cOS -nographic
 ```
 
+### OVA
+
+Ova images ( e.g. `cOS-Packer-green-$VERSION-vbox-$ARCH.tar.gz.tar.xz` ) contains a pre-installed cOS system which can be booted via vbox.
+Please check the virtuabox docs on how to create a new VM with an existing disk.
+
 ### Vagrant
 
-Download the vagrant box artifact ( e.g. `cOS_green_$VERSION.box.tar.xz` ), extract it and run:
+Download the vagrant box artifact ( e.g. `cOS-Packer-green-$VERSION-{vbox, QEMU}-$ARCH.box.tar.xz` ), extract it and run:
 
 ```bash
 vagrant box add cos <cos-box-image>
@@ -106,7 +113,7 @@ vagrant up
 
 ### RAW disk images
 
-RAW disk images ( e.g. `cOS-Vanilla-RAW-green-$VERSION.raw.tar.xz` ) contains only the `cOS` recovery system. Those are typically used when creating derivatives images based on top of `cOS`.
+RAW disk images ( e.g. `cOS-Vanilla-RAW-green-$VERSION-$ARCH.raw.tar.xz` ) contains only the `cOS` recovery system. Those are typically used when creating derivatives images based on top of `cOS`.
 
 They can be run with QEMU with:
 
@@ -127,7 +134,7 @@ The RAW image can then be used into packer templates to generate custom Images, 
 ### Import an AWS image manually
 
 {{% pageinfo %}}
-You can also use RAW images ( e.g. `cOS-Vanilla-RAW-green-$VERSION.raw.tar.xz` ) manually when importing AMIs images and use them to generate images with Packer. See [build AMI with Packer](../../creating-derivatives/packer/build_ami)
+You can also use RAW images ( e.g. `cOS-Vanilla-RAW-green-$VERSION-$ARCH.raw.tar.xz` ) manually when importing AMIs images and use them to generate images with Packer. See [build AMI with Packer](../../creating-derivatives/packer/build_ami)
 {{% /pageinfo %}}
 
 1. Upload the raw image to an S3 bucket
@@ -197,7 +204,7 @@ stages:
 ### Importing a Google Cloud image manually
 
 {{% pageinfo %}}
-You need to use the GCE images ( e.g. `cOS-Vanilla-GCE-green-$VERSION.raw.tar.xz` ) manually when importing GCE images and use them to generate images with Packer. See [build GCE with Packer](../../creating-derivatives/packer/build_gcp)
+You need to use the GCE images ( e.g. `cOS-Vanilla-GCE-green-$VERSION-$ARCH.raw.tar.xz` ) manually when importing GCE images and use them to generate images with Packer. See [build GCE with Packer](../../creating-derivatives/packer/build_gcp)
 {{% /pageinfo %}}
 
 1. Upload the Google Cloud compressed disk to your bucket
@@ -255,10 +262,10 @@ stages:
 ### Importing an Azure image manually
 
 {{% info %}}
-You need to use the AZURE images ( e.g. `cOS-Vanilla-AZURE-green-$VERSION.raw.tar.xz` ) manually when importing Azure images.
+You need to use the AZURE images ( e.g. `cOS-Vanilla-AZURE-green-$VERSION-$ARCH.raw.tar.xz` ) manually when importing Azure images.
 {{% /info %}}
 
-1. Upload the Azure Cloud VHD disk in `.vhda` format ( extract e.g. `cOS-Vanilla-AZURE-green-0.6.0-g7d04f1db.vhd.tar.xz` ) to your bucket
+1. Upload the Azure Cloud VHD disk in `.vhda` format ( extract e.g. `cOS-Vanilla-AZURE-green-0.6.0-g7d04f1db-x86_64.vhd.tar.xz` ) to your bucket
 
 ```bash
 az storage copy --source <cos-azure-image> --destination https://<account>.blob.core.windows.net/<container>/<destination-cos-azure-image>
