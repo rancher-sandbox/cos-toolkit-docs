@@ -8,6 +8,8 @@ description: >
   Documents various methods for booting cOS vanilla images
 ---
 
+{{<image_right image="https://docs.google.com/drawings/d/e/2PACX-1vQXQFmc4MnmRsPCLR1_hCElykMWbcye6TY-zDWZhVyFbIqFEXyVsLgPIKVqUCZaQTkAE00uAK66Mt-D/pub?w=507&h=217">}}
+
 Each cOS release contains a variety of assets:
 
 - ISOs `cOS-green-$VERSION.iso.tar.xz`

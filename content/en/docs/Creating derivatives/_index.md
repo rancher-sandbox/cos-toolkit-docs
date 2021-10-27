@@ -8,15 +8,16 @@ description: >
   Documents various methods for creating cOS derivatives
 ---
 
-
-![](https://docs.google.com/drawings/d/e/2PACX-1vT0hramQcvx4DOx77VKkEbRH4UI81-jvR5je5xVgAcy-hL13956qHvnICzyqpR0iW1kiYh9BXsCvyTC/pub?w=2376&h=1107
-)
-
 A derivative is a standard container image which can be booted by cOS. 
 
-The image is composed of a base OS of choice (e.g. openSUSE, Ubuntu, etc. ) and the toolkit in order to be consumed by cOS and allow to be upgraded from. 
+We can identify a build phase where we build the derivative, and a "runtime phase" where we consume it.
 
-cOS-toolkit then converts the image to a bootable medium (ISO, packer, ova, etc) and the image itself then can be used to bootstrap other derivatives, which can in turn upgrade to any derivative built with cOS.
+![](https://docs.google.com/drawings/d/e/2PACX-1vTTOJ0G4aMpdfSHv13sgPIIFCTK3SDIlcqmDxfPbGz0AlpNPTz1FTUigr-9co33c6MwXhDcead5nWFw/pub?w=1270&h=717
+)
+
+The image is described by a Dockerfile, composed of a base OS of choice (e.g. openSUSE, Ubuntu, etc. ) and the cOS toolkit itself in order to be consumed by cOS and allow to be upgraded from by other derivatives. 
+
+cOS-toolkit then converts the OCI artifact into a bootable medium (ISO, packer, ova, etc) and the image itself then can be used to bootstrap other derivatives, which can in turn upgrade to any derivative built with cOS.
 
 A derivative can also be later re-used again as input as base-image for downstream derivatives.
 

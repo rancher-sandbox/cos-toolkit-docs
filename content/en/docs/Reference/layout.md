@@ -18,7 +18,6 @@ This mechanism ensures that a layout:
 - allows to perform recovery tasks
 - is resilient to upgrade failures
 
-
 ## Layout
 
 The basic setup consists of:
@@ -27,7 +26,7 @@ The basic setup consists of:
 - a Recovery system which allows to perform emergency tasks in case of failure of the 'A/B' partitions
 - a Fallback mechanism that boots the partitions in this sequence: "A -> B -> Recovery" in case of booting failures
 
-The upgrade happens in a transition image and take places only after all the necessary steps are completed. An upgrade of the 'A/B' partitions can be done by booting into them and running `cos-upgrade`. This will create a new pristine image that will be selected as active for the next reboot.
+The upgrade happens in a transition image and take places only after all the necessary steps are completed. An upgrade of the 'A/B' partitions can be done by booting into them and running `cos-upgrade`. This will create a new pristine image that will be selected as active for the next reboot, the old one will be flagged as passive. If we are performing the same from the passive system, only the active is subject to changes.
 
 Similarly, a recovery system can be upgraded as well by running `cos-upgrade --recovery`. This will upgrade the recovery system instead of the active/passive. Note both commands needs to be run inside the active or passive system.
 

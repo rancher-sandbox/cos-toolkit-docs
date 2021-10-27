@@ -8,11 +8,15 @@ description: >
   How to run upgrades in cOS
 ---
 
-<img style="float: right;" src="https://docs.google.com/drawings/d/e/2PACX-1vToVYmh_oyspPzr6zSdfR5bpPLsHI9p4yp6MIAahDdC9O1nCSq4cGHZ0EIJ0wqnV51ZgKFxDX7l_a3M/pub?w=382&h=308">
+{{<image_right image="https://docs.google.com/drawings/d/e/2PACX-1vTM9N71bvNnf8PqeHyzVdfVACHix8vTS5aMGsdQGz2eVqyWyKlVreep4UJVVnNpSAKPLVOwEhwAmhTP/pub?w=379&h=308">}}
+
+cOS and every derivative can upgrade, rollback or just switch to different versions in runtime by using the toolkit installed inside the image.
 
 To upgrade an installed system, just run `cos-upgrade` and reboot. 
 
 This will perform an upgrade based on the default derivative configuration for the image. See [general configuration](../../customizing/general_configuration) on how to configure defaults when building a derivative.
+
+"Upgrades" are not carried over the usual way of treating each single package individually: cOS considers the container image as a new system where to boot into. It will pull a new container image during this phase, which will be booted on the next reboot.
 
 ## Upgrade to a specific container image
 
