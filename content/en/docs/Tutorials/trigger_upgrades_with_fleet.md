@@ -8,6 +8,7 @@ description: >
   Using fleet to trigger upgradeson cOS based derivatives
 ---
 
+![](https://docs.google.com/drawings/d/e/2PACX-1vQPv9TI3D95vocG7oCHmVmNuuvBYuc2_0kaxAc6xnCBM9mFTnUTFIIDkzZKUFFP-xyw2Hg4q9XhxLD8/pub?w=1185&h=712)
 
 In this tutorial we will:
 

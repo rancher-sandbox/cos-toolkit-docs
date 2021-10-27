@@ -47,9 +47,11 @@ Depending on the base image (`FROM opensuse/leap:15.3` in the sample), you must 
 
 ## Generating from CI image
 
-You can just use the published final images:
+Derivatives can be stacked on top of another, so it is possible to reuse directly also the vanilla cOS images:
 
 {{<githubembed repo="rancher-sandbox/cos-toolkit" file="examples/cos-official/Dockerfile" lang="Dockerfile">}}
+
+The images contains already the toolkit, so they can be used as-is and apply further customization on top.
 
 ## From scratch
 
@@ -68,3 +70,16 @@ All the method above imply that the image generated will be the booting one, the
 - Everything under `/system/oem` will be loaded during the various stage (boot, network, initramfs). You can check [here](https://github.com/rancher-sandbox/cOS-toolkit/tree/e411d8b3f0044edffc6fafa39f3097b471ef46bc/packages/cloud-config/oem) for the `cOS` defaults. See `00_rootfs.yaml` to customize the booting layout.
 - `/etc/cos/bootargs.cfg` contains the booting options required to boot the image with GRUB
 - `/etc/cos-upgrade-image` contains the default upgrade configuration for recovery and the booting system image
+
+## Configuration file
+
+The example configuration file shows how to enable the cos-toolkit repository:
+
+{{<githubembed repo="rancher-sandbox/cos-toolkit" file="examples/standard/conf/luet.yaml" lang="yaml">}}
+
+Repositories have the following fields, notably:
+
+- `name`: Repository name
+- `enable`: Enable/disables the repository
+- `arch`: Denotes the arch repository. If present, it will enable the repository automatically if the corresponding arch is matching with the host running `luet`. `enable: true` would override this behavior
+- `reference`: A reference to a repository index file to use to retrieve the repository metadata. This can be used to point to a different repository index to act as a "wayback machine". At that point the client will see the repository state from that snapshot.

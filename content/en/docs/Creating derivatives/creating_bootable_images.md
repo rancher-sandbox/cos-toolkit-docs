@@ -12,6 +12,8 @@ description: >
 A derivative is a simple container image which can be processed by the cOS toolkit in order to be bootable and installable. This section describes the requirements to create a container image that can be run by `cOS`.
 
 ## Requirements
+{{<image_right image="https://docs.google.com/drawings/d/e/2PACX-1vQBfT10W88mD1bbReDmAJIOPF3tWdVHP7QE9w7W7ByOIzoKGOdh2z5YWsKf7wn8csFF_QGrDXgGsPWg/pub?w=478&h=178">}}
+
 Bootable images are standard container images, that means the usual `build` and `push` workflow applies, and building images is also a way to persist [oem customizations](../../customizing). 
 
 The base image can be any Linux distribution that is compatible with our flavors.
@@ -20,6 +22,8 @@ The image needs to ship:
 - parts of the cos-toolkit (required, see below)
 - kernel (required)
 - initrd (required)
+- grub (required)
+- dracut (optional, kernel and initrd can be consumed from the cOS repositories)
 - microcode (optional, not required in order to boot, but recomended)
 
 ## Example
@@ -61,11 +65,15 @@ By default the initrd is expected to be symlinked to `/boot/initrd` and the kern
 
 ## Building
 
+![](https://docs.google.com/drawings/d/e/2PACX-1vS6eRyjnjdQI7OBO0laYD6vJ2rftosmh5eAog6vk_BVj8QYGGvnZoB0K8C6Qdu7SDz7p2VTxejcZsF6/pub?w=956&h=339)
+
 The workflow would be then:
 
 1) `docker build` the image
 2) `docker push` the image to some registry
 3) `cos-upgrade --docker-image --no-verify $IMAGE` from a cOS machine ( or `cos-deploy` if bootstrapping a cloud image )
+
+The following can be incorporated in any standard gitops workflow.
 
 You can explore more examples in the [example section](../../examples/creating_bootable_images) on how to create bootable images.
 

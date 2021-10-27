@@ -8,6 +8,14 @@ description: >
   Configure the system in the various stages: boot, initramfs, fs, network, reconcile
 ---
 
+We have a custom augmented cloud-init syntax that allows to hook into various stages of the system, for example:
+- Initramfs load
+- Boot
+- Network availability
+- During upgrades, installation, deployments  , and resets
+
+![Stages](https://docs.google.com/drawings/d/e/2PACX-1vRuITNgkCeDfS4LqxDvz2j4WxuRDzU8dJOTa5CY88ya8_hJ1QeaGKipTanggtiXiCxhwkUpYld-Cbxa/pub?w=885&h=761)
+
 Cloud-init files in `/system/oem`, `/oem` and `/usr/local/oem` are applied in 5 different phases: `boot`, `network`, `fs`, `initramfs` and `reconcile`. All the available cloud-init keywords can be used in each stage. Additionally, it's possible also to hook before or after a stage has run, each one has a specific stage which is possible to run steps: `boot.after`, `network.before`, `fs.after` etc.
 
 Multiple stages can be specified in a single cloud-init file.
@@ -21,7 +29,11 @@ When a cOS derivative boots it creates sentinel files in order to allow to execu
 To execute a block using the sentinel files you can specify: `if: '[ -f "/run/cos/..." ]'`, see the examples below.
 {{% /alert %}}
 
-#### rootfs
+## Stages
+
+Below there is a detailed list of the stages available that can be used in the cloud-init configuration files
+
+### `rootfs`
 
 This is the earliest stage, running before switching root, just right after the
 root is mounted in `/sysroot` and before applying the immutable rootfs configuration.
@@ -39,7 +51,7 @@ stage:
         OVERLAY: "tmpfs:25%"
 ```
 
-#### initramfs
+### `initramfs`
 
 This is still an early stage, running before switching root. Here you can apply radical changes to the booting setup of `cOS`.
 Despite this is executed before switching root this exection runs chrooted into the target root after the immutable rootfs is set up and ready.
@@ -62,7 +74,7 @@ stages:
           # Run something when we are booting in recovery mode
 ```
 
-#### boot
+### `boot`
 
 This stage is executed after initramfs has switched root, during the `systemd` bootup process.
 
@@ -83,7 +95,7 @@ stages:
           # Run something when we are booting in recovery mode
 ```
 
-#### fs
+### `fs`
 
 This stage is executed when fs is mounted and is guaranteed to have access to `COS_STATE` and `COS_PERSISTENT`.
 
@@ -105,7 +117,7 @@ stages:
 ```
 
 
-#### network
+### `network`
 
 This stage is executed when network is available
 
@@ -121,7 +133,7 @@ stages:
           # Network is available, do something..
 ```
 
-#### reconcile
+### `reconcile`
 
 This stage is executed `5m` after boot and periodically each `60m`.
 
@@ -137,7 +149,7 @@ stages:
           touch /run/sentinel
 ```
 
-#### after-install
+### `after-install`
 
 This stage is executed after installation of the OS has ended (after calling `cos-install`).
 
@@ -158,7 +170,7 @@ stages:
           # Run something when we are booting in recovery mode
 ```
 
-#### after-install-chroot
+### `after-install-chroot`
 
 This stage is executed after installation of the OS has ended (after calling `cos-install`).
 {{% alert title="Note" %}}
@@ -178,7 +190,7 @@ stages:
 ```
 
 
-#### after-upgrade
+### `after-upgrade`
 
 This stage is executed after upgrade of the OS has ended (after calling `cos-upgrade`).
 
@@ -199,7 +211,7 @@ stages:
           # Run something when we are booting in recovery mode
 ```
 
-#### after-upgrade-chroot
+### `after-upgrade-chroot`
 
 This stage is executed after upgrade of the OS has ended (after calling `cos-upgrade`).
 {{% alert title="Note" %}}
@@ -218,7 +230,7 @@ stages:
          ...
 ```
 
-#### after-reset
+### `after-reset`
 
 This stage is executed after reset of the OS has ended (after calling `cos-reset`).
 
@@ -239,7 +251,7 @@ stages:
           # Run something when we are booting in recovery mode
 ```
 
-#### after-reset-chroot
+### `after-reset-chroot`
 
 This stage is executed after reset of the OS has ended (after calling `cos-reset`).
 {{% alert title="Note" %}}
@@ -258,7 +270,7 @@ stages:
          ...
 ```
 
-#### after-deploy
+### `after-deploy`
 
 This stage is executed after deployment of the OS has ended (after calling `cos-deploy`).
 
@@ -279,7 +291,7 @@ stages:
           # Run something when we are booting in recovery mode
 ```
 
-#### after-deploy-chroot
+### `after-deploy-chroot`
 
 This stage is executed after deployment of the OS has ended (after calling `cos-deploy`).
 {{% alert title="Note" %}}
@@ -304,7 +316,7 @@ stages:
           # Run something when we are booting in recovery mode
 ```
 
-#### before-install
+### `before-install`
 
 This stage is executed before installation (executed during `cos-install`).
 
@@ -326,7 +338,7 @@ stages:
 ```
 
 
-#### before-upgrade
+### `before-upgrade`
 
 This stage is executed before upgrade of the OS (executed during `cos-upgrade`).
 
@@ -347,7 +359,7 @@ stages:
           # Run something when we are booting in recovery mode
 ```
 
-#### before-reset
+### `before-reset`
 
 This stage is executed before reset of the OS (executed during `cos-reset`).
 
@@ -368,7 +380,7 @@ stages:
           # Run something when we are booting in recovery mode
 ```
 
-#### before-deploy
+### `before-deploy`
 
 This stage is executed before deployment of the OS has ended (executed during `cos-deploy`).
 
