@@ -39,7 +39,8 @@ The default partitioning is created during installation and is expected to be pr
 - a `COS_STATE` partition that will contain our active, passive and recovery images. The images are located under the `/cOS` directory
 - a `COS_PERSISTENT` partition which contains the persistent user data. This directory is mounted over `/usr/local` during runtime
 - a `COS_OEM` partition which contains the cloud-init oem files, which is mounted over `/oem` during runtime
+- a `COS_RECOVERY` partition which contains the recovery system image
 
-The `COS_STATE` partitions contains the `active`, `passive` and `recovery` system. While the `active` and `passive` are `.img` files which are loopback mounted, the `recovery` partition can also be a `squashfs`. This ensures the immutability aspect and ease out building derivative in constrained environments (e.g. when we have restricted permissions and we can't mount).
+The `COS_STATE` partitions contains the `active`, `passive` . While the `active` and `passive` are `.img` files which are loopback mounted, the `recovery` system is in `COS_RECOVERY` and can also be a `squashfs` file (provided in `/cOS/recovery.squashfs`). This ensures the immutability aspect and ease out building derivative in constrained environments (e.g. when we have restricted permissions and we can't mount).
 
 For more information about the immutability aspect of cOS, see [Immutable rootfs](../immutable_rootfs)
