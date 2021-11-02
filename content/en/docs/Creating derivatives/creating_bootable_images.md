@@ -25,6 +25,7 @@ The image needs to ship:
 - grub (required)
 - dracut (optional, kernel and initrd can be consumed from the cOS repositories)
 - microcode (optional, not required in order to boot, but recomended)
+- [cosign and luet-cosign](../../getting-started/cosign) packages (optional, required if you want to verify the images installed by luet)
 
 ## Example
 
@@ -38,10 +39,16 @@ FROM quay.io/luet/base:$LUET_VERSION AS luet
 FROM opensuse/leap:15.3 # or Fedora, Ubuntu
 ARG ARCH=amd64
 ENV ARCH=${ARCH}
+ENV COSIGN_EXPERIMENTAL=1 # keyless verify
+ENV COSIGN_REPOSITORY=raccos/releases-green  # repo with the signatures
 RUN zypper in -y ... # apt-get, dnf...
 
+# Here we install cosign and luet-cosign so we can verify that the images installed have been signed
+RUN luet install -y meta/cos-verify
+
 # That's where we install the minimal cos-toolkit meta-package (which pulls the minimal packages needed in order to boot)
-RUN luet install -y meta/cos-minimal
+# note that we are setting `--plugin luet-cosign` so luet verifies the correct signatures of the packages on install
+RUN luet install --plugin luet-cosign -y meta/cos-minimal
 
 # Other custom logic. E.g, customize statically the upgrade channel, default users, packages.
 ...
@@ -54,6 +61,29 @@ In the example above, the cos-toolkit parts that are **required** are pulled in 
 {{% alert title="Note" %}}
 {{<package package="system/cloud-config" >}} is optional, but provides `cOS` defaults setting, like default user/password and so on. If you are not installing it directly, an equivalent cloud-config has to be provided in order to properly boot and run a system, see [oem configuration](../../customizing/oem_configuration).
 {{% /alert %}}
+
+#### Using cosign in your derivative
+
+The {{<package package="meta/cos-verify" >}} is a meta package that will pull {{<package package="toolchain/cosign" >}} and {{<package package="toolchain/luet-cosign" >}} .
+
+{{<package package="toolchain/cosign" >}} and {{<package package="toolchain/luet-cosign" >}} are optional packages that would install cosign and luet-cosign in order to verify the packages installed by luet.
+
+You can use cosign to both verify that packages coming from cos-toolkit are verified and sign your own derivative artifacts
+
+{{% alert title="Note" %}}
+If you want to manually verify cosign and luet-cosign packages before installing them with luet, you can do so by:
+ - Install [Cosign](https://github.com/sigstore/cosign)
+ - Export the proper vars
+   - `export COSIGN_EXPERIMENTAL=1` for keyless verify
+   - `export COSIGN_REPOSITORY=raccos/releases-green` to point cosign to the repo the signatures are stored on
+ - Manually verify the signatures on both packages
+   - Check the latest $VERSION for both packages at the repo (i.e. `https://quay.io/repository/costoolkit/releases-green?tab=tags`) 
+   - `cosign verify quay.io/costoolkit/releases-green:luet-cosign-toolchain-$VERSION`
+   - `cosign verify quay.io/costoolkit/releases-green:cosign-toolchain-$VERSION`
+{{% /alert %}}
+
+
+For more info, check the [cosign](../../getting-started/cosign) page.
 
 ## Initrd
 The image should provide at least `grub`, `systemd`, `dracut`, a kernel and an initrd. Those are the common set of packages between derivatives. See also [package stack](../package_stack). 
