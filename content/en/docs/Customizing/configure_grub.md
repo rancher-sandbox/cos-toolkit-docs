@@ -144,7 +144,8 @@ The grub menu boot entry can also be set with `grub2-editenv`:
 
 {{% alert title="Additional menu entries" %}}
 
-Since {{<package package="system/grub2-config" >}} >= 0.0.14 it is possible to add multiple custom menu entries to the grub menu by creating a `/grubmenu` config file in one of the available partitions (`COS_STATE`, `COS_PERSISTENT`, `COS_OEM` ) detected by GRUB2. First match wins. The `grubmenu` file will be sourced at the end of the boot process, and can contain several `menuentry` blocks.
+Since {{<package package="system/grub2-config" >}} >= 0.0.14 it is possible to add multiple custom menu entries to GRUB by creating a `/grubmenu` config file in one of the available partitions detected by GRUB2 during boot. The file will be loaded from the first partition found by GRUB that have the `grubmenu` file. First match wins. 
+The `grubmenu` file will be sourced at the end of the boot process, and can contain several `menuentry` blocks.
 
 {{% /alert %}}
 
