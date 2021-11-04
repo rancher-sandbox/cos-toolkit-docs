@@ -36,7 +36,7 @@ See also [../install] for installation options.
 After the first boot you can also switch to a derivative by:
 
 ```bash
-cos-upgrade --docker-image --no-verify $IMAGE
+cos-upgrade --docker-image --no-verify --no-cosign $IMAGE
 ```
 
 ### Unattended deployment

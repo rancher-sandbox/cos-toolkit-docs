@@ -25,7 +25,7 @@ The image needs to ship:
 - grub (required)
 - dracut (optional, kernel and initrd can be consumed from the cOS repositories)
 - microcode (optional, not required in order to boot, but recomended)
-- [cosign and luet-cosign](../../getting-started/cosign) packages (optional, required if you want to verify the images installed by luet)
+- [cosign and luet-cosign](../cosign) packages (optional, required if you want to verify the images installed by luet)
 
 ## Example
 
@@ -83,7 +83,7 @@ If you want to manually verify cosign and luet-cosign packages before installing
 {{% /alert %}}
 
 
-For more info, check the [cosign](../../getting-started/cosign) page.
+For more info, check the [cosign](../cosign) page.
 
 ## Initrd
 The image should provide at least `grub`, `systemd`, `dracut`, a kernel and an initrd. Those are the common set of packages between derivatives. See also [package stack](../package_stack). 
