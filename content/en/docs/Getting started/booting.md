@@ -31,10 +31,12 @@ ISO images (e.g. ``cOS-Seed-green-$VERSION-$ARCH.iso.tar.xz` ) are shipping a cO
 cos-install $DEVICE
 ```
 
-and after first boot you can switch to a derivative by:
+See also [../install] for installation options.
+
+After the first boot you can also switch to a derivative by:
 
 ```bash
-cos-upgrade --docker-image --no-verify $IMAGE
+cos-upgrade --docker-image --no-verify --no-cosign $IMAGE
 ```
 
 ### Unattended deployment
