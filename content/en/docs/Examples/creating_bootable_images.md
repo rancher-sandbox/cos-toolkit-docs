@@ -81,8 +81,8 @@ Repositories have the following fields, notably:
 
 - `name`: Repository name
 - `enable`: Enable/disables the repository
-- `arch`: Denotes the arch repository. If present, it will enable the repository automatically if the corresponding arch is matching with the host running `luet`. `enable: true` would override this behavior
-- `reference`: A reference to a repository index file to use to retrieve the repository metadata. This can be used to point to a different or an older repository index to act as a "wayback machine". The client will consume the repository state from that snapshot instead of latest.
+- `arch`:  (optional) Denotes the arch repository. If present, it will enable the repository automatically if the corresponding arch is matching with the host running `luet`. `enable: true` would override this behavior
+- `reference`: (optional) A reference to a repository index file to use to retrieve the repository metadata instead of latest. This can be used to point to a different or an older repository index to act as a "wayback machine". The client will consume the repository state from that snapshot instead of latest.
   
 {{% alert title="Note" %}}
 The `reference` field has to be a valid tag. For example, for the `green` flavor, browse the relevant [container image list page](https://quay.io/repository/costoolkit/releases-green?tab=tags). The repository index snapshots are prefixed with a timestamp, and ending in `repository.yaml`. For example ` 20211027153653-repository.yaml`
