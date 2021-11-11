@@ -80,7 +80,7 @@ cos-installer --partition-layout <file> <device>
 While specifying a custom layout it is necessary to at least create 4 partitions: `COS_OEM`, `COS_STATE`, `COS_RECOVERY`, `COS_PERSISTENT`. Keep in mind the following while adjusting the partition sizes manually:
 
 - `COS_OEM` typically is used to store cloud-init files, so it can be also small. 
-- `COS_STATE` is used to store all the system images, which by default are set to `3GB`. This value is customizable [../../customizing/general_configuration](in our configuration file). A system may contain 2 images (Active/Passive), plus additional space for a third transitioning image which will be created during upgrades.
+- `COS_STATE` is used to store all the system images, which by default are set to `3GB`. This value is customizable [in our configuration file](../../customizing/general_configuration). A system may contain 2 images (Active/Passive), plus additional space for a third transitioning image which will be created during upgrades.
 - `COS_RECOVERY` contains the recovery image, and additional space for a transition image during upgrades
 - `COS_PERSISTENT` is the persistent partition that is mounted over `/usr/local`. Typically is set to take all the free space left.
 {{% /alert %}}
