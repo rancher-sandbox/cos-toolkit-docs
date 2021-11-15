@@ -25,6 +25,9 @@ cos-installer [options] <device>
 | --no-format        | Don't format disks. It is implied that COS_STATE, COS_RECOVERY, COS_PERSISTENT, COS_OEM are already existing |
 | --config           | Cloud-init config file (see below)                                                                           |
 | --partition-layout | Partitioning layout file (see below)                                                                         |
+| --docker-image     | Install a specified container image                                                                          |
+| --no-verify        | Disable mtree checksum verification (requires images manifests generated with mtree separately)              |
+| --no-cosign        | Disable cosign verification (requires images with signatures)                                                |
 
 ### Custom OEM configuration
 
@@ -85,3 +88,31 @@ While specifying a custom layout it is necessary to at least create 4 partitions
 - `COS_PERSISTENT` is the persistent partition that is mounted over `/usr/local`. Typically is set to take all the free space left.
 {{% /alert %}}
 
+### Installation from 3rd party LiveCD or rescue mediums
+
+The installer can be used to perform installations also from outside the cOS or standard derivative ISOs.
+
+For instance, it is possible to install cOS (or any derivative) with the installer from another bootable medium, or a rescue mode which is booting from RAM, given there is enough free RAM available. 
+
+#### With Docker
+
+If in the rescue system, or LiveCD you have docker available, it can be used to perform an installation
+
+```bash
+docker run --privileged -v $DEVICE:$DEVICE -ti quay.io/costoolkit/releases-green:cos-system-0.7.4-2 cos-installer --docker-image $IMAGE $DEVICE
+```
+
+Where `$IMAGE` is the container image that we want to install (e.g. `quay.io/costoolkit/releases-green:cos-system-0.7.4-2` ), and `$DEVICE` is the the device where to perform the installation to (e.g. /dev/sda).
+
+Note, we used the `quay.io/costoolkit/releases-green:cos-system-0.7.4-2` image which contains the installer and the dependencies, similarly another derivative or another cos-system version can be used.
+
+
+#### By using manually the installer
+
+Similarly, the same mechanism can be used without docker. The [installer](https://raw.githubusercontent.com/rancher-sandbox/cOS-toolkit/master/packages/installer/cos.sh) can be used standalone:
+
+```
+GRUBCONFIG=<grub.cfg> ./cos.sh install [options]
+```
+
+An example grub config file can be found [here](https://raw.githubusercontent.com/rancher-sandbox/cOS-toolkit/master/packages/grub2/config/grub.cfg)
