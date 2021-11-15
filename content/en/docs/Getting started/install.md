@@ -112,7 +112,7 @@ Note, we used the `quay.io/costoolkit/releases-green:cos-system-0.7.4-2` image w
 Similarly, the same mechanism can be used without docker. The [installer](https://raw.githubusercontent.com/rancher-sandbox/cOS-toolkit/master/packages/installer/cos.sh) can be used standalone:
 
 ```
-GRUBCONFIG=<grub.cfg> ./cos.sh install [options]
+GRUBCONF=<grub.cfg> ./cos.sh install [options]
 ```
 
 An example grub config file can be found [here](https://raw.githubusercontent.com/rancher-sandbox/cOS-toolkit/master/packages/grub2/config/grub.cfg)
