@@ -28,62 +28,11 @@ While on the client side, the upgrade workflow is:
 
 *Note*: The manual build steps are not stable and will likely change until [we build a single CLI](https://github.com/rancher-sandbox/cOS-toolkit/issues/108) to encompass the `cos-toolkit` components, rather use `source .envrc && cos-build` for the moment being while iterating locally.
 
-## Example
-
-[The sample repository](https://github.com/rancher-sandbox/cos-toolkit-sample-repo) has the following layout:
-
-```
-├── Dockerfile
-├── .envrc
-├── .github
-│   └── workflows
-│       ├── build.yaml
-│       └── test.yaml
-├── .gitignore
-├── iso.yaml
-├── LICENSE
-├── .luet.yaml
-├── Makefile
-├── packages
-│   ├── sampleOS
-│   │   ├── 02_upgrades.yaml
-│   │   ├── 03_branding.yaml
-│   │   ├── 04_accounting.yaml
-│   │   ├── build.yaml
-│   │   ├── definition.yaml
-│   │   └── setup.yaml
-│   └── sampleOSService
-│       ├── 10_sampleOSService.yaml
-│       ├── build.yaml
-│       ├── definition.yaml
-│       └── main.go
-└── README.md
-```
-
-In the detail:
-- the `packages` directory is the sample Luet tree that contains the [package definitions](https://luet-lab.github.io/docs/docs/concepts/packages/specfile/#build-specs) [1] which composes the derivative. 
-For an overview of the package syntax and build process, see the [official luet documentation](https://luet-lab.github.io/docs/docs/concepts/packages/)
-- `.luet.yaml` contains a configuration file for `luet` pointing to the `cos` repositories, used to fetch packages required in order to build the iso [2] **and** to fetch definitions from [3].
-- `Makefile` and `.envrc` are just wrappers around `luet build` and `luet create-repo`
-- `iso.yaml` a YAML file that describes what packages to embed in the final ISO
-
-*Note*: There is nothing special in the layout, and neither the `packages` folder naming is special. By convention we have chosen to put the compilation specs in the `packages` folder, the `Makefile` is just calling `luet` with a set of default parameters according to this setup.
-
-The `.envrc` is provided as an example to automatize the build process: it will build a docker image with the required dependencies, check the [development docs](../development) about the local requirements if you plan to build outside of docker.
-
-**[1]** _In the sample above we just declare two packages: `sampleOS` and `sampleOSService`. Their metadata are respectively in `packages/sampleOS/definition.yaml` and `packages/sampleOSService/definition.yaml`_
-
-**[2]** _We consume `live/systemd-boot` and `live/syslinux` from `cos` instead of building them from the sample repository_
-
-**[3]** _see also [using git submodules](https://github.com/rancher-sandbox/epinio-appliance-demo-sample#main-difference-with-cos-toolkit-sample-repo) instead_
-
 ## Single image OS
 
 Derivatives are composed by a combination of specs to form a final package that is consumed as a single image OS.
 
 The container image during installation and upgrade, is converted to an image file with a backing ext2 fs. 
-
-In the sample repository [we have defined `system/sampleOS`](https://github.com/rancher-sandbox/cos-toolkit-sample-repo/blob/master/packages/sampleOS/definition.yaml) as our package, that will later on will be converted to image.
 
 Packages in luet have `runtime` and `buildtime` specifications into `definition.yaml` and `build.yaml` respectively, and in the buildtime we set:
 
@@ -128,53 +77,6 @@ excludes:
 - ..
 ```
 
-__Note__: In the [EpinioOS sample](https://github.com/rancher-sandbox/epinio-appliance-demo-sample/blob/19c530ea53ad577e60adbae1d419781fcea808f5/packages/epinioOS/build.yaml#L1), we use `requires` instead of `join`:
-
-```yaml
-requires:
-- category: "system"
-  name: "cos"
-  version: ">=0"
-- name: "k3s"
-  category: "app"
-  version: ">=0"
-- name: "policy"
-  category: "selinux"
-  version: ">=0"
-```
-
-The difference is that with `requires` we use the _building_ container that was used to build the packages instead of creating a new image from their results: we are not consuming their artifacts in this case, but the environment used to build them. See also [the luet docs](https://luet-lab.github.io/docs/docs/concepts/packages/specfile/#package-source-image) for more details. 
-
-### Building
-
-Refering to the `sampleOS` example, we set the [Makefile](https://github.com/rancher-sandbox/cos-toolkit-sample-repo/blob/8ed369c6ca76f1fc69e49d8001c689c8d0371d30/Makefile#L13) accordingly to compile the system package.
-
-With luet installed locally and docker running, in your git checkout you can build it also by running `luet build --tree packages system/sampleOS`. This will produce an artifact of `system/sampleOS`. Similary, we could also build separately the sample application with `luet build --tree packages app/sampleOSService`.
-
-The build process by default results in a `build` folder containing the package and the compilation metadata in order to generate a repository.
-
-_Note on reproducibility_: See [the difference between our two samples repositories](https://github.com/rancher-sandbox/epinio-appliance-demo-sample#main-difference-with-cos-toolkit-sample-repo) for an explanation of what are the implications of using a `.luet.yaml` file for building instead of a git submodule.
-
-## Additional packages
-
-In our sample repo we have split the logic of a separate application in `app/sampleOSService`. 
-
-`sampleOSService` is just an HTTP server that we would like to have permanently in the system and on boot.
-
-Thus we define it as a dependency in the `system/sampleOS`'s `requires` section:
-
-```yaml
-requires:
-...
-- category: "app"
-  name: "sampleOSService"
-  version: ">=0"
-```
-
-_Note_ If you are wondering about copying just single files, there is [an upstream open issue](https://github.com/mudler/luet/issues/190) about it.
-
-In this way, when building our `sampleOS` package, `luet` will automatically apply the compilation spec of our package on top.
-
 ## Templating
 
 The package `build` definition supports [templating](https://luet-lab.github.io/docs/docs/concepts/packages/templates/), and global interpolation of build files with multiple values files.
@@ -182,8 +84,6 @@ The package `build` definition supports [templating](https://luet-lab.github.io/
 Values file can be specified during build time in luet with the ```--values``` flag (also multiple files are allowed) and, if you are familiar with `helm` it using the same engine under the hood, so all the functions are available as well.
 
 `cos-toolkit` itself uses [default values files](https://github.com/rancher-sandbox/cOS-toolkit/tree/master/values) for every supported distributions.
-
-For a more complex example involving values file, [see the epinio appliance example](https://github.com/rancher-sandbox/epinio-appliance-demo-sample).
 
 Templates uses cases are for: resharing common pieces between flavors, building for different platforms and architectures, ...
 

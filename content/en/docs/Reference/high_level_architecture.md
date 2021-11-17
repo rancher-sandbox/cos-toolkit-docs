@@ -37,7 +37,7 @@ The fundamental phases can be summarized in the following steps:
 - Add metadata(s) and create a repository
 - (optionally) publish the repository and the artefacts
 
-The developer of the derivative applies a customization layer during build, which is an augmentation layer in the same form of `cos-toolkit` itself. [An example repository is provided](https://github.com/rancher-sandbox/cos-toolkit-sample-repo) that shows how to build a customOS that can be maintained with a container image registry.
+The developer of the derivative applies a customization layer during build, which is an augmentation layer in the same form of `cos-toolkit` itself.
 
 ## Distribution
 
