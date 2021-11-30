@@ -14,5 +14,7 @@ jobs:
         run: |
           npm install postcss-cli
           npm install autoprefixer
+          curl https://raw.githubusercontent.com/rancher-sandbox/cOS-toolkit/master/scripts/get_luet.sh | sudo bash -
+          sudo luet install -y toolchain/yq
       - name: Build pages
-        run: make build
+        run: make generate-docs build
