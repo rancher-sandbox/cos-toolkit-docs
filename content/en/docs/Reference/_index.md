@@ -12,5 +12,3 @@ description: >
 ### Samples repositories
 
 - [Build a derivative and upgrade it with fleet](https://github.com/rancher-sandbox/cos-fleet-upgrades-sample)
-- [Sample repository](https://github.com/rancher-sandbox/cos-toolkit-sample-repo)
-- [EpinioOS sample repository](https://github.com/rancher-sandbox/epinio-appliance-demo-sample)

@@ -37,5 +37,3 @@ The following are the `cOS` default oem files, which are shipped within the {{<p
 ```
 
 You can either override the above files, or alternatively not consume the {{<package package="system/cloud-config" >}} package while building a derivative.
-
-[See also the example appliance](https://github.com/rancher-sandbox/epinio-appliance-demo-sample#images)

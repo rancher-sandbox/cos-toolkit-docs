@@ -21,7 +21,7 @@ Where `iso.yaml` is the iso specification file, and `--image $IMAGE` is the cont
 
 An example of a yaml file using the cos-toolkit opensuse repositories and syslinux:
 
-{{<githubembed repo="rancher-sandbox/cos-toolkit-sample-repo" file="iso.yaml" lang="yaml">}}
+{{<githubembed repo="mudler/c3os" file="iso.yaml" lang="yaml">}}
 
 An example using GRUB instead:
 

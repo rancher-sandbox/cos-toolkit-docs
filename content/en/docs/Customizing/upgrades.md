@@ -12,7 +12,7 @@ description: >
 However, it's possible to tweak the default behavior of `cos-upgrade` to point to a specific docker image/tag, or a different release channel.
 
 
-By default, `cos` derivatives if not specified will point to latest `cos-toolkit`. To override, you need to or overwrite the content of `/system/oem/02_upgrades.yaml` or supply an additional one, e.g. `/system/oem/03_upgrades.yaml` in the final image, see [an example here](https://github.com/rancher-sandbox/epinio-appliance-demo-sample/blob/master/packages/epinioOS/02_upgrades.yaml).
+By default, `cos` derivatives if not specified will point to latest `cos-toolkit`. To override, you need to or overwrite the content of `/system/oem/02_upgrades.yaml` or supply an additional one, e.g. `/system/oem/03_upgrades.yaml` in the final image, see [the default here](https://github.com/rancher-sandbox/cOS-toolkit/blob/master/packages/cloud-config/oem/02_upgrades.yaml).
 
 ## Configuration
 
@@ -38,7 +38,6 @@ Specifically, it allows to configure:
 - **VERIFY**: Turns on and off image verification. Currently available for official `cOS` release channels
 - **RECOVERY_IMAGE**: Allows to specify a different image for the recovery partition. Similarly to **UPGRADE_IMAGE** needs to be either an image reference or a package.
 
-An example on how to tweak this file via cloud-init is available [here](https://github.com/rancher-sandbox/cos-toolkit-sample-repo/blob/7355876847367b75485873987e1217f1e1fe6254/packages/sampleOS/02_upgrades.yaml#L41)
 
 ## Changing the default release channel
 
@@ -65,8 +64,3 @@ repositories:
   - "quay.io/costoolkit/releases-green"
 ```
 
-An example on how to tweak this file via cloud-init is available [here](https://github.com/rancher-sandbox/cos-toolkit-sample-repo/blob/7355876847367b75485873987e1217f1e1fe6254/packages/sampleOS/02_upgrades.yaml#L11)
-
-## References
-
-- [complete example and documentation](https://github.com/rancher-sandbox/epinio-appliance-demo-sample#images).
