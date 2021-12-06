@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 set -e
 # This scripts read package specs with a 'documentation' field and generates the corresponding pages in the website
 
