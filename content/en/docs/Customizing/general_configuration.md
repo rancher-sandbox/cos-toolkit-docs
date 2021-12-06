@@ -16,4 +16,4 @@ cOS during installation, reset and upgrade (`cos-installer`, `cos-reset` and `co
 
 Below you can find a full example of the config file:
 
-{{<githubembed repo="rancher-sandbox/cos-toolkit" file="examples/standard/files/etc/cos/config" lang="bash">}}
+{{<githubembed repo="rancher-sandbox/cos-toolkit" file="packages/cos-config/cos-config" lang="bash">}}
