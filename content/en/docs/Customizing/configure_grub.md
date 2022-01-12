@@ -56,13 +56,17 @@ if [ -n "$recoverylabel" ]; then
     set kernelcmd="console=tty1 root=live:CDLABEL=$recoverylabel rd.live.dir=/ rd.live.squashimg=$img panic=5"
 else
     # Boot arguments when the image is used as active/passive
-    set kernelcmd="console=tty1 root=LABEL=$label iso-scan/filename=$img panic=5 security=selinux selinux=1"
+    set kernelcmd="console=tty1 root=LABEL=$label iso-scan/filename=$img panic=5 security=selinux rd.cos.oemlabel=COS_OEM selinux=1"
 fi
 
 set initramfs=/boot/initrd
 ```
 
 You can tweak that file to suit your needs if you need to specify persistent boot arguments.
+
+{{% alert title="Note" %}}
+`rd.cos.oemlabel=COS_OEM` is required inside the bootargs in order to access to the `/oem` mount within the rootfs stage. `COS_OEM` is the default label for the oem partition.
+{{% /alert %}}
 
 ## Grub environment variables
 
