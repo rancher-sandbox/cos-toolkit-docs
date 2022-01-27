@@ -69,3 +69,9 @@ In the derivative then it's sufficient to upgrade to that image with `cos-upgrad
 ```bash
 $> cos-upgrade --no-verify --docker-image $NEW_IMAGE
 ```
+
+## Adding login keys at boot
+
+To add users key from the GRUB menu prompt, edit the boot cmdline and add the following kernel parameters: 
+
+`stages.boot[0].authorized_keys.root[0]=github:mudler`
