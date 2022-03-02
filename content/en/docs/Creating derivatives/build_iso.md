@@ -36,7 +36,7 @@ initramfs:
   kernel_file: "vmlinuz"
   rootfs_file: "initrd"
 
-image_prefix: "cOs-0."
+image_prefix: "cOS-0."
 image_date: true
 label: "COS_LIVE"
 ```
