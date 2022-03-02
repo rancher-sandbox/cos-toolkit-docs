@@ -33,7 +33,7 @@ If running a kubernetes cluster on the `cOS` system, you can leverage the [syste
 apiVersion: upgrade.cattle.io/v1
 kind: Plan
 metadata:
-  name: elemetal-upgrade
+  name: elemental-upgrade
   namespace: system-upgrade
   labels:
     k3s-upgrade: server
