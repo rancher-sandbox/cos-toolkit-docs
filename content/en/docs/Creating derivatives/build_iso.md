@@ -21,7 +21,25 @@ Where `iso.yaml` is the iso specification file, and `--image $IMAGE` is the cont
 
 An example of a yaml file using the cos-toolkit opensuse repositories and syslinux:
 
-{{<githubembed repo="mudler/c3os" file="iso.yaml" lang="yaml">}}
+```yaml
+packages:
+  rootfs:
+  - system/cos
+  uefi:
+  - live/systemd-boot
+  - live/boot
+  isoimage:
+  - live/syslinux
+  - live/boot
+
+initramfs:
+  kernel_file: "vmlinuz"
+  rootfs_file: "initrd"
+
+image_prefix: "cOs-0."
+image_date: true
+label: "COS_LIVE"
+```
 
 An example using GRUB instead:
 
