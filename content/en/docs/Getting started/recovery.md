@@ -12,9 +12,7 @@ cOS derivatives have a recovery mechanism built-in which can be leveraged to res
 
 The recovery system can be accessed during boot by selecting the last entry in the menu (labeled by "recovery").
 
-### Recovery system
-
-A derivative can be recovered anytime by booting into the ` recovery` partition and by running `cos-reset` from it. 
+A derivative can be recovered anytime by booting into the ` recovery` partition and by running `elemental reset` from it. 
 
 This command will regenerate the bootloader and the images in the `COS_STATE` partition by using the recovery image.
 
@@ -23,20 +21,20 @@ This command will regenerate the bootloader and the images in the `COS_STATE` pa
 From either the active or passive system, the recovery partition can also be upgraded by running 
 
 ```bash
-cos-upgrade --recovery
+elemental upgrade --recovery
 ``` 
 
 It also supports to specify docker images directly:
 
 ```bash
-cos-upgrade --recovery --docker-image <image>
+elemental upgrade --recovery --docker-image <image>
 ```
 
 ### Upgrading the active system from the recovery
 
-The recovery system can upgrade also the active system by running `cos-upgrade`, and it also supports to specify docker images directly:
+The recovery system can upgrade also the active system by running `elemental upgrade`, and it also supports to specify docker images directly:
 
 ```bash
-cos-upgrade --recovery --docker-image <image>
+elemental upgrade --recovery --docker-image <image>
 ```
 

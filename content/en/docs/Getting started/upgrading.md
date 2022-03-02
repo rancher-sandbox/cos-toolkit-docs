@@ -20,9 +20,9 @@ This will perform an upgrade based on the default derivative configuration for t
 
 ## Upgrade to a specific container image
 
-To specify a specific container image to upgrade to instead of the regular upgrade channels, run `cos-upgrade --docker-image image`.
+To specify a specific container image to upgrade to instead of the regular upgrade channels, run `elemental upgrade --docker-image image`.
 
-_Note_ by default `cos-upgrade --docker-image` checks images against the notary registry server for valid signatures for the images tag. To disable image verification, run `cos-upgrade --no-verify --docker-image`.
+_Note_ by default `elemental upgrade --docker-image` checks images against the notary registry server for valid signatures for the images tag. To disable image verification, run `elemental upgrade --no-verify --docker-image`.
 
 ## Integration with System Upgrade Controller
 
@@ -33,7 +33,7 @@ If running a kubernetes cluster on the `cOS` system, you can leverage the [syste
 apiVersion: upgrade.cattle.io/v1
 kind: Plan
 metadata:
-  name: cos-upgrade
+  name: elemetal-upgrade
   namespace: system-upgrade
   labels:
     k3s-upgrade: server
@@ -57,7 +57,7 @@ See also [trigger upgrades with fleet](../tutorials/trigger_upgrades_with_fleet)
 
 ## From ISO
 
-The ISO can be also used as a recovery medium: type `cos-upgrade` from a LiveCD. It will then try to upgrade the image of the active partition installed in the system.
+The ISO can be also used as a recovery medium: type `elemental upgrade` from a LiveCD. It will then try to upgrade the image of the active partition installed in the system.
 
 ## How it works
 cOS during installation sets two `.img` images files in the `COS_STATE` partition:

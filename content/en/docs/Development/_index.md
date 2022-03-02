@@ -119,7 +119,7 @@ With a fresh `drive.img`, `make run-qemu` will boot from ISO. You can then log i
 the disk image with:
 
 ```
-# cos-installer /dev/sda
+# elemental install /dev/sda
 ```
 
 #### Running

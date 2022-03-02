@@ -151,7 +151,7 @@ stages:
 
 ### `after-install`
 
-This stage is executed after installation of the OS has ended (after calling `cos-install`).
+This stage is executed after installation of the OS has ended (last step of `elemental install`).
 
 Example:
 ```yaml
@@ -192,7 +192,7 @@ stages:
 
 ### `after-upgrade`
 
-This stage is executed after upgrade of the OS has ended (after calling `cos-upgrade`).
+This stage is executed after upgrade of the OS has ended (last step of `elemental upgrade`).
 
 Example:
 ```yaml
@@ -232,7 +232,7 @@ stages:
 
 ### `after-reset`
 
-This stage is executed after reset of the OS has ended (after calling `cos-reset`).
+This stage is executed after reset of the OS has ended (last step of `elemental reset`).
 
 Example:
 ```yaml
@@ -318,7 +318,7 @@ stages:
 
 ### `before-install`
 
-This stage is executed before installation (executed during `cos-install`).
+This stage is executed before installation (executed during `elemental install`).
 
 Example:
 ```yaml
@@ -340,7 +340,7 @@ stages:
 
 ### `before-upgrade`
 
-This stage is executed before upgrade of the OS (executed during `cos-upgrade`).
+This stage is executed before upgrade of the OS (executed during `elemental upgrade`).
 
 Example:
 ```yaml
@@ -361,7 +361,7 @@ stages:
 
 ### `before-reset`
 
-This stage is executed before reset of the OS (executed during `cos-reset`).
+This stage is executed before reset of the OS (executed during `elemental reset`).
 
 Example:
 ```yaml
