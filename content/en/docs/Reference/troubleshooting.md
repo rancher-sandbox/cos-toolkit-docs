@@ -64,10 +64,10 @@ And push the image to the container registry:
 $> docker push $NEW_IMAGE
 ```
 
-In the derivative then it's sufficient to upgrade to that image with `cos-upgrade`:
+In the derivative then it's sufficient to upgrade to that image with `elemental upgrade`:
 
 ```bash
-$> cos-upgrade --no-verify --docker-image $NEW_IMAGE
+$> elemental upgrade --no-verify --docker-image $NEW_IMAGE
 ```
 
 ## Adding login keys at boot

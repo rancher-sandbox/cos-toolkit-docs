@@ -12,7 +12,7 @@ description: >
 
 cOS and every derivative can upgrade, rollback or just switch to different versions in runtime by using the toolkit installed inside the image.
 
-To upgrade an installed system, just run `cos-upgrade` and reboot. 
+To upgrade an installed system, just run `elemental upgrade` and reboot. 
 
 This will perform an upgrade based on the default derivative configuration for the image. See [general configuration](../../customizing/general_configuration) on how to configure defaults when building a derivative.
 

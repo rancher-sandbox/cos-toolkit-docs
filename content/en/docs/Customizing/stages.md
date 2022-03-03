@@ -172,7 +172,7 @@ stages:
 
 ### `after-install-chroot`
 
-This stage is executed after installation of the OS has ended (after calling `cos-install`).
+This stage is executed after installation of the OS has ended (last step of `elemental install`).
 {{% alert title="Note" %}}
 Steps executed at this stage are running *inside* the new OS as chroot, allowing to write persisting changes to the image,
 for example by downloading and installing additional software.
@@ -213,7 +213,7 @@ stages:
 
 ### `after-upgrade-chroot`
 
-This stage is executed after upgrade of the OS has ended (after calling `cos-upgrade`).
+This stage is executed after upgrade of the OS has ended (after calling `elemental upgrade`).
 {{% alert title="Note" %}}
 Steps executed at this stage are running *inside* the new OS as chroot, allowing to write persisting changes to the image,
 for example by downloading and installing additional software.
@@ -253,7 +253,7 @@ stages:
 
 ### `after-reset-chroot`
 
-This stage is executed after reset of the OS has ended (after calling `cos-reset`).
+This stage is executed after reset of the OS has ended (last step of `elemental reset`).
 {{% alert title="Note" %}}
 Steps executed at this stage are running *inside* the new OS as chroot, allowing to write persisting changes to the image,
 for example by downloading and installing additional software.
