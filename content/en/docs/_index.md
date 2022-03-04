@@ -58,6 +58,8 @@ Anyone can tweak Elemental derivatives from the bottom-up to enable and disable 
 
 As the Elemental team, the [os2](https://github.com/rancher-sandbox/os2) project is our point of reference.
 
-`os2` is a complete derivative built with Elemental tied with the rancher ecosystem and full cycle node management solution with Kubernetes, which we are supporting directly and indirectly within changes also in the Elemental ecosystem.
+`os2` is a complete derivative built with Elemental tied with the rancher ecosystem and full cycle node management solution with Kubernetes. 
 
-os2 is our main show-case, and as the Elemental team we are committed to it. It is also a show-off of how Elemental can be used to build and maintain immutable Linux derivatives: it encompasses several technologies to create a Kubernetes-focused Linux derivative which lifecycle is managed entirely from Kubernetes itself, [SDO](https://www.intel.it/content/www/it/it/internet-of-things/secure-device-onboard.html) included and automatic provisioning via cloud-init.
+We are supporting directly and indirectly `os2` within changes also in the Elemental ecosystem.
+
+`os2` is our main show-case, and as the Elemental team we are committed to it. It encompasses several technologies to create a Kubernetes-focused Linux derivative which lifecycle is managed entirely from Kubernetes itself, [SDO](https://www.intel.it/content/www/it/it/internet-of-things/secure-device-onboard.html) included and automatic provisioning via cloud-init.
