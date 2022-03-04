@@ -28,7 +28,7 @@ here we try to summarize and document how they are meant to be consumed.
 ISO images (e.g. ``cOS-Seed-green-$VERSION-$ARCH.iso.tar.xz` ) are shipping a cOS vanilla image and they feature an installer to perform an automated installation. They can be used to burn USB sticks or CD/DVD used to boot baremetals. Once booted, you can install cOS with:
 
 ```bash
-cos-install $DEVICE
+elemental install $DEVICE
 ```
 
 See also [../install] for installation options.
@@ -36,7 +36,7 @@ See also [../install] for installation options.
 After the first boot you can also switch to a derivative by:
 
 ```bash
-cos-upgrade --docker-image --no-verify --no-cosign $IMAGE
+elemental upgrade --docker-image --no-verify $IMAGE
 ```
 
 ### Unattended deployment

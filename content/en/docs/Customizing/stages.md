@@ -151,7 +151,7 @@ stages:
 
 ### `after-install`
 
-This stage is executed after installation of the OS has ended (after calling `cos-install`).
+This stage is executed after installation of the OS has ended (last step of `elemental install`).
 
 Example:
 ```yaml
@@ -172,7 +172,7 @@ stages:
 
 ### `after-install-chroot`
 
-This stage is executed after installation of the OS has ended (after calling `cos-install`).
+This stage is executed after installation of the OS has ended (last step of `elemental install`).
 {{% alert title="Note" %}}
 Steps executed at this stage are running *inside* the new OS as chroot, allowing to write persisting changes to the image,
 for example by downloading and installing additional software.
@@ -192,7 +192,7 @@ stages:
 
 ### `after-upgrade`
 
-This stage is executed after upgrade of the OS has ended (after calling `cos-upgrade`).
+This stage is executed after upgrade of the OS has ended (last step of `elemental upgrade`).
 
 Example:
 ```yaml
@@ -213,7 +213,7 @@ stages:
 
 ### `after-upgrade-chroot`
 
-This stage is executed after upgrade of the OS has ended (after calling `cos-upgrade`).
+This stage is executed after upgrade of the OS has ended (after calling `elemental upgrade`).
 {{% alert title="Note" %}}
 Steps executed at this stage are running *inside* the new OS as chroot, allowing to write persisting changes to the image,
 for example by downloading and installing additional software.
@@ -232,7 +232,7 @@ stages:
 
 ### `after-reset`
 
-This stage is executed after reset of the OS has ended (after calling `cos-reset`).
+This stage is executed after reset of the OS has ended (last step of `elemental reset`).
 
 Example:
 ```yaml
@@ -253,7 +253,7 @@ stages:
 
 ### `after-reset-chroot`
 
-This stage is executed after reset of the OS has ended (after calling `cos-reset`).
+This stage is executed after reset of the OS has ended (last step of `elemental reset`).
 {{% alert title="Note" %}}
 Steps executed at this stage are running *inside* the new OS as chroot, allowing to write persisting changes to the image,
 for example by downloading and installing additional software.
@@ -318,7 +318,7 @@ stages:
 
 ### `before-install`
 
-This stage is executed before installation (executed during `cos-install`).
+This stage is executed before installation (executed during `elemental install`).
 
 Example:
 ```yaml
@@ -340,7 +340,7 @@ stages:
 
 ### `before-upgrade`
 
-This stage is executed before upgrade of the OS (executed during `cos-upgrade`).
+This stage is executed before upgrade of the OS (executed during `elemental upgrade`).
 
 Example:
 ```yaml
@@ -361,7 +361,7 @@ stages:
 
 ### `before-reset`
 
-This stage is executed before reset of the OS (executed during `cos-reset`).
+This stage is executed before reset of the OS (executed during `elemental reset`).
 
 Example:
 ```yaml

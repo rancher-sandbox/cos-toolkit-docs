@@ -30,9 +30,9 @@ cOS can run in: VMs, baremetals and Cloud - the default login username/password 
 
 ### Install
 
-To install run `cos-installer <device>` to start the installation process. Remove the ISO/medium and reboot.
+To install run `elemental install <device>` to start the installation process. Remove the ISO/medium and reboot.
 
-_Note_: `cos-installer` supports other options as well. Run `cos-installer --help` to see a complete help.
+_Note_: `elemental install` supports other options as well. Run `elemental install --help` to see a complete help.
 
 ## Releases
 

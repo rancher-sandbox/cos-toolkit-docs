@@ -115,7 +115,7 @@ The above example runs the build by logging with a different username/password t
 
 ### Default cloud-init
 
-In the packer folder there is present a `config.yaml` file which can be used to customize the image. The file is in [cloud-init](../../../references/cloud-init) style and will be automatically installed by default when running `cos-install`.
+In the packer folder there is present a `config.yaml` file which can be used to customize the image. The file is in [cloud-init](../../../references/cloud-init) style and will be automatically installed by default when running `elemental install`.
 
 ### Available variables for customization
 
@@ -133,7 +133,7 @@ these are some of the relevant ones:
 
 * `accelerator`: Accelerator type, see the [official docs](https://www.packer.io/docs/builders/qemu#accelerator)
 
-* `root_username`: Username used to login via ssh, it needs root permissions to be able to run the installation process and call `cos-install`
+* `root_username`: Username used to login via ssh, it needs root permissions to be able to run the installation process and call `elemental install`
 
 * `root_password`: Password for the user specified in `root_username`
 

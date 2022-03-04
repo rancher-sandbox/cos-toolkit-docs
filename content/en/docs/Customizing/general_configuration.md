@@ -8,7 +8,7 @@ description: >
 ---
 
 
-cOS during installation, reset and upgrade (`cos-installer`, `cos-reset` and `cos-upgrade` respectively) will read a configuration file in order to apply derivative customizations. The configuration files are sourced in precedence order and can be located in the following places:
+cOS during installation, reset and upgrade (`elemental install`, `elemental reset` and `elemental upgrade` respectively) will read a configuration file in order to apply derivative customizations. The configuration files are sourced in precedence order and can be located in the following places:
 
 - `/etc/environment`
 - `/etc/os-release`

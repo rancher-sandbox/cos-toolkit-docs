@@ -66,6 +66,6 @@ stages:
         - zypper in -y vim
 ```
 
-and run `cos-upgrade`. 
+and run `elemental upgrade`. 
 
 It will automatically upgrade the system with the changes above included.

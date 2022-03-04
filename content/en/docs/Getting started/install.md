@@ -9,32 +9,39 @@ description: >
 ---
 
 
-cOS (or any cOS derivative built with cos-toolkit) can be installed with `cos-installer`, or `cos install`:
+cOS (or any cOS derivative built with cos-toolkit) can be installed with `elemental install`:
 
 ```bash
-cos-installer [options] <device>
+elemental install [options] <device>
 ```
 
-| Option             | Description                                                                                                  |
-|--------------------|--------------------------------------------------------------------------------------------------------------|
-| --force-efi        | Forces an EFI installation                                                                                   |
-| --force-gpt        | Forces a GPT partition table                                                                                 |
-| --iso              | Performs an installation from the ISO url                                                                    |
-| --debug            | Enables debugging information                                                                                |
-| --poweroff         | Shutdown the system after install                                                                            |
-| --no-format        | Don't format disks. It is implied that COS_STATE, COS_RECOVERY, COS_PERSISTENT, COS_OEM are already existing |
-| --config           | Cloud-init config file (see below)                                                                           |
-| --partition-layout | Partitioning layout file (see below)                                                                         |
-| --docker-image     | Install a specified container image                                                                          |
-| --no-verify        | Disable mtree checksum verification (requires images manifests generated with mtree separately)              |
-| --no-cosign        | Disable cosign verification (requires images with signatures)                                                |
+| Option                    | Description                                                                                                  |
+|---------------------------|--------------------------------------------------------------------------------------------------------------|
+| --cloud-init string       | Cloud-init config file                                                                                       |
+| --cosign                  | Enable cosign verification (requires images with signatures)                                                 |
+| --cosign-key string       | Sets the URL of the public key to be used by cosign validation                                               |
+| --directory string        | Use directory as source to install from                                                                      |
+| --docker-image string     | Install a specified container image                                                                          |
+| --force                   | Force install                                                                                                |
+| --force-efi               | Forces an EFI installation                                                                                   |
+| --force-gpt               | Forces a GPT partition table                                                                                 |
+| --help                    | help for install                                                                                             |
+| --iso string              | Performs an installation from the ISO url                                                                    |
+| --no-format               | Don’t format disks. It is implied that COS_STATE, COS_RECOVERY, COS_PERSISTENT, COS_OEM are already existing |
+| --no-verify               | Disable mtree checksum verification (requires images manifests generated with mtree separately)              |
+| --partition-layout string | Partitioning layout file                                                                                     |
+| --poweroff                | Shutdown the system after install                                                                            |
+| --reboot                  | Reboot the system after install                                                                              |
+| --strict                  | Enable strict check of hooks (They need to exit with 0)                                                      |
+| --tty                     | Add named tty to grub                                                                                        |
+
 
 ### Custom OEM configuration
 
 During installation it can be specified a [cloud-init config file](../../reference/cloud_init), that will be installed and persist in the system after installation:
 
 ```bash
-cos-installer --config [url|path] <device>
+elemental install --cloud-init [url|path] <device>
 ```
 
 ### Custom partitioning layout
@@ -75,7 +82,7 @@ Run the installer with
 
 ```bash
 
-cos-installer --partition-layout <file> <device>
+elemental install --partition-layout <file> <device>
 
 ```
 
@@ -99,7 +106,7 @@ For instance, it is possible to install cOS (or any derivative) with the install
 If in the rescue system, or LiveCD you have docker available, it can be used to perform an installation
 
 ```bash
-docker run --privileged -v $DEVICE:$DEVICE -ti quay.io/costoolkit/releases-green:cos-system-0.7.4-2 cos-installer --docker-image $IMAGE $DEVICE
+docker run --privileged -v $DEVICE:$DEVICE -ti quay.io/costoolkit/releases-green:cos-system-0.7.4-2 elemental install --docker-image $IMAGE $DEVICE
 ```
 
 Where `$IMAGE` is the container image that we want to install (e.g. `quay.io/costoolkit/releases-green:cos-system-0.7.4-2` ), and `$DEVICE` is the the device where to perform the installation to (e.g. /dev/sda).
@@ -107,12 +114,10 @@ Where `$IMAGE` is the container image that we want to install (e.g. `quay.io/cos
 Note, we used the `quay.io/costoolkit/releases-green:cos-system-0.7.4-2` image which contains the installer and the dependencies, similarly another derivative or another cos-system version can be used.
 
 
-#### By using manually the installer
+#### By using manually the Elemental installer
 
-Similarly, the same mechanism can be used without docker. The [installer](https://raw.githubusercontent.com/rancher-sandbox/cOS-toolkit/master/packages/installer/cos.sh) can be used standalone:
+Similarly, the same mechanism can be used without docker. Download elemental from [github releases](https://github.com/rancher-sandbox/elemental/releases/latest) and run the follow as root:
 
+```bash
+elemental install --docker-image $IMAGE $DEVICE
 ```
-GRUBCONF=<grub.cfg> ./cos.sh install [options]
-```
-
-An example grub config file can be found [here](https://raw.githubusercontent.com/rancher-sandbox/cOS-toolkit/master/packages/grub2/config/grub.cfg)

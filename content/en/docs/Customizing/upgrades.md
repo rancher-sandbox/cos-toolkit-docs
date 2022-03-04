@@ -9,34 +9,34 @@ description: >
 
 `cOS` vanilla images by default are picking upgrades by the standard upgrade channel. It means it will always get the latest published `cOS` version by our CI.
 
-However, it's possible to tweak the default behavior of `cos-upgrade` to point to a specific docker image/tag, or a different release channel.
+However, it's possible to tweak the default behavior of `elemental upgrade` to point to a specific docker image/tag, or a different release channel.
 
 
 By default, `cos` derivatives if not specified will point to latest `cos-toolkit`. To override, you need to or overwrite the content of `/system/oem/02_upgrades.yaml` or supply an additional one, e.g. `/system/oem/03_upgrades.yaml` in the final image, see [the default here](https://github.com/rancher-sandbox/cOS-toolkit/blob/master/packages/cloud-config/oem/02_upgrades.yaml).
 
 ## Configuration
 
-`cos-upgrade` during start reads the [cOS configuration file](../general_configuration) and allows to tweak the following:
+`elemental upgrade` during start reads the [cOS configuration file](../general_configuration) and allows to tweak the following:
 
 ```bash
 # Tweak the package to upgrade to, or the docker image (full reference)
-UPGRADE_IMAGE=system/cos
+ELEMENTAL_UPGRADE_IMAGE=system/cos
 # Turn on/off channel upgrades. If disabled, UPGRADE_IMAGE should be a full reference to a container image
-CHANNEL_UPGRADES=true
-# Turn on/off image signature checking. This is enabled by default when receiving upgrades from official channel
-VERIFY=false
+ELEMENTAL_CHANNEL_UPGRADES=true
+# Disable mtree verification. Enabled by default
+ELEMENTAL_NO_VERIFY=true
 # Specify a separate recovery image (defaults to UPGRADE_IMAGE)
-RECOVERY_IMAGE=recovery/cos
+ELEMENTAL_RECOVERY_IMAGE=recovery/cos
 ```
 
-`cos-upgrade` also reads its configuration from `/etc/cos-upgrade-image` if the file is present in the system.
+`elemental upgrade` also reads its configuration from `/etc/cos-upgrade-image` if the file is present in the system.
 
 Specifically, it allows to configure:
 
-- **UPGRADE_IMAGE**: A container image reference ( e.g. `registry.io/org/image:tag` ) or a `luet` package ( e.g. `system/cos` )
-- **CHANNEL_UPGRADES**: Boolean indicating wether to use channel upgrades or not. If it is disabled **UPGRADE_IMAGE** should refer to a container image, e.g. `registry.io/org/image:tag`
-- **VERIFY**: Turns on and off image verification. Currently available for official `cOS` release channels
-- **RECOVERY_IMAGE**: Allows to specify a different image for the recovery partition. Similarly to **UPGRADE_IMAGE** needs to be either an image reference or a package.
+- **ELEMENTAL_UPGRADE_IMAGE**: A container image reference ( e.g. `registry.io/org/image:tag` ) or a `luet` package ( e.g. `system/cos` )
+- **ELEMENTAL_CHANNEL_UPGRADES**: Boolean indicating wether to use channel upgrades or not. If it is disabled **UPGRADE_IMAGE** should refer to a container image, e.g. `registry.io/org/image:tag`
+- **ELEMENTAL_NO_VERIFY**: Turns off or on mtree verification.
+- **ELEMENTAL_RECOVERY_IMAGE**: Allows to specify a different image for the recovery partition. Similarly to **UPGRADE_IMAGE** needs to be either an image reference or a package.
 
 
 ## Changing the default release channel
