@@ -62,4 +62,4 @@ As the Elemental team, the [os2](https://github.com/rancher-sandbox/os2) project
 
 We are supporting directly and indirectly `os2` within changes also in the Elemental ecosystem.
 
-`os2` is our main show-case, and as the Elemental team we are committed to it. It encompasses several technologies to create a Kubernetes-focused Linux derivative which lifecycle is managed entirely from Kubernetes itself, [SDO](https://www.intel.it/content/www/it/it/internet-of-things/secure-device-onboard.html) included and automatic provisioning via cloud-init.
+`os2` is our main show-case, and as the Elemental team we are committed to it. It encompasses several technologies to create a Kubernetes-focused Linux derivative which lifecycle is managed entirely from Kubernetes itself, [Secure Device Onboarding](https://www.intel.it/content/www/it/it/internet-of-things/secure-device-onboard.html) included, and automatic provisioning via cloud-init.
