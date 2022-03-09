@@ -104,20 +104,7 @@ _Note_: Each cloud-init option can be either run in *dot notation* ( e.g. `stage
 
 ### Using templates
 
-With Cloud Init support, templates can be used to allow dynamic configuration. For example in mass-install scenario it could be needed (and easier) to specify hostnames for multiple machines from a single cloud-init config file.
-
-```yaml
-#cloud-config
-hostname: node-{{ trunc 4 .MachineID }}
-install:
-  device: /dev/sda
-
-users:
-  - name: root
-    passwd: password
-```
-
-More information about templates can be found [here](https://github.com/mudler/yip#node-data-interpolation) and also [here for sprig](http://masterminds.github.io/sprig/) functions.
+With Cloud Init support, templates can be used to allow dynamic configuration. More information about templates can be found [here](https://github.com/mudler/yip#node-data-interpolation) and also [here for sprig](http://masterminds.github.io/sprig/) functions.
 
 ### Compatibility with Cloud Init format
 
@@ -211,12 +198,13 @@ stages:
 ### `stages.STAGE_ID.STEP_NAME.hostname`
 
 A string representing the machine hostname. It sets it in the running system, updates `/etc/hostname` and adds the new hostname to `/etc/hosts`.
+Templates can be used to allow dynamic configuration. For example in mass-install scenario it could be needed (and easier) to specify hostnames for multiple machines from a single cloud-init config file.
 
 ```yaml
 stages:
    default:
      - name: "Setup hostname"
-       hostname: "foo"
+       hostname: "node-{{ trunc 4 .MachineID }}"
 ```
 ### `stages.STAGE_ID.STEP_NAME.sysctl`
 
