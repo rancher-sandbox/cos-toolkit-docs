@@ -102,6 +102,10 @@ EOF
 
 _Note_: Each cloud-init option can be either run in *dot notation* ( e.g. `stages.network[0].authorized_keys.user=github:user` ) in the boot args or either can supply a cloud-init URL at boot with the `cos.setup=$URL` parameter.
 
+### Using templates
+
+With Cloud Init support, templates can be used to allow dynamic configuration. More information about templates can be found [here](https://github.com/mudler/yip#node-data-interpolation) and also [here for sprig](http://masterminds.github.io/sprig/) functions.
+
 ### Compatibility with Cloud Init format
 
 A subset of the official [cloud-config spec](http://cloudinit.readthedocs.org/en/latest/topics/format.html#cloud-config-data) is implemented. 
@@ -194,12 +198,13 @@ stages:
 ### `stages.STAGE_ID.STEP_NAME.hostname`
 
 A string representing the machine hostname. It sets it in the running system, updates `/etc/hostname` and adds the new hostname to `/etc/hosts`.
+Templates can be used to allow dynamic configuration. For example in mass-install scenario it could be needed (and easier) to specify hostnames for multiple machines from a single cloud-init config file.
 
 ```yaml
 stages:
    default:
      - name: "Setup hostname"
-       hostname: "foo"
+       hostname: "node-{{ trunc 4 .MachineID }}"
 ```
 ### `stages.STAGE_ID.STEP_NAME.sysctl`
 
