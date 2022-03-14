@@ -436,7 +436,7 @@ stages:
            label: "COS_RECOVERY"
            path: "/dev/sda"
          # Only last partition can be expanded and it happens before any other
-         # partition is added. size: 0 or unset means all available free space
+         # partition is added. size: 0 means all available free space
          expand_partition:
            size: 4096
          add_partitions:
