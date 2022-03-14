@@ -39,14 +39,6 @@ After the first boot you can also switch to a derivative by:
 elemental upgrade --docker-image --no-verify $IMAGE
 ```
 
-### Unattended deployment
-
-After booting the iso, it is possible to deploy directly an image of choice with `cos-deploy`
-
-```bash
-cos-deploy --docker-image $IMAGE
-```
-
 ## Booting from network
 
 You can boot a cOS squashfs by using a native iPXE implementation on your
@@ -198,9 +190,9 @@ stages:
        name: "Deploy cos-system"
        commands:
          - |
-             # Use `cos-deploy --docker-image <img-ref>` to deploy a custom image
-             # By default latest cOS gets deployed
-             cos-deploy && shutdown -r now
+             # Use `elemental reset --docker-image <img-ref>` to deploy a custom image
+             # By default the recovery cOS gets deployed
+             elemental reset --reboot
 
 ```
 
@@ -257,9 +249,9 @@ stages:
        name: "Deploy cos-system"
        commands:
          - |
-             # Use `cos-deploy --docker-image <img-ref>` to deploy a custom image
-             # By default latest cOS gets deployed
-             cos-deploy && shutdown -r now
+             # Use `elemental reset --docker-image <img-ref>` to deploy a custom image
+             # By default recovery cOS gets deployed
+             elemental reset --reboot
 ```
 
 
@@ -316,9 +308,9 @@ stages:
        name: "Deploy cos-system"
        commands:
          - |
-             # Use `cos-deploy --docker-image <img-ref>` to deploy a custom image
-             # By default latest cOS gets deployed
-             cos-deploy && shutdown -r now
+             # Use `elemental reset --docker-image <img-ref>` to deploy a custom image
+             # By default recovery cOS gets deployed
+             elemental reset --reboot
 ```
 
 ## Login
