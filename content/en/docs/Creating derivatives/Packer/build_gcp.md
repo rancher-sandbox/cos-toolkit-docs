@@ -92,7 +92,7 @@ template. These are some of the relevant ones:
 * `gcp_cos_deploy_args`: This the command that will be executed once the
   Vanilla image booted. In this stage it is expected that user sets a command
   to install the desired cOS or derivative image. By default it is set to
-  `elemental reset` which will deploy the cOS image from recovery partition.
+  `elemental reset` which will deploy the cOS image from the recovery partition.
   To deploy custom derivatives something like
   `elemental reset --docker-image <my-derivative-img-ref>` should be sufficient.
 

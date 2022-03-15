@@ -13,7 +13,7 @@ cOS vanilla images, like ISOs, cloud images or raw disks can be used to deploy a
 
 ## `elemental reset`
 
-`elemental reset` can be used to deploy an image to the system. 
+`elemental reset` can be used to reset the system from the recovery image or from a custom image. Vanilla images only include a minimal recovery partition and system.
 
 It can be either invoked manually with `elemental reset --docker-image <img-ref>` or used in conjuction with a cloud-init configuration, for example consider the following [cloud-init configuration file](../../reference/cloud_init):
 
