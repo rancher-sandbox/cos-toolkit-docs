@@ -106,12 +106,13 @@ For instance, it is possible to install cOS (or any derivative) with the install
 If in the rescue system, or LiveCD you have docker available, it can be used to perform an installation
 
 ```bash
-docker run --privileged -v $DEVICE:$DEVICE -ti quay.io/costoolkit/releases-green:cos-system-0.7.4-2 elemental install --docker-image $IMAGE $DEVICE
+docker run --privileged -v /dev/:/dev/ -ti quay.io/costoolkit/elemental:latest install --docker-image $IMAGE $DEVICE
 ```
 
-Where `$IMAGE` is the container image that we want to install (e.g. `quay.io/costoolkit/releases-green:cos-system-0.7.4-2` ), and `$DEVICE` is the the device where to perform the installation to (e.g. /dev/sda).
+Where `$IMAGE` is the container image that we want to install (e.g. `quay.io/costoolkit/releases-green:cos-system-0.8.7` ), and `$DEVICE` is the device where to perform the installation to (e.g. `/dev/sda`).
 
-Note, we used the `quay.io/costoolkit/releases-green:cos-system-0.7.4-2` image which contains the installer and the dependencies, similarly another derivative or another cos-system version can be used.
+Note, we used the `quay.io/costoolkit/elemental:latest` image which contains the latest stable installer and the dependencies.
+You can see all the versions at [quay](https://quay.io/repository/costoolkit/elemental?tab=tags).
 
 
 #### By using manually the Elemental installer
