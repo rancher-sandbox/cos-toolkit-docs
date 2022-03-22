@@ -67,7 +67,7 @@ EOF
 ```
 
 The above example runs the Vanilla image on a 16GiB disk and calls the
-command `cos-deploy` to deploy the main OS and once deployed an image
+command `elemental reset` to deploy the main OS and once deployed an image
 is created from the running instance.
 
 ### Available variables for customization
@@ -79,9 +79,9 @@ template. These are some of the relevant ones:
 * `azure_cos_deploy_args`: This the command that will be executed once the
   Vanilla image booted. In this stage it is expected that user sets a command
   to install the desired cOS or derivative image. By default it is set to
-  `cos-deploy` which will deploy the latest cOS image in cOS repositories.
+  `elemental reset` which will deploy the cOS image from the recovery partition.
   To deploy custom derivatives something like
-  `cos-deploy --docker-image <my-derivative-img-ref>` should be sufficient.
+  `elemental reset --docker-image <my-derivative-img-ref>` should be sufficient.
   
 * `azure_custom_managed_image_name`: Name of a custom managed image to use for your 
   base image.

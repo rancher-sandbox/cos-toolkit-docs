@@ -270,52 +270,6 @@ stages:
          ...
 ```
 
-### `after-deploy`
-
-This stage is executed after deployment of the OS has ended (after calling `cos-deploy`).
-
-Example:
-```yaml
-name: "Run something after deployment"
-stages:
-   after-deploy:
-     - name: "Setting"
-       if: '[ ! -f "/run/cos/recovery_mode" ]'
-       commands:
-       - |
-          # Run something when we are booting in active or passive
-     - name: "Setting"
-       if: '[ -f "/run/cos/recovery_mode" ]'
-       commands:
-       - |
-          # Run something when we are booting in recovery mode
-```
-
-### `after-deploy-chroot`
-
-This stage is executed after deployment of the OS has ended (after calling `cos-deploy`).
-{{% alert title="Note" %}}
-Steps executed at this stage are running *inside* the new OS as chroot, allowing to write persisting changes to the image,
-for example by downloading and installing additional software.
-{{% /alert %}}
-
-Example:
-```yaml
-name: "Run something after installation"
-stages:
-   after-deploy-chroot:
-     - name: "Setting"
-       if: '[ ! -f "/run/cos/recovery_mode" ]'
-       commands:
-       - |
-          # Run something when we are booting in active or passive
-     - name: "Setting"
-       if: '[ -f "/run/cos/recovery_mode" ]'
-       commands:
-       - |
-          # Run something when we are booting in recovery mode
-```
-
 ### `before-install`
 
 This stage is executed before installation (executed during `elemental install`).
@@ -368,27 +322,6 @@ Example:
 name: "Run something before reset"
 stages:
    before-reset:
-     - name: "Setting"
-       if: '[ ! -f "/run/cos/recovery_mode" ]'
-       commands:
-       - |
-          # Run something when we are booting in active or passive
-     - name: "Setting"
-       if: '[ -f "/run/cos/recovery_mode" ]'
-       commands:
-       - |
-          # Run something when we are booting in recovery mode
-```
-
-### `before-deploy`
-
-This stage is executed before deployment of the OS has ended (executed during `cos-deploy`).
-
-Example:
-```yaml
-name: "Run something before deployment"
-stages:
-   before-deploy:
      - name: "Setting"
        if: '[ ! -f "/run/cos/recovery_mode" ]'
        commands:

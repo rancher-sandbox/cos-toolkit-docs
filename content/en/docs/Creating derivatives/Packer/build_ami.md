@@ -60,7 +60,7 @@ can be a json file including desired varibles. Consider the following example:
 
 > cat << EOF > test.json
 {
-    "aws_cos_deploy_args": "cos-deploy",
+    "aws_cos_deploy_args": "elemental reset",
     "aws_launch_volume_size": 16,
     "name": "MyTest"
 }
@@ -70,7 +70,7 @@ EOF
 ```
 
 The above example runs the AMI Vanilla image on a 16GiB disk and calls the
-command `cos-deploy` to deploy the main OS, once deployed an snapshot is
+command `elemental reset` to deploy the main OS, once deployed an snapshot is
 created and an AMI out this snapshot is registered in EC2. The created
 AMI artifact will be called `MyTest`, the name has no impact in the underlaying
 OS.
@@ -84,9 +84,9 @@ template. These are some of the relevant ones:
 * `aws_cos_deploy_args`: This the command that will be executed once the
   Vanilla image booted. In this stage it is expected that user sets a command
   to install the desired cOS or derivative image. By default it is set to
-  `cos-deploy` which will deploy the latest cOS image in cOS repositories.
+  `elemental reset` which will deploy the cOS image from the recovery partition.
   To deploy custom derivatives something like
-  `cos-deploy --docker-image <my-derivative-img-ref>` should be sufficient.
+  `elemental reset --docker-image <my-derivative-img-ref>` should be sufficient.
 
 * `aws_launch_volume_size`: This sets the disk size of the VM that Packer
   launches for the build. During Vanilla image first boot the system will

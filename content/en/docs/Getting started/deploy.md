@@ -11,11 +11,11 @@ description: >
 
 cOS vanilla images, like ISOs, cloud images or raw disks can be used to deploy another derivative image.
 
-## `cos-deploy`
+## `elemental reset`
 
-`cos-deploy` can be used to deploy an image to the system. 
+`elemental reset` can be used to reset the system from the recovery image or from a custom image. Vanilla images only include a minimal recovery partition and system.
 
-It can be either invoked manually with `cos-deploy --docker-image <img-ref>` or used in conjuction with a cloud-init configuration, for example consider the following [cloud-init configuration file](../../reference/cloud_init):
+It can be either invoked manually with `elemental reset --docker-image <img-ref>` or used in conjuction with a cloud-init configuration, for example consider the following [cloud-init configuration file](../../reference/cloud_init):
 
 
 ```yaml
@@ -37,12 +37,12 @@ stages:
              pLabel: persistent
    network:
      - if: '[ -f "/run/cos/recovery_mode" ]'
-       name: "Deploy cos-system"
+       name: "Deploy cOS system"
        commands:
          - |
-             # Use `cos-deploy --docker-image <img-ref>` to deploy a custom image
-             # By default latest cOS gets deployed
-             cos-deploy --docker-image $IMAGE && shutdown -r now
+             # Use `elemental reset --docker-image <img-ref>` to deploy a custom image
+             # By default the recovery cOS gets deployed
+             elemental reset --reboot --docker-image $IMAGE
 ```
 
-The following will first repartition the image after the `rootfs` [stage](../../customizing/stages) and will run `cos-deploy` when booting into [recovery mode](../recovery). RAW vanilla disk images automatically boot by default into recovery, so the first thing upon booting is deploying the system
+The following will first repartition the image after the `rootfs` [stage](../../customizing/stages) and will run `elemental reset` when booting into [recovery mode](../recovery). RAW vanilla disk images automatically boot by default into recovery, so the first thing upon booting is deploying the system
