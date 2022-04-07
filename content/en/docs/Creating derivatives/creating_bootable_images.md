@@ -31,30 +31,16 @@ The image needs to ship:
 
 An illustrative example can be:
 
-```Dockerfile
-ARG LUET_VERSION=0.16.7
 
-FROM quay.io/luet/base:$LUET_VERSION AS luet
+{{<githubembed repo="rancher-sandbox/cos-toolkit" file="examples/standard/Dockerfile" lang="Dockerfile">}}
 
-FROM opensuse/leap:15.3 # or Fedora, Ubuntu
-ARG ARCH=amd64
-ENV ARCH=${ARCH}
-ENV COSIGN_EXPERIMENTAL=1 # keyless verify
-ENV COSIGN_REPOSITORY=raccos/releases-green  # repo with the signatures
-RUN zypper in -y ... # apt-get, dnf...
+With the config file:
 
-# Here we install cosign and luet-cosign so we can verify that the images installed have been signed
-RUN luet install -y meta/cos-verify
+{{<githubembed repo="rancher-sandbox/cos-toolkit" file="examples/standard/conf/luet.yaml" lang="yaml">}}
 
-# That's where we install the minimal cos-toolkit meta-package (which pulls the minimal packages needed in order to boot)
-# note that we are setting `--plugin luet-cosign` so luet verifies the correct signatures of the packages on install
-RUN luet install --plugin luet-cosign -y meta/cos-minimal
-
-# Other custom logic. E.g, customize statically the upgrade channel, default users, packages.
-...
-```
 
 In the example above, the cos-toolkit parts that are **required** are pulled in by `RUN luet install -y meta/cos-minimal`.
+Afterwards we install k9s and nerdctl packages to create our derivative with those packages on it.
 
 {{<package package="meta/cos-minimal" >}} is a meta-package that will pull {{<package package="toolchain/luet" >}}, {{<package package="toolchain/yip" >}}, {{<package package="utils/installer" >}}, {{<package package="system/cos-setup" >}}, {{<package package="system/immutable-rootfs" >}}, {{<package package="system/base-dracut-modules" >}}, {{<package package="system/grub2-config" >}}, {{<package package="system/cloud-config" >}}. 
 
