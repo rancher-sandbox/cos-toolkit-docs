@@ -20,11 +20,13 @@ $> make deps
 or you need:
 
 - [`luet`](https://github.com/mudler/luet)
-- [`luet-makeiso`](https://github.com/mudler/luet-makeiso)
+- [`elemental`](https://github.com/rancher-sandbox/elemental)
 - [`squashfs-tools`](https://github.com/plougher/squashfs-tools)
   - `zypper in squashfs` on SLES or openSUSE
 - [`xorriso`](https://dev.lovelyhq.com/libburnia/web/wiki/Xorriso)
   - `zypper in xorriso` on SLES or openSUSE
+- [`mtools`](https://www.gnu.org/software/mtools/)
+  - `zypper in mtools` on SLES or openSUSE
 - `yq` ([version `4.x`](https://github.com/mikefarah/yq/releases)), installed via [packages/toolchain/yq](https://github.com/rancher-sandbox/cOS-toolkit/tree/master/packages/toolchain/yq) (optional)
 - [`jq`](https://stedolan.github.io/jq), installed via [packages/utils/jq](https://github.com/rancher-sandbox/cOS-toolkit/tree/master/packages/utils/jq) (optional)
 
@@ -41,16 +43,16 @@ or build [luet from source](https://github.com/mudler/luet)).
 You can find more luet components in the official [Luet repository](https://github.com/Luet-lab/luet-repo).
 
 
-#### luet-makeiso
+#### elemental
 
-`luet-makeiso` comes [with cOS-toolkit](https://github.com/rancher-sandbox/cOS-toolkit/tree/master/packages/toolchain/luet-makeiso)
+`elemental` comes [with cOS-toolkit](https://github.com/rancher-sandbox/cOS-toolkit/tree/master/packages/toolchain/elemental-cli)
 and can be installed with `luet` locally:
 
 ```bash
-$> luet install -y toolchain/luet-makeiso
+$> luet install -y toolchain/elemental-cli
 ```
 
-You can also grab the binary from [luet-makeiso](https://github.com/mudler/luet-makeiso) releases.
+You can also grab the binary from [elemental](https://github.com/rancher-sandbox/elemental) releases.
 
 
 #### yq and jq

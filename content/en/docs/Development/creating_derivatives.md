@@ -90,10 +90,10 @@ Templates uses cases are for: resharing common pieces between flavors, building 
 
 ## Build ISO
 
-To build an iso from a local repository (the build process, automatically produces a repository in `build` in the local checkout):
+To build an iso for a derivative image `elemental build-iso` command can be used:
 
 ```bash
-luet-makeiso ./iso.yaml --local build
+elemental build-iso -n $NAME $IMAGE
 ```
 
-Where `iso.yaml` is the iso specification file, and `--local build` is an optional argument to use also the local repository in the build process. See also [building ISOs](../../creating-derivatives/build_iso)
+Where `$NAME` is the name of the ISO and `$IMAGE` is the reference to the container image we are building the ISO for. See also [building ISOs](../../creating-derivatives/build_iso)
