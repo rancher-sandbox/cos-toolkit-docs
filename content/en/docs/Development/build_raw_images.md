@@ -10,7 +10,8 @@ description: >
 
 Requirements:
 
-* cOS-toolkit source
+* `elemental` binary
+* elemental runtime dependencies
 
 The suggested approach high level view is building cOS packages and generating a RAW image from
 them. That would allow us to transform that RAW image in a valid Azure/Google/Amazon Cloud blob that can be transformed into a VM image ready
@@ -22,15 +23,39 @@ system or your derivative.
 
 The RAW image can then be used into packer templates to generate custom Images, or used as-is with a userdata to deploy a container image of choice with an input user-data.
 
-## Building the packages
+## Getting the packages
 
-We need to have the packages built locally in order to generate a proper RAW image. Just run:
+By default, elemental will use the cos-toolkit repo to obtain the required packages to build the raw image.
+
+We can also use locally built packages instead. Just run:
 
 ```bash
 sudo make build
+sudo make create-repo
 ```
 
-All the artifacts will be generated under the `build` directory.
+All the artifacts will be generated under the `build` directory and a local repo will be created.
+
+Then prepare a `manifest.yaml` file with the local repo, so build-disk can read from it:
+
+```yaml
+raw_image:
+  x86_64: # arch we are building for
+    repositories: # list of repositories to use for getting the needed packages
+      - uri: /home/user/cos-toolkit/packages/
+        type: local
+```
+
+As long as elemental is launched from the directory where the `manifest.yaml` file is, it will pick up that local repo and use the local packages to build the raw image.
+
+Note that you can do the same to override the default remote repository, in order to use your own remote repository:
+
+```yaml
+raw_image:
+  x86_64: # arch we are building for
+    repositories: # list of repositories to use for getting the needed packages
+      - uri: https://my.custom.repo
+```
 
 ## Building the RAW image
 
@@ -41,7 +66,7 @@ used for provisioning whatever cOS you want.
 Building the RAW image is as simple as running:
 
 ```bash
-sudo make raw_disk
+sudo elemental build-disk
 ```
 
 This will output a `disk.raw` file in the current directory which can be run with qemu, see [booting](../../getting-started/booting).
@@ -66,13 +91,19 @@ Currently importing images from storage blobs on Azure Cloud have a [few require
  - LVM is not supported
  - no swap partition
 
-We provide a make target that will do this for you:
+Elemental provides a `--type` flag that can be used to output an azure image directly:
 
 ```bash
-sudo make azure_disk
+sudo elemental build-disk -t azure
 ```
 
-This will create a `disk.vhd` which is our final artifact
+This will create a `disk.raw.vhd` which is our final artifact
+
+Elemental also provides a convert command that can turn a previously created RAW image into an azure image:
+
+```bash
+elemental convert-disk -t azure --keep-source disk.raw
+```
 
 
 #### Uploading to Azure Cloud storage and importing it as an image
@@ -120,13 +151,20 @@ Currently importing images from storage blobs on Google Cloud have a [few requir
  - the disk.raw has to be rounded up to the next Gb ( so no 2.1gb images or 2.4, they need to be an exact 3Gb or 2Gb)
  - image inside the tar.gzip blob needs to be called disk.raw
 
-We provide a make target that will do this for you:
+Elemental provides a `--type` flag that can be used to output a GCE image directly:
 
 ```bash
-sudo make gce_disk
+sudo elemental build-disk -t gce
 ```
 
 This will create a `disk.raw.tar.gz` which is our final artifact
+
+Elemental also provides a convert command that can turn a previously created RAW image into an azure image:
+
+```bash
+elemental convert-disk -t gce --keep-source disk.raw
+```
+
 
 #### Uploading to Google Cloud storage and importing it as an image
 
