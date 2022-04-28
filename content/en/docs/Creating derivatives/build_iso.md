@@ -9,7 +9,7 @@ description: >
 
 ![](https://docs.google.com/drawings/d/e/2PACX-1vReZtyNs0imrji-AwnqK0-4ekCKLcKzfnQ_CwiMj93Q7IsycAJHwlNohwCv_hyHnaify7qO-v2Cecg5/pub?w=1223&h=691)
 
-In order to build an iso we rely on [elemental build-iso](https://github.com/rancher-sandbox/elemental) command. It accepts a YAML file denoting the packages to bundle in an ISO and a list of luet repositories where to download the packages from. In addition it can also overlay custom files or use container images from a registry as packages.vim
+In order to build an iso we rely on [elemental build-iso](https://github.com/rancher-sandbox/elemental) command. It accepts a YAML file denoting the packages to bundle in an ISO and a list of luet repositories where to download the packages from. In addition it can also overlay custom files or use container images from a registry as packages.
 
 To build an iso, just run:
 
@@ -94,7 +94,7 @@ A list of sources (luet package, container image or local path) to install in IS
 
 ### `iso.label`
 
-The label of the ISO filesystem. Defaults to `COS_LIVE`. Note this value is tied with the bootloader and kernel paramters to identify the root device.
+The label of the ISO filesystem. Defaults to `COS_LIVE`. Note this value is tied with the bootloader and kernel parameters to identify the root device.
 
 ### `repositories`
 
@@ -114,7 +114,7 @@ The repository name, if not provided a md5 sum of the URI is used instead.
 
 ### `repositories.priority`
 
-The priority of the given repository, if unsed uses `0`, which is the maximum priority.
+The priority of the given repository, if unsed uses `0`, which is the highest priority.
 
 ### `name`
 
@@ -168,7 +168,7 @@ menu parameters consider copy and modify relevant files from `live/grub2` packag
 `overlay` folder files list could be:
 
 ```bash
-# mage files for grub2 boot
+# image files for grub2 boot
 boot/grub2/grub.cfg
 ```
 
