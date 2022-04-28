@@ -9,62 +9,33 @@ description: >
 
 ![](https://docs.google.com/drawings/d/e/2PACX-1vReZtyNs0imrji-AwnqK0-4ekCKLcKzfnQ_CwiMj93Q7IsycAJHwlNohwCv_hyHnaify7qO-v2Cecg5/pub?w=1223&h=691)
 
-In order to build an iso at the moment of writing, we first rely on [luet-makeiso](https://github.com/mudler/luet-makeiso). It accepts a YAML file denoting the packages to bundle in an ISO and a list of luet repositories where to download the packages from.
+In order to build an iso we rely on [elemental build-iso](https://github.com/rancher-sandbox/elemental) command. It accepts a YAML file denoting the packages to bundle in an ISO and a list of luet repositories where to download the packages from. In addition it can also overlay custom files or use container images from a registry as packages.
 
 To build an iso, just run:
 
 ```bash
-docker run -v $PWD:/cOS -v /var/run:/var/run --entrypoint /usr/bin/luet-makeiso -ti --rm quay.io/costoolkit/toolchain ./iso.yaml --image $IMAGE
+docker run --rm -ti -v $(pwd):/build elemental:v0.0.14-36c1b6a --debug build-iso -o /build $IMAGE
 ```
 
-Where `iso.yaml` is the iso specification file, and `--image $IMAGE` is the container image you want to build the ISO for, you might want to check on [how to build bootable images](../creating_bootable_images).
+Where `$IMAGE` is the container image you want to build the ISO for, you might want to check on [how to build bootable images](../creating_bootable_images).
 
-An example of a yaml file using the cos-toolkit opensuse repositories and syslinux:
+`elemental build-iso` command also supports reading a configuration `manifest.yaml` file. It is loaded form the directory specified by `--config-dir` elemental's flag.
+
+An example of a yaml file using the cos-toolkit opensuse repositories:
 
 ```yaml
-packages:
+iso:
   rootfs:
   - system/cos
   uefi:
-  - live/systemd-boot
-  - live/boot
-  isoimage:
-  - live/syslinux
-  - live/boot
-
-initramfs:
-  kernel_file: "vmlinuz"
-  rootfs_file: "initrd"
-
-image_prefix: "cOS-0."
-image_date: true
-label: "COS_LIVE"
-```
-
-An example using GRUB instead:
-
-```yaml
-packages:
-  rootfs:
-  - ...
-  uefi:
   - live/grub2-efi-image
-  isoimage:
+  image:
+  - live/grub2-efi-image
   - live/grub2
-  - live/grub2-efi-image
-  - recovery/cos-img
+  label: "COS_LIVE"
 
-boot_file: "boot/x86_64/loader/eltorito.img"
-boot_catalog: "boot/x86_64/boot.catalog" 
-isohybrid_mbr: "boot/x86_64/loader/boot_hybrid.img"
-
-initramfs:
-  kernel_file: "vmlinuz"
-  rootfs_file: "initrd"
-
-image_prefix: "cOS-0."
-image_date: true
-label: "COS_LIVE"
+name: "cOS-0"
+date: true
 ```
 
 ## What's next?
@@ -76,182 +47,128 @@ label: "COS_LIVE"
 Below you can find a full reference about the yaml file format.
 
 ```yaml
-packages:
-  # (optional) Packages to be installed in the rootfs
+iso:
+  # Packages to be installed in the rootfs
   rootfs:
   - ..
   # Packages to be installed in the uefi image
   uefi:
-  - live/systemd-boot
-  - live/boot
-  # Packages to be installed in the isoimage
-  isoimage:
-  - live/syslinux
+  - live/grub2-efi-image
+  # Packages to be installed in the iso image
+  image:
+  - live/grub2-efi-image
+  - live/grub2
+  label: "COS_LIVE"
   
-# Specify initramfs/kernel and avoid generation on-the-fly
-# files must be present on /boot folder in the rootfs
-initramfs:
-  kernel_file: "vmlinuz"
-  rootfs_file: "initrd"
-
-overlay: 
-  rootfs: "/path/to/additional/files"
-  uefi: "/path/to/additional/uefi/files"
-  isoimage: "/path/to/additional/efi/files"
-
-# Specify a container remote image to pull and use for the rootfs in place of packages (optional)
-rootfs_image: "ubuntu:latest"
-
-# Image prefix. If Image date is disabled is used as the full title.
-image_prefix: "MYOS-0."
-image_date: true
-
-# Luet repositories (https://luet-lab.github.io/docs/docs/getting-started/#configuration-in-etcluetreposconfd) to use.
-luet:
-  repositories:
-  - name: cOS
-    enable: true
-    urls:
-      - quay.io/costoolkit/releases-green
-    type: docker
+repositories:
+  - uri: quay.io/costoolkit/releases-green
 
 ```
 
-Flags:
-- **local**: Path to local luet repository to use to install packages from
-- **image**: Optional image to use as rootfs
+Packages or sources can be a Luet package (as in the example), an image reference (then an explicit tag is required) or a local path. Sources are stacked in the given order, so one can easily overwrite or append data by simply adding a local path as the last source.
+
+### Command flags
+
+- **name**: Name of the ISO image. It will be used to generate the `*.iso` file name
+- **output**: Path of the destination folder of created images
+- **date**: If present it includes the date in the generated file name
+- **overlay-rootfs**: Sets the path of a tree to overlay on top of the system root-tree
+- **overlay-uefi**: Sets the path of a tree to overaly on top of the EFI image root-tree
+- **overlay-iso**: Sets the path of a tree to overlay on top of the ISO filesystem root-tree
+- **label**: Sets the volume label of the ISO filesystem
+- **repo**: Sets the URI of a repository to include together with the repositores set in manifest or the default one if no repositories are set in manifest. This option can be set multiple times.
 
 ## Configuration reference
 
-### `rootfs_image`
+### `iso.rootfs`
 
-A container image reference (e.g. `quay.io/.../...:latest`) that will be used as a rootfs for the ISO.
+A list of sources (luet package, container image or local path) to install in the rootfs. The rootfs will be squashed to a `rootfs.squashfs` file
 
-### `packages.rootfs`
+### `iso.uefi`
 
-A list of luet packages to install in the rootfs. The rootfs will be squashed to a `rootfs.squashfs` file
+A list of sources (luet package, container image or local path) to install in the efi FAT image or partition.
 
-### `packages.uefi`
+### `iso.image`
 
-A list of luet packages to be present in the efi ISO sector.
+A list of sources (luet package, container image or local path) to install in ISO filesystem.
 
-### `packages.isoimage`
+### `iso.label`
 
-A list of luet packages to be present in the ISO image.
+The label of the ISO filesystem. Defaults to `COS_LIVE`. Note this value is tied with the bootloader and kernel parameters to identify the root device.
 
-### `repository.packages`
+### `repositories`
 
-A list of package repository (e.g. `repository/mocaccino-extra`) to be installed before `luet install` commands Requirements
+A list of Luet package repositories
 
-### `initramfs.kernel_file`
+### `repositories.uri`
 
-The kernel file under `/boot/` that is your running  kernel. e.g. `vmlinuz` or `bzImage`
+The URI of the repository, it is the only mandatory value for a repository. Repository type (`docker`, `disk` or `http`) is guessed from this URI if not provided.
 
-### `initramfs.rootfs_file`
+### `repositories.type`
 
-The initrd file under `/boot/` that has all the utils for the initramfs
+The repository type, it can be `docker` (the URI points to a registry), `http` (an HTTP(S) URI) or `disk` (the URI is then a local path).
 
-### `image_prefix`
+### `repositories.name`
 
-ISO image prefix to use
+The repository name, if not provided a md5 sum of the URI is used instead.
 
-### `image_date`
+### `repositories.priority`
+
+The priority of the given repository, if unsed uses `0`, which is the highest priority.
+
+### `name`
+
+A string representing the ISO final image name without including the `.iso`
+
+### `date`
 
 Boolean indicating if the output image name has to contain the date
 
-### `image_name`
+### `output`
 
-A string representing the ISO final image name
-
-### `arch`
-
-A string representing the arch. Defaults to `x86_64`.
-
-### `luet.config`
-
-Path to the luet config to use to install the packages from
-
-
-### `overlay.isoimage`
-
-```yaml
-overlay:
-  isoimage: "dir"
-```
-
-Path to a folder which content will be copied over the ISO (before generating the ISO file).
-
-### `overlay.uefi`
-
-```yaml
-overlay:
-  uefi: "dir"
-```
-
-Path to a folder which content will be copied over the UEFI partition (before generating the image).
-
-### `overlay.rootfs`
-
-```yaml
-overlay:
-  rootfs: "dir"
-```
-
-Path to a folder which content will be copied over the rootfs (before generating squashfs).
+Folder destination of the built artifacts. It attempts to create if it doesn't exist.
 
 ## Customize bootloader with GRUB
 
-Beside syslinux, the ISO boot menu can also be built with GRUB.
-  
 Boot menu and other bootloader parameters can then be easily customized by using the overlay parameters within the ISO config yaml manifest.
 
 Assuming the ISO being built includes:
 
 ```yaml
-packages:
+iso:
   rootfs:
   - ...
   uefi:
   - live/grub2-efi-image
-  isoimage:
+  image:
   - live/grub2
   - live/grub2-efi-image
-  - recovery/cos-img
-
-# The following are required in order to build an ISO with GRUB
-# as bootloader
-boot_file: "boot/x86_64/loader/eltorito.img"
-boot_catalog: "boot/x86_64/boot.catalog" 
-isohybrid_mbr: "boot/x86_64/loader/boot_hybrid.img"
 ```
 
-We can customize either the `isoimage` packages (in the referrence image `live/grub2` package
+We can customize either the `image` packages (in the referrence image `live/grub2` package
 includes bootloader configuration) or make use of the overlay concept to include or
-overwrite addition files for `isoimage` section.
+overwrite addition files for `image` section.
 
 Consider the following example:
 
 ```yaml
-packages:
+iso:
   rootfs:
-  - system/cos
+  - ...
   uefi:
   - live/grub2-efi-image
-  isoimage:
+  image:
   - live/grub2
   - live/grub2-efi-image
-  - recovery/cos-img
-
-overlay:
-  isoimage: overlay/iso
+  - /my/path/to/overlay/iso
 ```
 
-With the above the ISO will also include the files under `overlay/iso` path. To customize the boot
+With the above the ISO will also include the files under `/my/path/to/overlay/iso` path. To customize the boot
 menu parameters consider copy and modify relevant files from `live/grub2` package. In this example the
 `overlay` folder files list could be:
 
 ```bash
-# isoimage files for grub2 boot
+# image files for grub2 boot
 boot/grub2/grub.cfg
 ```
 
@@ -289,12 +206,12 @@ menuentry "Custom grub2 menu entry" --class os --unrestricted {
 To make an ISO with a separate recovery image as squashfs, you can either use the default from `cOS`, by adding it in the iso yaml file:
 
 ```yaml
-packages:
+iso:
   rootfs:
   ..
   uefi:
   ..
-  isoimage:
+  image:
   ...
   - recovery/cos-img
 ```
