@@ -14,7 +14,7 @@ In order to build an iso we rely on [elemental build-iso](https://github.com/ran
 To build an iso, just run:
 
 ```bash
-docker run --rm -ti -v $(pwd):/build elemental:v0.0.14-36c1b6a --debug build-iso -o /build $IMAGE
+docker run --rm -ti -v $(pwd):/build quay.io/costoolkit/elemental:v0.0.14-e4e39d4 --debug build-iso -o /build $IMAGE
 ```
 
 Where `$IMAGE` is the container image you want to build the ISO for, you might want to check on [how to build bootable images](../creating_bootable_images).
