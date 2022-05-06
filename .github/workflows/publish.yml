@@ -19,8 +19,6 @@ jobs:
               npm install autoprefixer
               curl https://raw.githubusercontent.com/rancher-sandbox/cOS-toolkit/master/scripts/get_luet.sh | sudo bash -
               sudo luet install -y toolchain/yq
-      - name: Build package docs
-        run: make generate-docs
       - name: Publish Site
         uses: chabad360/hugo-gh-pages@master
         with:
